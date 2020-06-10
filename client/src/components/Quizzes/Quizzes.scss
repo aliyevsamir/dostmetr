@@ -1,0 +1,78 @@
+.quizzes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .MyModal {
+        min-width: 100%;
+    }
+
+    .quiz {
+        display: flex;
+        flex-direction: column;
+        margin: 25px 0;
+        border: 1px solid #000;
+        border-radius: 3px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+
+        &-question {
+            min-height: 120px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        &-answer {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 500;
+            min-width: 100%;
+            min-height: 30px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .add-option-button {
+            margin-bottom: 10px;
+            background-color: green;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            min-height: 40px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .delete-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f00;
+            border-radius: 5px;
+            height: 40px;
+            padding: 0;
+            border: 1px solid transparent;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &-text {
+                font-size: 20px;
+                font-weight: 600;
+                color: #fff;
+                margin: 0;
+                margin-right: 5px;
+            }
+        }
+    }
+}

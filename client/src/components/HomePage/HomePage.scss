@@ -1,0 +1,25 @@
+.flex {
+    display: flex;
+    height: calc(100vh - 40px);
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+
+    .nameInput {
+        width: 100%;
+        border: 1px solid #000;
+        border-radius: 3px;
+        margin: 10px 0;
+        height: 40px;
+    }
+
+    .submitInput {
+        width: 100%;
+        height: 40px;
+        color: #fff;
+        background-color: #000;
+        outline: none;
+        border: none;
+        border-radius: 3px;
+    }
+}

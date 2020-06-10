@@ -1,5 +1,7 @@
 import HomePage from './components/HomePage/HomePage';
 import MakeQuiz from './components/Quiz/CreateQuiz/MakeQuiz';
+import Profile from './components/Profile/Profile';
+import AdminPanel from './components/AdminPanel/AdminPanel';
 
 export const publicRoutes = [
     {
@@ -10,8 +12,22 @@ export const publicRoutes = [
         sensitive: false
     },
     {
+        path: '/profile',
+        component: Profile,
+        exact: true,
+        strict: false,
+        sensitive: false
+    },
+    {
         path: '/make-quiz',
         component: MakeQuiz,
+        exact: true,
+        strict: false,
+        sensitive: false
+    },
+    {
+        path: '/admin',
+        component: AdminPanel,
         exact: true,
         strict: false,
         sensitive: false

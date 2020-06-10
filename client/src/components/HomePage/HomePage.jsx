@@ -1,30 +1,29 @@
-import React, { useState } from 'react';
-import { Row, Col } from 'antd';
-import './HomePage.scss';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 
-const HomePage = ({ history }) => {
-    const [name, setName] = useState('');
-    const onSubmit = e => {
-        e.preventDefault();
-        history.push('/make-quiz');
-    };
+// CSS
+import './HomePage.scss';
+import { Row } from 'antd';
+
+// Router
+import { Redirect } from 'react-router-dom';
+
+import Register from '../Register/Register';
+import { connect } from 'react-redux';
+
+const HomePage = ({ isAuthenticated }) => {
+    if (isAuthenticated) {
+        return <Redirect to='/profile' />;
+    }
+
     return (
-        <Row>
-            <Col span={18} style={{ border: '1px solid #000' }}>
-                <form action='' onSubmit={onSubmit}>
-                    <input
-                        type='text'
-                        placeholder='Name'
-                        onChange={e => setName(e.target.value)}
-                        value={name}
-                        required
-                    />
-                    <input type='submit' />
-                </form>
-            </Col>
+        <Row className='flex'>
+            <Register />
         </Row>
     );
 };
 
-export default withRouter(HomePage);
+const mapStateToProps = ({ auth: { isAuthenticated } }) => ({
+    isAuthenticated
+});
+
+export default connect(mapStateToProps, null)(HomePage);

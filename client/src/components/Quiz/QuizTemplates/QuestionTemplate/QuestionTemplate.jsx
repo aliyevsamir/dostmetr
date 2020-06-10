@@ -1,7 +1,8 @@
 import React from 'react';
+import './QuestionTemplate.scss';
 
 const Question = ({ question }) => {
-    return <div>{question}</div>;
+    return question;
 };
 
 export default Question;

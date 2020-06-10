@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import setAuthToken from './utils/setAuthToken';
+import Navbar from './components/Navbar/Navbar';
 
 //Router stuff
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './routes';
 import PrivateRoute from './components/Router/PrivateRoute';
 
 //Redux stuff
-import { Provider } from 'react-redux';
-import store from './redux/store';
+import { connect } from 'react-redux';
+import { loadUser } from './redux/actions/auth';
+import { loadQuizzes } from './redux/actions/quizzes';
 
-function App() {
+const App = ({ loadUser, loadQuizzes }) => {
+    useEffect(() => {
+        setAuthToken(localStorage.token);
+        loadUser();
+        loadQuizzes();
+    }, []);
+
     return (
-        <Provider store={store}>
-            <Router>
+        <div className='App'>
+            <Navbar />
+            <Switch>
                 {publicRoutes.map((route, index) => (
                     <Route
                         key={`${route.path}-${index}`}
@@ -23,21 +33,20 @@ function App() {
                         sensitive={route.sensitive}
                     />
                 ))}
-                <Switch>
-                    {privateRoutes.map((route, index) => (
-                        <PrivateRoute
-                            key={`${route.path}-${index}`}
-                            path={route.path}
-                            exact={route.exact}
-                            component={route.component}
-                            hasAccess={false} // TODO: Replace prop value with user's role fetched from API
-                            redirectRoute={route.redirectRoute}
-                        />
-                    ))}
-                </Switch>
-            </Router>
-        </Provider>
-    );
-}
 
-export default App;
+                {privateRoutes.map((route, index) => (
+                    <PrivateRoute
+                        key={`${route.path}-${index}`}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.component}
+                        hasAccess={false} // TODO: Replace prop value with user's role fetched from API
+                        redirectRoute={route.redirectRoute}
+                    />
+                ))}
+            </Switch>
+        </div>
+    );
+};
+
+export default connect(null, { loadUser, loadQuizzes })(App);
