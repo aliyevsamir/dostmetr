@@ -28,7 +28,6 @@ export const register = name => async dispatch => {
     try {
         const res = await axios.post('/api/v1/users', body);
 
-        console.log(res);
         const { token } = res.data.data;
         setAuthToken(token);
 

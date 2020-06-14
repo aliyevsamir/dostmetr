@@ -10,37 +10,35 @@ export const publicRoutes = [
         exact: true,
         strict: false,
         sensitive: false
-    },
-    {
-        path: '/profile',
-        component: Profile,
-        exact: true,
-        strict: false,
-        sensitive: false
-    },
-    {
-        path: '/make-quiz',
-        component: MakeQuiz,
-        exact: true,
-        strict: false,
-        sensitive: false
-    },
-    {
-        path: '/admin',
-        component: AdminPanel,
-        exact: true,
-        strict: false,
-        sensitive: false
     }
 ];
 
 export const privateRoutes = [
     {
-        path: '/dashboard',
-        component: null,
+        path: '/profile',
+        component: Profile,
         exact: true,
-        strict: false,
-        sensitive: false,
-        redirectRoute: '/login'
+        redirectRoute: '/'
+    },
+    {
+        path: '/make-quiz',
+        component: MakeQuiz,
+        exact: true,
+        redirectRoute: '/'
+    },
+    {
+        path: '/admin',
+        component: AdminPanel,
+        exact: true,
+        redirectRoute: '/'
+    }
+];
+
+export const adminRoutes = [
+    {
+        path: '/admin',
+        component: AdminPanel,
+        exact: true,
+        redirectRoute: '/profile'
     }
 ];

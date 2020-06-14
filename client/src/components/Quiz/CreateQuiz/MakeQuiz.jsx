@@ -1,104 +1,158 @@
 import React, { useState } from 'react';
-import quizData from './quizzes';
 import { Row } from 'antd';
-import './MakeQuiz.scss';
 import QuizTemplate from '../QuizTemplates/QuizTemplate';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { loadQuizzes } from '../../../redux/actions/quizzes';
 
-const MakeQuiz = ({ quizProp = quizData }) => {
+const MakeQuiz = ({ quizzes, loadQuizzes }) => {
     const [state, setState] = useState({
         currentQuestionID: 0,
         selectedAnswers: 0,
-        quizzes: quizProp
+        questions: null
     });
 
-    const nextQuestion = () => {
-        const { currentQuestionID } = state;
+    const [quizSubmissions, setQuizSubmissions] = useState({});
 
-        const newQuizzes = state.quizzes.map(quiz => {
-            return quiz.question_id === currentQuestionID
-                ? { ...quiz, selected: true }
-                : { ...quiz };
+    useEffect(() => {
+        loadQuizzes();
+    }, []);
+
+    useEffect(() => {
+        setState({
+            ...state,
+            questions: quizzes
         });
+    }, [quizzes]);
 
-        if (currentQuestionID < state.quizzes.length - 1) {
-            let newQuizIndex = state.quizzes
-                .slice(currentQuestionID + 1)
-                .find(quiz => quiz.selected !== true);
+    const [optionValue, setOptionValue] = useState(null);
 
-            if (!newQuizIndex) {
-                newQuizIndex = state.quizzes
-                    .slice(0, currentQuestionID)
+    const handleOptionChange = e => {
+        setOptionValue(e.target.value);
+    };
+
+    const nextQuestion = () => {
+        if (optionValue) {
+            const { currentQuestionID, questions } = state;
+            const newQuizSubmissions = { ...quizSubmissions };
+            newQuizSubmissions[
+                questions[currentQuestionID].question_id
+            ] = optionValue;
+            setQuizSubmissions(newQuizSubmissions);
+            setOptionValue(null);
+
+            const newQuestions = [...questions];
+            newQuestions[currentQuestionID].selected = true;
+
+            if (currentQuestionID < questions.length - 1) {
+                let newQuiz = newQuestions
+                    .slice(currentQuestionID + 1)
                     .find(quiz => quiz.selected !== true);
-            }
 
-            if (newQuizIndex || newQuizIndex === 0) {
-                setState({
-                    currentQuestionID: newQuizIndex.question_id,
-                    selectedAnswers: state.selectedAnswers + 1,
-                    quizzes: newQuizzes
-                });
+                if (!newQuiz) {
+                    newQuiz = newQuestions
+                        .slice(0, currentQuestionID)
+                        .find(quiz => quiz.selected !== true);
+                }
+
+                if (!newQuiz) {
+                    alert('You have already answered all questions');
+                } else {
+                    let newQuizIndex = newQuestions.findIndex(
+                        question => question.question_id === newQuiz.question_id
+                    );
+
+                    setState({
+                        currentQuestionID: newQuizIndex,
+                        selectedAnswers: state.selectedAnswers + 1,
+                        questions: newQuestions
+                    });
+                }
             } else {
-                alert('You have already answered all questions');
+                // last question
+                const newQuiz = newQuestions.find(
+                    quiz => quiz.selected !== true
+                );
+
+                if (newQuiz) {
+                    let newQuizIndex = newQuestions.findIndex(
+                        question => question.question_id === newQuiz.question_id
+                    );
+
+                    setState({
+                        currentQuestionID: newQuizIndex,
+                        selectedAnswers: state.selectedAnswers + 1,
+                        questions: newQuestions
+                    });
+                } else {
+                    alert('You have already answered all questions');
+                }
             }
         } else {
-            // last question
-            const newQuizIndex = state.quizzes.find(
-                quiz => quiz.selected !== true
-            );
-
-            if (newQuizIndex || newQuizIndex === 0) {
-                setState({
-                    currentQuestionID: newQuizIndex.question_id,
-                    selectedAnswers: state.selectedAnswers + 1,
-                    quizzes: newQuizzes
-                });
-            } else {
-                alert('You have already answered all questions');
-            }
+            alert('You can not leave blank answer');
         }
     };
 
     const skipQuestion = () => {
-        const { currentQuestionID, quizzes } = state;
+        const { currentQuestionID, questions } = state;
 
-        if (currentQuestionID < quizzes.length - 1) {
-            let newQuizIndex = quizzes
+        if (currentQuestionID < questions.length - 1) {
+            let newQuiz = questions
                 .slice(currentQuestionID + 1)
                 .find(quiz => quiz.selected !== true);
 
-            if (!newQuizIndex) {
-                newQuizIndex = quizzes
-                    .slice(0, currentQuestionID)
+            if (!newQuiz) {
+                newQuiz = questions
+                    .slice(0, currentQuestionID + 1)
                     .find(quiz => quiz.selected !== true);
             }
 
-            setState({
-                ...state,
-                currentQuestionID: newQuizIndex.question_id
-            });
-        } else {
-            const newQuizIndex = state.quizzes.find(
-                quiz => quiz.selected !== true
+            let newQuizIndex = questions.findIndex(
+                question => question.question_id === newQuiz.question_id
             );
 
             setState({
                 ...state,
-                currentQuestionID: newQuizIndex.question_id
+                currentQuestionID: newQuizIndex
+            });
+        } else {
+            const newQuiz = questions.find(quiz => quiz.selected !== true);
+
+            let newQuizIndex = questions.findIndex(
+                question => question.question_id === newQuiz.question_id
+            );
+
+            setState({
+                ...state,
+                currentQuestionID: newQuizIndex
             });
         }
     };
 
-    const { quizzes, currentQuestionID } = state;
-    return (
-        <Row className='quiz-container'>
+    const { questions, currentQuestionID } = state;
+
+    return questions ? (
+        <Row
+            type='flex'
+            align='middle'
+            justify='center'
+            style={{ minHeight: '90vh' }}
+        >
             <QuizTemplate
-                quiz={quizzes[currentQuestionID]}
+                quiz={questions[currentQuestionID]}
+                currentQuestionID={currentQuestionID}
                 skipQuestion={skipQuestion}
                 nextQuestion={nextQuestion}
                 selectedAnswers={state.selectedAnswers}
+                handleOptionChange={handleOptionChange}
+                optionValue={optionValue}
             />
         </Row>
-    );
+    ) : null;
 };
 
-export default MakeQuiz;
+const mapStateToProps = ({ quizzes: { quizzes } }) => ({
+    quizzes
+});
+
+export default connect(mapStateToProps, { loadQuizzes })(MakeQuiz);

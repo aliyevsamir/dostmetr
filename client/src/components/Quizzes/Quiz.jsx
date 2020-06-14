@@ -1,34 +1,53 @@
 import React from 'react';
-import { Col } from 'antd';
-import './Quizzes.scss';
+import { Col, Row, Button } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 
-const Quiz = ({ quiz, handleChange, handleDelete }) => {
+const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
     return (
-        <Col xs={20} sm={18} md={16} lg={14} xl={12} className='quiz'>
-            <textarea
-                className='quiz-question'
-                value={quiz.question}
-                onChange={e => handleChange(e, quiz.question_id, true, null)}
-            />
-            {quiz.answers.map((answer, index) => (
-                <textarea
-                    rows={1}
-                    value={answer}
-                    className='quiz-answer'
-                    key={index}
-                    onChange={e =>
-                        handleChange(e, quiz.question_id, false, index)
-                    }
+        <Row
+            type='flex'
+            align='middle'
+            style={{
+                borderRadius: '5px',
+                border: '1px solid #000',
+                padding: '10px 15px',
+                margin: '10px 0',
+                backgroundColor: 'ff5'
+            }}
+        >
+            <Col span={24} style={{ marginBottom: '20px' }}>
+                <TextArea
+                    style={{ minWidth: '100%' }}
+                    value={quiz.question_content}
+                    onChange={e => handleChange(e, quizIndex, true, null)}
                 />
+            </Col>
+            {quiz.options.map((option, index) => (
+                <Col span={24} style={{ marginBottom: '10px' }}>
+                    <TextArea
+                        style={{ minWidth: '100%' }}
+                        rows={4}
+                        value={option.option_content}
+                        key={index}
+                        onChange={e => handleChange(e, quizIndex, false, index)}
+                    />
+                </Col>
             ))}
-            <button className='add-option-button'>Variant əlavə et</button>
-            <button
-                className='delete-button'
-                onClick={() => handleDelete(quiz.question_id)}
-            >
-                <p className='delete-button-text'>Quizi sil</p>
-            </button>
-        </Col>
+            <Col span={24} style={{ marginBottom: '5px' }}>
+                <Button type='primary' style={{ minWidth: '100%' }}>
+                    Variant əlavə et
+                </Button>
+            </Col>
+            <Col span={24} style={{ marginBottom: '5px' }}>
+                <Button
+                    style={{ minWidth: '100%' }}
+                    type='danger'
+                    onClick={() => handleDelete(quiz.question_id)}
+                >
+                    Quizi sil
+                </Button>
+            </Col>
+        </Row>
     );
 };
 

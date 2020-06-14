@@ -4,49 +4,66 @@ import Navbar from './components/Navbar/Navbar';
 
 //Router stuff
 import { Route, Switch } from 'react-router-dom';
-import { publicRoutes, privateRoutes } from './routes';
+import { publicRoutes, privateRoutes, adminRoutes } from './routes';
 import PrivateRoute from './components/Router/PrivateRoute';
 
 //Redux stuff
 import { connect } from 'react-redux';
 import { loadUser } from './redux/actions/auth';
-import { loadQuizzes } from './redux/actions/quizzes';
+import AdminRoute from './components/Router/AdminRoute';
 
-const App = ({ loadUser, loadQuizzes }) => {
+const App = ({ loadUser, isAuthenticated, user }) => {
     useEffect(() => {
         setAuthToken(localStorage.token);
         loadUser();
-        loadQuizzes();
     }, []);
 
-    return (
-        <div className='App'>
+    return !isAuthenticated ? (
+        <>
+            {publicRoutes.map((route, index) => (
+                <Route
+                    key={`${route.path}-${index}`}
+                    path={route.path}
+                    component={route.component}
+                    exact={route.exact}
+                    strict={route.strict}
+                    sensitive={route.sensitive}
+                />
+            ))}
+        </>
+    ) : (
+        <>
             <Navbar />
             <Switch>
-                {publicRoutes.map((route, index) => (
-                    <Route
-                        key={`${route.path}-${index}`}
-                        path={route.path}
-                        component={route.component}
-                        exact={route.exact}
-                        strict={route.strict}
-                        sensitive={route.sensitive}
-                    />
-                ))}
-
                 {privateRoutes.map((route, index) => (
                     <PrivateRoute
                         key={`${route.path}-${index}`}
                         path={route.path}
                         exact={route.exact}
                         component={route.component}
-                        hasAccess={false} // TODO: Replace prop value with user's role fetched from API
+                        hasAccess={isAuthenticated}
+                        redirectRoute={route.redirectRoute}
+                    />
+                ))}
+
+                {adminRoutes.map((route, index) => (
+                    <AdminRoute
+                        key={`${route.path}-${index}`}
+                        path={route.path}
+                        exact={route.exact}
+                        component={route.component}
+                        isAdmin={user ? user.is_admin : false}
                         redirectRoute={route.redirectRoute}
                     />
                 ))}
             </Switch>
-        </div>
+        </>
     );
 };
 
-export default connect(null, { loadUser, loadQuizzes })(App);
+const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
+    isAuthenticated,
+    user
+});
+
+export default connect(mapStateToProps, { loadUser })(App);

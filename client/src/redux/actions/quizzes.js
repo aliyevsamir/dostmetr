@@ -1,4 +1,3 @@
-import quizzes from '../../components/Quiz/CreateQuiz/quizzes';
 import axios from 'axios';
 import {
     LOAD_QUIZZES,
@@ -10,21 +9,19 @@ import {
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
-    // const res = await axios.get('/api/v1/questions/options');
-
-    // dispatch({
-    //     type: LOAD_QUIZZES,
-    //     payload: res.data
-    // });
+    const res = await axios.get('/api/v1/questions/options');
 
     dispatch({
         type: LOAD_QUIZZES,
-        payload: quizzes
+        payload: res.data
     });
 };
 
-export default createQuizzes = quizzes => async dispatch => {
+export const createQuizzes = quizzes => async dispatch => {
+    console.log(quizzes);
     const res = await axios.post('/api/v1/questions/options', quizzes);
+
+    console.log(res);
 
     dispatch({
         type: CREATE_QUIZZES,
@@ -33,7 +30,10 @@ export default createQuizzes = quizzes => async dispatch => {
 };
 
 export const updateQuestion = (id, newQuestion) => async dispatch => {
-    const res = await axios.put(`/api/v1/questions/${id}`, newQuestion);
+    const question = { question_content: newQuestion };
+    const res = await axios.put(`/api/v1/questions/${id}`, question);
+
+    console.log(res);
 
     dispatch({
         type: UPDATE_QUESTION,

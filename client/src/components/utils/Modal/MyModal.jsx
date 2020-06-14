@@ -3,18 +3,23 @@ import { useState } from 'react';
 import { Button, Modal } from 'antd';
 import plusIcon from '../../../utils/plus.png';
 import deleteIcon from '../../../utils/remove.png';
-import './MyModal.scss';
+import { createQuizzes } from '../../../redux/actions/quizzes';
+import { connect } from 'react-redux';
 
-const MyModal = () => {
+const MyModal = ({ createQuizzes }) => {
     const [visible, setVisible] = useState(false);
     const [options, setOptions] = useState([{ option_content: '' }]);
-    const [question, setQuestion] = useState('');
+    const [question, setQuestion] = useState({ question_content: '' });
 
     const showModal = () => {
         setVisible(true);
     };
 
     const handleOk = e => {
+        const quiz = {};
+        quiz.question = { ...question };
+        quiz.options = [...options];
+        createQuizzes(quiz);
         setVisible(false);
     };
 
@@ -30,12 +35,16 @@ const MyModal = () => {
     };
 
     return (
-        <div className='MyModal'>
-            <Button type='primary' className='modal-button' onClick={showModal}>
+        <div style={{ width: '100%' }}>
+            <Button
+                type='primary'
+                style={{ width: '100%', margin: '10px 0' }}
+                onClick={showModal}
+            >
                 Sual tərtib edin
             </Button>
             <Modal
-                title='Sualı tərtib edin'
+                title='Sual tərtib edin'
                 visible={visible}
                 onOk={handleOk}
                 onCancel={handleCancel}
@@ -45,8 +54,10 @@ const MyModal = () => {
                     type='text'
                     className='question'
                     placeholder='Sualı yazın'
-                    onChange={e => setQuestion(e.target.value)}
-                    value={question}
+                    onChange={e =>
+                        setQuestion({ question_content: e.target.value })
+                    }
+                    value={question.question_content}
                 />
                 <div className='options'>
                     {options.map((option, index) => (
@@ -86,4 +97,4 @@ const MyModal = () => {
     );
 };
 
-export default MyModal;
+export default connect(null, { createQuizzes })(MyModal);

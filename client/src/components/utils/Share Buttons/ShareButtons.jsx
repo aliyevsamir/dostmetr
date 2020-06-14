@@ -7,12 +7,11 @@ import {
     FacebookMessengerShareButton,
     FacebookMessengerIcon
 } from 'react-share';
-
 import './ShareButtons.scss';
 
 const ShareButtons = () => {
     return (
-        <div className='mybuttons'>
+        <div>
             <WhatsappShareButton url={'www.google.com'}>
                 <WhatsappIcon size={32} round />
             </WhatsappShareButton>

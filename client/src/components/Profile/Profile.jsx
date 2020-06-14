@@ -1,49 +1,64 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import Loading from '../../utils/Loading';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import copyIcon from '../../utils/copy-icon.png';
-import okayIcon from '../../utils/okay.png';
-import './Profile.scss';
 import { useState } from 'react';
-import MyModal from '../utils/Modal/MyModal';
 import ShareButtons from '../utils/Share Buttons/ShareButtons';
+import '../../utils/flexbox.scss';
+import { blue } from '@ant-design/colors';
+import { Typography } from 'antd';
+const { Title, Text } = Typography;
 
 const Profile = ({ user }) => {
     const [isCopied, setIsCopied] = useState(false);
 
     const template =
         user === null ? (
-            <Row className='profile'>
-                <Col span={24} className='loading-gif'>
+            <Row
+                type='flex'
+                align='middle'
+                justify='center'
+                style={{ height: '100vh', width: '100vw' }}
+            >
+                <Col span={4}>
                     <Loading />
                 </Col>
             </Row>
         ) : (
-            <Row className='profile'>
+            <Row type='flex' justify='center' gutter={[16, 8]}>
                 <Col
                     xs={20}
                     sm={18}
                     md={18}
                     lg={18}
                     xl={16}
-                    className='profile-header'
+                    style={{
+                        backgroundColor: blue[5],
+                        padding: '10px',
+                        margin: '15px',
+                        borderRadius: '10px'
+                    }}
                 >
-                    <div className='profile-header--photo'>
-                        {user.name[0].toUpperCase()}
-                    </div>
-                    <div className='profile-header--description'>
-                        <div className='profile-header--description-name'>
-                            {user.name}
-                        </div>
-                        <div className='profile-header--description-bio'>
-                            {moment(user.created_at, 'YYYYMMDD').fromNow()}{' '}
-                            qeydiyyatdan keçdiniz. Quizinizi dostlarınızla
-                            aşağıdakı linkdən paylaşın 😊
-                        </div>
-                    </div>
+                    <Title
+                        level={3}
+                        style={{ marginBottom: 0, color: '#fff' }}
+                        className='myFlex'
+                    >
+                        {user.name}
+                    </Title>
+
+                    <Text
+                        className='myFlex'
+                        style={{
+                            color: '#fff'
+                        }}
+                    >
+                        {moment(user.created_at, 'YYYYMMDD').fromNow()}{' '}
+                        qeydiyyatdan keçdiniz. Quizinizi dostlarınızla aşağıdakı
+                        linkdən paylaşın 😊
+                    </Text>
                 </Col>
                 <Col
                     xs={20}
@@ -51,41 +66,64 @@ const Profile = ({ user }) => {
                     md={18}
                     lg={18}
                     xl={16}
-                    className='profile-body'
+                    style={{
+                        backgroundColor: '#ddd',
+                        padding: '10px',
+                        borderRadius: '10px',
+                        margin: '5px 5px 0 5px'
+                    }}
                 >
-                    <h2 className='profile-body--heading'>
-                        Dostlarını hazırladığın quizə dəvət et!
-                    </h2>
-                    <div className='profile-body--copy'>
-                        {!isCopied ? (
-                            <CopyToClipboard
-                                text='www.quizmaker.com/user1/quiz'
-                                onCopy={() => setIsCopied(true)}
-                                className='profile-body--copy-button'
-                            >
-                                <a>
-                                    <p>Linki kopyala</p>
-                                    <img src={copyIcon} />
-                                </a>
-                            </CopyToClipboard>
-                        ) : (
-                            <div className='profile-body--copy-button'>
-                                <p>Linki kopyalandı</p>
-                                <img src={okayIcon} />
-                            </div>
-                        )}
-                    </div>
-                    <ShareButtons />
-                </Col>
-                <Col
-                    xs={20}
-                    sm={18}
-                    md={18}
-                    lg={18}
-                    xl={16}
-                    className='profile-body--admin'
-                >
-                    <MyModal />
+                    <Row type='flex' justify='center'>
+                        <Col
+                            xs={20}
+                            sm={18}
+                            md={18}
+                            lg={18}
+                            xl={16}
+                            className='myFlex'
+                        >
+                            <Title level={3}>
+                                Dostlarını hazırladığın quizə dəvət et!
+                            </Title>
+                        </Col>
+                        <Col
+                            xs={20}
+                            sm={18}
+                            md={18}
+                            lg={18}
+                            xl={16}
+                            style={{ marginBottom: '10px' }}
+                            className='myFlex'
+                        >
+                            {!isCopied ? (
+                                <CopyToClipboard
+                                    text='www.quizmaker.com/user1/quiz'
+                                    onCopy={() => setIsCopied(true)}
+                                >
+                                    <Button
+                                        type='primary'
+                                        style={{
+                                            width: '70%'
+                                        }}
+                                    >
+                                        Linki kopyala
+                                    </Button>
+                                </CopyToClipboard>
+                            ) : (
+                                <Button disabled>Linki kopyalandı</Button>
+                            )}
+                        </Col>
+                        <Col
+                            xs={20}
+                            sm={18}
+                            md={18}
+                            lg={18}
+                            xl={16}
+                            className='myFlex'
+                        >
+                            <ShareButtons />
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         );

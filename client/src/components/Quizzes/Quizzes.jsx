@@ -4,6 +4,7 @@ import Quiz from './Quiz';
 import Loading from '../../utils/Loading';
 import { Row, Col } from 'antd';
 import MyModal from '../utils/Modal/MyModal';
+import { updateQuestion } from '../../redux/actions/quizzes';
 
 const Quizzes = props => {
     const [quizzes, setQuizzes] = useState([]);
@@ -16,10 +17,15 @@ const Quizzes = props => {
         let newQuizzes = [...quizzes];
 
         if (isQuestion) {
-            newQuizzes[quizIndex].question = e.target.value;
+            newQuizzes[quizIndex].question_content = e.target.value;
             setQuizzes(newQuizzes);
+            props.updateQuestion(
+                newQuizzes[quizIndex].question_id,
+                newQuizzes[quizIndex].question_content
+            );
         } else {
-            newQuizzes[quizIndex].answers[answerIndex] = e.target.value;
+            newQuizzes[quizIndex].options[answerIndex].option_content =
+                e.target.value;
             setQuizzes(newQuizzes);
         }
     };
@@ -31,18 +37,21 @@ const Quizzes = props => {
     };
 
     const template = quizzes ? (
-        <Row className='quizzes-container'>
-            <Col xs={20} sm={18} md={16} lg={14} xl={12}>
+        <Row type='flex' justify='center' className='quizzes-container'>
+            <Col span={24}>
                 <MyModal />
             </Col>
-            {quizzes.map((quiz, index) => (
-                <Quiz
-                    quiz={quiz}
-                    key={index}
-                    handleChange={handleChange}
-                    handleDelete={handleDelete}
-                />
-            ))}
+            <Col span={24}>
+                {quizzes.map((quiz, index) => (
+                    <Quiz
+                        quiz={quiz}
+                        key={index}
+                        quizIndex={index}
+                        handleChange={handleChange}
+                        handleDelete={handleDelete}
+                    />
+                ))}
+            </Col>
         </Row>
     ) : (
         <Loading />
@@ -54,4 +63,4 @@ const mapStateToProps = ({ quizzes: { quizzes } }) => ({
     quizzes
 });
 
-export default connect(mapStateToProps, null)(Quizzes);
+export default connect(mapStateToProps, { updateQuestion })(Quizzes);

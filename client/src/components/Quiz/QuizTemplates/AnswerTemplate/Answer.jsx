@@ -1,14 +1,11 @@
 import React from 'react';
-import './AnswerTemplate.scss';
-import { v4 as generateId } from 'uuid';
+import { Radio } from 'antd';
 
-const Answer = ({ answer, forEditing }) => {
-    const id = generateId();
+const Answer = ({ option: { option_id, option_content } }) => {
     return (
-        <div className='inputGroup'>
-            <input id={id} name='radio' type='radio' value={answer} />
-            <label for={id}>{answer}</label>
-        </div>
+        <Radio className='option' value={option_id}>
+            {option_content}
+        </Radio>
     );
 };
 
