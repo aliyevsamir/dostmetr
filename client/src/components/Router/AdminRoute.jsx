@@ -1,31 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Loading from '../../utils/Loading';
 
 const AdminRoute = ({
     component: Component,
-    is_admin,
-    redirectRoute,
+    auth: { user, loading },
     ...rest
-}) => {
-    console.log(is_admin);
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                is_admin ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to={redirectRoute} />
-                )
-            }
-        />
-    );
-};
+}) => (
+    <Route
+        {...rest}
+        render={props =>
+            loading ? (
+                <Loading />
+            ) : user ? (
+                <Component {...props} />
+            ) : (
+                <Redirect to='/' />
+            )
+        }
+    />
+);
 
 AdminRoute.propTypes = {
-    is_admin: PropTypes.bool.isRequired,
-    redirectRoute: PropTypes.string.isRequired
+    auth: PropTypes.object.isRequired
 };
 
-export default AdminRoute;
+const mapStateToProps = ({ auth }) => ({
+    auth
+});
+
+export default connect(mapStateToProps)(AdminRoute);

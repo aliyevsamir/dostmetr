@@ -1,4 +1,4 @@
-import { USER_LOADED, REGISTER_USER_SUCCESS } from '../types';
+import { USER_LOADED, REGISTER_USER_SUCCESS, AUTH_ERROR } from '../types';
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -17,6 +17,14 @@ export default function(state = initialState, action) {
                 isAuthenticated: true,
                 loading: false,
                 user: payload.data
+            };
+
+        case AUTH_ERROR:
+            return {
+                ...state,
+                isAuthenticated: false,
+                loading: false,
+                user: null
             };
 
         case REGISTER_USER_SUCCESS:
