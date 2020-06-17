@@ -8,21 +8,24 @@ const AdminRoute = ({
     component: Component,
     auth: { user, loading },
     ...rest
-}) => (
-    <Route
-        {...rest}
-        render={props =>
-            loading ? (
-                <Loading />
-            ) : user ? (
-                <Component {...props} />
-            ) : (
-                <Redirect to='/' />
-            )
-        }
-    />
-);
-
+}) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                loading ? (
+                    <Loading />
+                ) : !user ? (
+                    <Component {...props} />
+                ) : !user.is_admin ? (
+                    <Redirect to='/profile' />
+                ) : (
+                    <Component {...props} />
+                )
+            }
+        />
+    );
+};
 AdminRoute.propTypes = {
     auth: PropTypes.object.isRequired
 };
@@ -31,4 +34,4 @@ const mapStateToProps = ({ auth }) => ({
     auth
 });
 
-export default connect(mapStateToProps)(AdminRoute);
+export default connect(mapStateToProps, null)(AdminRoute);

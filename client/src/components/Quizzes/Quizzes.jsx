@@ -3,11 +3,15 @@ import { connect } from 'react-redux';
 import Quiz from './Quiz';
 import Loading from '../../utils/Loading';
 import { Row, Col } from 'antd';
-import MyModal from '../utils/Modal/MyModal';
-import { updateQuestion } from '../../redux/actions/quizzes';
+import CreateQuiz from '../utils/Modal/CreateQuiz';
+import { updateQuestion, loadQuizzes } from '../../redux/actions/quizzes';
 
 const Quizzes = props => {
     const [quizzes, setQuizzes] = useState([]);
+    useEffect(() => {
+        props.loadQuizzes();
+        console.log('heeey');
+    }, []);
 
     useEffect(() => {
         setQuizzes(props.quizzes);
@@ -39,7 +43,7 @@ const Quizzes = props => {
     const template = quizzes ? (
         <Row type='flex' justify='center' className='quizzes-container'>
             <Col span={24}>
-                <MyModal />
+                <CreateQuiz />
             </Col>
             <Col span={24}>
                 {quizzes.map((quiz, index) => (
@@ -63,4 +67,6 @@ const mapStateToProps = ({ quizzes: { quizzes } }) => ({
     quizzes
 });
 
-export default connect(mapStateToProps, { updateQuestion })(Quizzes);
+export default connect(mapStateToProps, { loadQuizzes, updateQuestion })(
+    Quizzes
+);

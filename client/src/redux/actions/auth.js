@@ -3,7 +3,8 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAIL
+    REGISTER_USER_FAIL,
+    SET_ONMAKING_QUIZ
 } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -41,4 +42,10 @@ export const register = name => async dispatch => {
             type: REGISTER_USER_FAIL
         });
     }
+};
+
+export const setOnMakingQuiz = () => async dispatch => {
+    dispatch({
+        type: SET_ONMAKING_QUIZ
+    });
 };

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Input } from 'antd';
 import plusIcon from '../../../utils/plus.png';
 import deleteIcon from '../../../utils/remove.png';
 import { createQuizzes } from '../../../redux/actions/quizzes';
 import { connect } from 'react-redux';
+import TextArea from 'antd/lib/input/TextArea';
+import '../../../utils/flexbox.scss';
 
-const MyModal = ({ createQuizzes }) => {
+const CreateQuiz = ({ createQuizzes }) => {
     const [visible, setVisible] = useState(false);
     const [options, setOptions] = useState([{ option_content: '' }]);
     const [question, setQuestion] = useState({ question_content: '' });
@@ -50,23 +52,31 @@ const MyModal = ({ createQuizzes }) => {
                 onCancel={handleCancel}
                 className='modal-container'
             >
-                <textarea
+                <TextArea
                     type='text'
-                    className='question'
                     placeholder='Sualı yazın'
+                    rows={4}
                     onChange={e =>
                         setQuestion({ question_content: e.target.value })
                     }
                     value={question.question_content}
+                    style={{ marginBottom: '10px' }}
                 />
                 <div className='options'>
                     {options.map((option, index) => (
-                        <div className='option' key={index}>
-                            <input
-                                type='text'
+                        <div
+                            className='option'
+                            key={index}
+                            className='myFlex'
+                            style={{ alignItems: 'center' }}
+                        >
+                            <TextArea
+                                rows={1}
                                 placeholder='Cavabı yazın'
                                 value={option.option_content}
-                                className='options-input'
+                                style={{
+                                    marginBottom: '10px'
+                                }}
                                 key={index}
                                 onChange={e => {
                                     let newOptions = [...options];
@@ -79,22 +89,26 @@ const MyModal = ({ createQuizzes }) => {
                                 className='delete-icon'
                                 src={deleteIcon}
                                 alt='delete'
+                                style={{
+                                    width: '40px',
+                                    cursor: 'pointer',
+                                    marginBottom: '10px'
+                                }}
                                 onClick={() => {
                                     let newOptions = [...options];
                                     newOptions.splice(index, 1);
-                                    console.log(newOptions);
                                     setOptions(newOptions);
                                 }}
                             />
                         </div>
                     ))}
                 </div>
-                <a className='add-option-button' onClick={handleAddOptionClick}>
-                    <img src={plusIcon} alt='plus-icon' />
-                </a>
+                <Button onClick={handleAddOptionClick} type='primary'>
+                    Variant əlavə et
+                </Button>
             </Modal>
         </div>
     );
 };
 
-export default connect(null, { createQuizzes })(MyModal);
+export default connect(null, { createQuizzes })(CreateQuiz);

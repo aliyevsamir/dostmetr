@@ -7,7 +7,7 @@ import {
 } from '../types';
 
 const initialState = {
-    quizzes: null
+    quizzes: []
 };
 
 export default (state = initialState, { type, payload }) => {

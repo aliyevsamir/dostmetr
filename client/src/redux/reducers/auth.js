@@ -1,10 +1,16 @@
-import { USER_LOADED, REGISTER_USER_SUCCESS, AUTH_ERROR } from '../types';
+import {
+    USER_LOADED,
+    REGISTER_USER_SUCCESS,
+    AUTH_ERROR,
+    SET_ONMAKING_QUIZ
+} from '../types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
-    user: null
+    user: null,
+    onMakingQuiz: false
 };
 
 export default function(state = initialState, action) {
@@ -34,6 +40,11 @@ export default function(state = initialState, action) {
                 isAuthenticated: true,
                 loading: false,
                 user: payload.data.user
+            };
+        case SET_ONMAKING_QUIZ:
+            return {
+                ...state,
+                onMakingQuiz: true
             };
         default:
             return state;

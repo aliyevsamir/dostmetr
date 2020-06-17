@@ -35,7 +35,7 @@ const QuizTemplate = ({
             <div className='action-buttons'>
                 <Button
                     onClick={skipQuestion}
-                    className='my-button skip-button'
+                    // className='my-button skip-button'
                 >
                     Keç
                 </Button>
@@ -45,11 +45,14 @@ const QuizTemplate = ({
                 >
                     Növbəti
                 </Button>
-                {/* {selectedAnswers >= 10 && ( */}
-                <Button type='primary' className='my-button finish-quiz-button'>
-                    Quizi tamamla
-                </Button>
-                {/* )} */}
+                {selectedAnswers >= 10 && (
+                    <Button
+                        type='primary'
+                        className='my-button finish-quiz-button'
+                    >
+                        Quizi tamamla
+                    </Button>
+                )}
             </div>
         </Col>
     );

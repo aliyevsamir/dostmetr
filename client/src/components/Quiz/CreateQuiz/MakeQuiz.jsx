@@ -4,6 +4,7 @@ import QuizTemplate from '../QuizTemplates/QuizTemplate';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { loadQuizzes } from '../../../redux/actions/quizzes';
+import Loading from '../../../utils/Loading';
 
 const MakeQuiz = ({ quizzes, loadQuizzes }) => {
     const [state, setState] = useState({
@@ -129,26 +130,28 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
         }
     };
 
-    const { questions, currentQuestionID } = state;
+    const { questions, currentQuestionID, selectedAnswers } = state;
 
     return questions ? (
         <Row
             type='flex'
             align='middle'
             justify='center'
-            style={{ minHeight: '90vh' }}
+            style={{ minHeight: '100vh' }}
         >
             <QuizTemplate
                 quiz={questions[currentQuestionID]}
                 currentQuestionID={currentQuestionID}
                 skipQuestion={skipQuestion}
                 nextQuestion={nextQuestion}
-                selectedAnswers={state.selectedAnswers}
+                selectedAnswers={selectedAnswers}
                 handleOptionChange={handleOptionChange}
                 optionValue={optionValue}
             />
         </Row>
-    ) : null;
+    ) : (
+        <Loading />
+    );
 };
 
 const mapStateToProps = ({ quizzes: { quizzes } }) => ({
