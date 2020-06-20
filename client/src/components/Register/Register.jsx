@@ -3,6 +3,7 @@ import { Col, Input, Button } from 'antd';
 import { connect } from 'react-redux';
 import { register } from '../../redux/actions/auth';
 import { withRouter } from 'react-router-dom';
+import Text from 'antd/lib/typography/Text';
 
 const Register = ({ register, history }) => {
     const [name, setName] = useState('');
@@ -24,7 +25,9 @@ const Register = ({ register, history }) => {
                     required
                 />
                 <Button type='primary' style={{ width: '100%' }}>
-                    Öz quizini yarat
+                    <Text style={{ color: '#fff', fontWeight: '600' }}>
+                        Öz quizini yarat
+                    </Text>
                 </Button>
             </form>
         </Col>

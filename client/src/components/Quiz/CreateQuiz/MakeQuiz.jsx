@@ -10,16 +10,13 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
     const [state, setState] = useState({
         currentQuestionID: 0,
         selectedAnswers: 0,
-        questions: null
+        questions: []
     });
 
     const [quizSubmissions, setQuizSubmissions] = useState({});
 
     useEffect(() => {
         loadQuizzes();
-    }, []);
-
-    useEffect(() => {
         setState({
             ...state,
             questions: quizzes
@@ -132,12 +129,17 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
     const { questions, currentQuestionID, selectedAnswers } = state;
 
-    return questions ? (
+    return !questions.length ? (
+        <Loading />
+    ) : (
         <Row
             type='flex'
             align='middle'
             justify='center'
-            style={{ minHeight: '100vh' }}
+            style={{
+                minHeight: '100vh',
+                background: 'linear-gradient:(to-right, #004e92, #000428)'
+            }}
         >
             <QuizTemplate
                 quiz={questions[currentQuestionID]}
@@ -149,13 +151,12 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
                 optionValue={optionValue}
             />
         </Row>
-    ) : (
-        <Loading />
     );
 };
 
-const mapStateToProps = ({ quizzes: { quizzes } }) => ({
-    quizzes
-});
-
-export default connect(mapStateToProps, { loadQuizzes })(MakeQuiz);
+export default connect(
+    ({ quizzes: { quizzes } }) => ({
+        quizzes
+    }),
+    { loadQuizzes }
+)(MakeQuiz);

@@ -10,7 +10,6 @@ const Quizzes = props => {
     const [quizzes, setQuizzes] = useState([]);
     useEffect(() => {
         props.loadQuizzes();
-        console.log('heeey');
     }, []);
 
     useEffect(() => {
@@ -40,7 +39,7 @@ const Quizzes = props => {
         setQuizzes(newQuizzes);
     };
 
-    const template = quizzes ? (
+    const template = quizzes.length ? (
         <Row type='flex' justify='center' className='quizzes-container'>
             <Col span={24}>
                 <CreateQuiz />
@@ -60,7 +59,7 @@ const Quizzes = props => {
     ) : (
         <Loading />
     );
-    return template;
+    return !props.isOpen && template;
 };
 
 const mapStateToProps = ({ quizzes: { quizzes } }) => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Divider } from 'antd';
 import Loading from '../../utils/Loading';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -16,16 +16,7 @@ const Profile = ({ user }) => {
 
     const template =
         user === null ? (
-            <Row
-                type='flex'
-                align='middle'
-                justify='center'
-                style={{ height: '100vh', width: '100vw' }}
-            >
-                <Col span={4}>
-                    <Loading />
-                </Col>
-            </Row>
+            <Loading />
         ) : (
             <Row type='flex' justify='center' gutter={[16, 8]}>
                 <Col
@@ -81,6 +72,7 @@ const Profile = ({ user }) => {
                             lg={18}
                             xl={16}
                             className='myFlex'
+                            style={{ marginBottom: '10px' }}
                         >
                             <Title level={3}>
                                 Dostlarını hazırladığın quizə dəvət et!
@@ -103,7 +95,8 @@ const Profile = ({ user }) => {
                                     <Button
                                         type='primary'
                                         style={{
-                                            width: '70%'
+                                            width: '70%',
+                                            marginBottom: '-5px'
                                         }}
                                     >
                                         Linki kopyala
@@ -113,12 +106,18 @@ const Profile = ({ user }) => {
                                 <Button disabled>Linki kopyalandı</Button>
                             )}
                         </Col>
+                        <Col xs={20} sm={18} md={18} lg={18} xl={16}></Col>
+                        <Divider>
+                            <Text>
+                                və ya birbaşa aşağıdakı butonlar ilə paylaş
+                            </Text>
+                        </Divider>
                         <Col
-                            xs={20}
-                            sm={18}
-                            md={18}
-                            lg={18}
-                            xl={16}
+                            xs={8}
+                            sm={8}
+                            md={8}
+                            lg={8}
+                            xl={8}
                             className='myFlex'
                         >
                             <ShareButtons />

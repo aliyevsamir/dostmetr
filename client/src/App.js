@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
 import setAuthToken from './utils/setAuthToken';
 
-//Router stuff
-import { Route, Switch } from 'react-router-dom';
+import Routes from './components/Router/Routes';
 
 //Redux stuff
 import { connect } from 'react-redux';
 import { loadUser } from './redux/actions/auth';
-import HomePage from './components/HomePage/HomePage';
-import Routes from './components/Router/Routes';
 
 const App = ({ loadUser }) => {
     useEffect(() => {
@@ -16,12 +13,7 @@ const App = ({ loadUser }) => {
         loadUser();
     }, []);
 
-    return (
-        <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route component={Routes} />
-        </Switch>
-    );
+    return <Routes />;
 };
 
 export default connect(null, { loadUser })(App);

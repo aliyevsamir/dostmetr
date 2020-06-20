@@ -1,25 +1,12 @@
 import React from 'react';
 import { Form, Input, Button, Row, Col } from 'antd';
-import { useState } from 'react';
+import { connect } from 'react-redux';
+import { adminLogin } from '../../redux/actions/auth';
 
-const AdminLogin = () => {
-    const [state, setState] = useState({
-        username: '',
-        password: ''
-    });
-
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setState({
-            ...state,
-            [name]: value
-        });
-    };
-
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        // TODO: send user info to server check if user is admin or not
+const AdminLogin = ({ adminLogin }) => {
+    const handleFinish = values => {
+        adminLogin(values);
+        console.log(values);
     };
 
     return (
@@ -27,52 +14,55 @@ const AdminLogin = () => {
             type='flex'
             justify='center'
             align='middle'
-            style={{ minHeight: '100vh' }}
+            style={{
+                minHeight: '100vh'
+            }}
         >
-            <Col xs={18} sm={16} md={14} lg={10} xl={8}>
+            <Col xs={16} sm={14} md={12} lg={8} xl={6}>
                 <Form
                     name='basic'
+                    layout='vertical'
                     initialValues={{
-                        remember: true
+                        size: 'small'
                     }}
-                    onSubmit={handleSubmit}
+                    onFinish={handleFinish}
                 >
                     <Form.Item
-                        label='Username'
+                        label='İstifadəçi adı'
                         name='username'
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your username!'
+                                message: 'İstifadəçi adını daxil edin!'
                             }
                         ]}
+                        style={{ marginBottom: '5px' }}
                     >
-                        <Input
-                            name='username'
-                            value={state.username}
-                            onChange={handleChange}
-                        />
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
-                        label='Password'
+                        label='Şifrə'
                         name='password'
                         rules={[
                             {
                                 required: true,
-                                message: 'Please input your password!'
+                                message: 'Şifrəni daxil edin!'
                             }
                         ]}
+                        style={{
+                            marginBottom: '10px'
+                        }}
                     >
-                        <Input.Password
-                            name='password'
-                            value={state.password}
-                            onChange={handleChange}
-                        />
+                        <Input.Password />
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type='primary' htmlType='submit'>
+                        <Button
+                            type='primary'
+                            htmlType='submit'
+                            style={{ minWidth: '100%' }}
+                        >
                             Daxil ol
                         </Button>
                     </Form.Item>
@@ -82,4 +72,4 @@ const AdminLogin = () => {
     );
 };
 
-export default AdminLogin;
+export default connect(null, { adminLogin })(AdminLogin);

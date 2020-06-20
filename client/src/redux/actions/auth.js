@@ -4,7 +4,8 @@ import {
     AUTH_ERROR,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
-    SET_ONMAKING_QUIZ
+    LOGIN_ADMIN,
+    REGISTER_ADMIN
 } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -44,8 +45,19 @@ export const register = name => async dispatch => {
     }
 };
 
-export const setOnMakingQuiz = () => async dispatch => {
+export const adminLogin = loginData => async dispatch => {
+    const res = await axios.post('/api/v1/users/login/admin', loginData);
+
+    console.log(res);
+
+    const { token } = res.data.data;
+    setAuthToken(token);
+
     dispatch({
-        type: SET_ONMAKING_QUIZ
+        type: LOGIN_ADMIN,
+        payload: res.data
     });
 };
+
+export const registerAdmin = async registerData =>
+    await axios.post('api/v1/users/register/admin', registerData);

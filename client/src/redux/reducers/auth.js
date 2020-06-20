@@ -2,15 +2,14 @@ import {
     USER_LOADED,
     REGISTER_USER_SUCCESS,
     AUTH_ERROR,
-    SET_ONMAKING_QUIZ
+    LOGIN_ADMIN
 } from '../types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
-    user: null,
-    onMakingQuiz: false
+    user: null
 };
 
 export default function(state = initialState, action) {
@@ -41,11 +40,16 @@ export default function(state = initialState, action) {
                 loading: false,
                 user: payload.data.user
             };
-        case SET_ONMAKING_QUIZ:
+
+        case LOGIN_ADMIN:
             return {
                 ...state,
-                onMakingQuiz: true
+                token: payload.data.token,
+                isAuthenticated: true,
+                loading: false,
+                user: payload.data.user
             };
+
         default:
             return state;
     }

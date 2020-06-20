@@ -33,8 +33,6 @@ export const updateQuestion = (id, newQuestion) => async dispatch => {
     const question = { question_content: newQuestion };
     const res = await axios.put(`/api/v1/questions/${id}`, question);
 
-    console.log(res);
-
     dispatch({
         type: UPDATE_QUESTION,
         payload: res.data

@@ -1,10 +1,4 @@
-import {
-    LOAD_QUIZZES,
-    CREATE_QUIZZES,
-    DELETE_QUESTION,
-    UPDATE_OPTION,
-    DELETE_OPTION
-} from '../types';
+import { LOAD_QUIZZES, CREATE_QUIZZES } from '../types';
 
 const initialState = {
     quizzes: []
