@@ -5,6 +5,7 @@ import { adminLogin } from '../../redux/actions/auth';
 
 const AdminLogin = ({ adminLogin }) => {
     const handleFinish = values => {
+        console.log(values);
         adminLogin(values);
         console.log(values);
     };

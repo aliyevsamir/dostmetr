@@ -24,7 +24,11 @@ const Register = ({ register, history }) => {
                     value={name}
                     required
                 />
-                <Button type='primary' style={{ width: '100%' }}>
+                <Button
+                    type='primary'
+                    htmlType='submit'
+                    style={{ width: '100%' }}
+                >
                     <Text style={{ color: '#fff', fontWeight: '600' }}>
                         Öz quizini yarat
                     </Text>
