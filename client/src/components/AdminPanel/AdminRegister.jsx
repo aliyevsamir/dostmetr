@@ -7,8 +7,8 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
     const [form] = Form.useForm();
 
     const handleFinish = values => {
-        registerAdmin(values);
         setIsOpen(false);
+        registerAdmin(values);
     };
 
     return (

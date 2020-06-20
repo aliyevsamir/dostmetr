@@ -6,6 +6,7 @@ import Profile from '../Profile/Profile';
 import MakeQuiz from '../Quiz/CreateQuiz/MakeQuiz';
 import AdminPanel from '../AdminPanel/AdminPanel';
 import HomePage from '../HomePage/HomePage';
+import Error404 from '../utils/404/Error404';
 
 const Routes = () => {
     return (
@@ -14,6 +15,7 @@ const Routes = () => {
             <PrivateRoute exact path='/make-quiz' component={MakeQuiz} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <AdminRoute exact path='/admin' component={AdminPanel} />
+            <Route component={Error404} />
         </Switch>
     );
 };
