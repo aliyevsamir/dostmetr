@@ -1,7 +1,6 @@
 import React from 'react';
 import { Col, Radio, Button } from 'antd';
 import Answer from './AnswerTemplate/Answer';
-import TextArea from 'antd/lib/input/TextArea';
 import Text from 'antd/lib/typography/Text';
 
 import './QuizTemplates.scss';

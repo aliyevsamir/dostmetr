@@ -37,7 +37,9 @@ const Profile = ({ user }) => {
                         style={{ marginBottom: 0, color: '#fff' }}
                         className='myFlex'
                     >
-                        {user.name}
+                        {user.is_admin
+                            ? `${user.first_name} ${user.last_name}`
+                            : user.name}
                     </Title>
 
                     <Text

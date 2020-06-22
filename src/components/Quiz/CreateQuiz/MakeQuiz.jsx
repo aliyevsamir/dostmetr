@@ -9,19 +9,14 @@ import Loading from '../../../utils/Loading';
 const MakeQuiz = ({ quizzes, loadQuizzes }) => {
     const [state, setState] = useState({
         currentQuestionID: 0,
-        selectedAnswers: 0,
-        questions: []
+        selectedAnswers: 0
     });
 
     const [quizSubmissions, setQuizSubmissions] = useState({});
 
     useEffect(() => {
         loadQuizzes();
-        setState({
-            ...state,
-            questions: quizzes
-        });
-    }, [quizzes]);
+    }, []);
 
     const [optionValue, setOptionValue] = useState(null);
 
@@ -31,18 +26,20 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
     const nextQuestion = () => {
         if (optionValue) {
-            const { currentQuestionID, questions } = state;
+            const { currentQuestionID } = state;
             const newQuizSubmissions = { ...quizSubmissions };
+
             newQuizSubmissions[
-                questions[currentQuestionID].question_id
+                quizzes[currentQuestionID].question_id
             ] = optionValue;
+
             setQuizSubmissions(newQuizSubmissions);
             setOptionValue(null);
 
-            const newQuestions = [...questions];
+            const newQuestions = [...quizzes];
             newQuestions[currentQuestionID].selected = true;
 
-            if (currentQuestionID < questions.length - 1) {
+            if (currentQuestionID < quizzes.length - 1) {
                 let newQuiz = newQuestions
                     .slice(currentQuestionID + 1)
                     .find(quiz => quiz.selected !== true);
@@ -53,18 +50,19 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
                         .find(quiz => quiz.selected !== true);
                 }
 
-                if (!newQuiz) {
-                    alert('You have already answered all questions');
-                } else {
+                if (newQuiz) {
                     let newQuizIndex = newQuestions.findIndex(
                         question => question.question_id === newQuiz.question_id
                     );
 
                     setState({
                         currentQuestionID: newQuizIndex,
-                        selectedAnswers: state.selectedAnswers + 1,
-                        questions: newQuestions
+                        selectedAnswers: state.selectedAnswers + 1
                     });
+
+                    quizzes = newQuestions;
+                } else {
+                    alert('You have already answered all questions');
                 }
             } else {
                 // last question
@@ -79,9 +77,10 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
                     setState({
                         currentQuestionID: newQuizIndex,
-                        selectedAnswers: state.selectedAnswers + 1,
-                        questions: newQuestions
+                        selectedAnswers: state.selectedAnswers + 1
                     });
+
+                    quizzes = newQuestions;
                 } else {
                     alert('You have already answered all questions');
                 }
@@ -92,20 +91,20 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
     };
 
     const skipQuestion = () => {
-        const { currentQuestionID, questions } = state;
+        const { currentQuestionID } = state;
 
-        if (currentQuestionID < questions.length - 1) {
-            let newQuiz = questions
+        if (currentQuestionID < quizzes.length - 1) {
+            let newQuiz = quizzes
                 .slice(currentQuestionID + 1)
                 .find(quiz => quiz.selected !== true);
 
             if (!newQuiz) {
-                newQuiz = questions
+                newQuiz = quizzes
                     .slice(0, currentQuestionID + 1)
                     .find(quiz => quiz.selected !== true);
             }
 
-            let newQuizIndex = questions.findIndex(
+            let newQuizIndex = quizzes.findIndex(
                 question => question.question_id === newQuiz.question_id
             );
 
@@ -114,9 +113,9 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
                 currentQuestionID: newQuizIndex
             });
         } else {
-            const newQuiz = questions.find(quiz => quiz.selected !== true);
+            const newQuiz = quizzes.find(quiz => quiz.selected !== true);
 
-            let newQuizIndex = questions.findIndex(
+            let newQuizIndex = quizzes.findIndex(
                 question => question.question_id === newQuiz.question_id
             );
 
@@ -129,7 +128,7 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
     const { questions, currentQuestionID, selectedAnswers } = state;
 
-    return !questions.length ? (
+    return !quizzes.length ? (
         <Loading />
     ) : (
         <Row
@@ -142,7 +141,7 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
             }}
         >
             <QuizTemplate
-                quiz={questions[currentQuestionID]}
+                quiz={quizzes[currentQuestionID]}
                 currentQuestionID={currentQuestionID}
                 skipQuestion={skipQuestion}
                 nextQuestion={nextQuestion}
@@ -155,7 +154,7 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 };
 
 export default connect(
-    ({ quizzes: { quizzes } }) => ({
+    ({ quizzes }) => ({
         quizzes
     }),
     { loadQuizzes }

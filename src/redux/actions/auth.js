@@ -5,7 +5,7 @@ import {
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
     LOGIN_ADMIN,
-    REGISTER_ADMIN
+    LOGOUT_ADMIN
 } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -61,3 +61,8 @@ export const adminLogin = loginData => async dispatch => {
 
 export const registerAdmin = async registerData =>
     await axios.post('api/v1/users/register/admin', registerData);
+
+export const adminLogout = () => dispatch => {
+    setAuthToken(null);
+    dispatch({ type: LOGOUT_ADMIN });
+};

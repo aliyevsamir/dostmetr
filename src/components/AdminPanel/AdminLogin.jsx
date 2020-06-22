@@ -5,9 +5,7 @@ import { adminLogin } from '../../redux/actions/auth';
 
 const AdminLogin = ({ adminLogin }) => {
     const handleFinish = values => {
-        console.log(values);
         adminLogin(values);
-        console.log(values);
     };
 
     return (
@@ -16,7 +14,9 @@ const AdminLogin = ({ adminLogin }) => {
             justify='center'
             align='middle'
             style={{
-                minHeight: '100vh'
+                minHeight: '100vh',
+                backgroundImage:
+                    'linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)'
             }}
         >
             <Col xs={16} sm={14} md={12} lg={8} xl={6}>

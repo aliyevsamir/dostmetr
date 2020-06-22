@@ -3,69 +3,79 @@ import { connect } from 'react-redux';
 import Quiz from './Quiz';
 import Loading from '../../utils/Loading';
 import { Row, Col } from 'antd';
-import CreateQuiz from '../utils/Modal/CreateQuiz';
-import { updateQuestion, loadQuizzes } from '../../redux/actions/quizzes';
+import {
+    updateQuestion,
+    loadQuizzes,
+    deleteQuestion
+} from '../../redux/actions/quizzes';
 
-const Quizzes = props => {
-    const [quizzes, setQuizzes] = useState([]);
+const Quizzes = ({
+    quizzes,
+    loadQuizzes,
+    updateQuestion,
+    deleteQuestion,
+    isOpen
+}) => {
+    const [questions, setQuestions] = useState([]);
     useEffect(() => {
-        props.loadQuizzes();
+        loadQuizzes();
     }, []);
 
     useEffect(() => {
-        setQuizzes(props.quizzes);
-    }, [props.quizzes]);
+        setQuestions(quizzes);
+    }, [quizzes]);
 
     const handleChange = (e, quizIndex, isQuestion, answerIndex) => {
-        let newQuizzes = [...quizzes];
+        let newQuizzes = [...questions];
 
         if (isQuestion) {
             newQuizzes[quizIndex].question_content = e.target.value;
-            setQuizzes(newQuizzes);
-            props.updateQuestion(
+            setQuestions(newQuizzes);
+            updateQuestion(
                 newQuizzes[quizIndex].question_id,
                 newQuizzes[quizIndex].question_content
             );
         } else {
             newQuizzes[quizIndex].options[answerIndex].option_content =
                 e.target.value;
-            setQuizzes(newQuizzes);
+            setQuestions(newQuizzes);
         }
     };
 
     const handleDelete = index => {
-        let newQuizzes = quizzes.filter(quiz => quiz.question_id !== index);
-
-        setQuizzes(newQuizzes);
+        deleteQuestion(index);
     };
 
-    const template = quizzes.length ? (
-        <Row type='flex' justify='center' className='quizzes-container'>
-            <Col span={24}>
-                <CreateQuiz />
-            </Col>
-            <Col span={24}>
-                {quizzes.map((quiz, index) => (
-                    <Quiz
-                        quiz={quiz}
-                        key={index}
-                        quizIndex={index}
-                        handleChange={handleChange}
-                        handleDelete={handleDelete}
-                    />
-                ))}
-            </Col>
-        </Row>
+    const template = questions.length ? (
+        <Col span={24}>
+            {questions.map((quiz, index) => (
+                <Quiz
+                    quiz={quiz}
+                    key={index}
+                    quizIndex={index}
+                    handleChange={handleChange}
+                    handleDelete={handleDelete}
+                />
+            ))}
+        </Col>
     ) : (
         <Loading />
     );
-    return !props.isOpen && template;
+    return (
+        !isOpen && (
+            <Row type='flex' justify='center' className='quizzes-container'>
+                {template}
+            </Row>
+        )
+    );
 };
 
-const mapStateToProps = ({ quizzes: { quizzes } }) => ({
+const mapStateToProps = ({ quizzes }) => ({
     quizzes
 });
 
-export default connect(mapStateToProps, { loadQuizzes, updateQuestion })(
-    Quizzes
-);
+export default connect(mapStateToProps, {
+    loadQuizzes,
+    updateQuestion,
+    deleteQuestion
+})(Quizzes);

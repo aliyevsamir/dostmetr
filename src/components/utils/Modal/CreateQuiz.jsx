@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Modal, Input } from 'antd';
-import plusIcon from '../../../utils/plus.png';
+import { Button, Modal } from 'antd';
 import deleteIcon from '../../../utils/remove.png';
 import { createQuizzes } from '../../../redux/actions/quizzes';
 import { connect } from 'react-redux';
@@ -22,11 +21,13 @@ const CreateQuiz = ({ createQuizzes }) => {
         quiz.question = { ...question };
         quiz.options = [...options];
         createQuizzes(quiz);
+        setQuestion({ question_content: '' });
+        setOptions([{ option_content: '' }]);
         setVisible(false);
     };
 
     const handleCancel = e => {
-        setQuestion('');
+        setQuestion({ question_content: '' });
         setOptions([{ option_content: '' }]);
         setVisible(false);
     };
@@ -55,19 +56,19 @@ const CreateQuiz = ({ createQuizzes }) => {
                 <TextArea
                     type='text'
                     placeholder='Sualı yazın'
-                    rows={4}
+                    rows={3}
                     onChange={e =>
                         setQuestion({ question_content: e.target.value })
                     }
                     value={question.question_content}
                     style={{ marginBottom: '10px' }}
+                    required
                 />
                 <div className='options'>
                     {options.map((option, index) => (
                         <div
-                            className='option'
+                            className='option myFlex'
                             key={index}
-                            className='myFlex'
                             style={{ alignItems: 'center' }}
                         >
                             <TextArea
@@ -84,6 +85,7 @@ const CreateQuiz = ({ createQuizzes }) => {
                                         e.target.value;
                                     setOptions(newOptions);
                                 }}
+                                required
                             />
                             <img
                                 className='delete-icon'

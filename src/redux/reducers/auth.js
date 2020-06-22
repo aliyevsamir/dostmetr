@@ -2,7 +2,8 @@ import {
     USER_LOADED,
     REGISTER_USER_SUCCESS,
     AUTH_ERROR,
-    LOGIN_ADMIN
+    LOGIN_ADMIN,
+    LOGOUT_ADMIN
 } from '../types';
 
 const initialState = {
@@ -46,6 +47,14 @@ export default function(state = initialState, { type, payload }) {
                 isAuthenticated: true,
                 loading: false,
                 user: payload.data.user
+            };
+
+        case LOGOUT_ADMIN:
+            return {
+                token: null,
+                isAuthenticated: false,
+                loading: false,
+                user: null
             };
 
         default:

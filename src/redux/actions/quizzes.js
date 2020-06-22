@@ -9,7 +9,7 @@ import {
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
-    const res = await axios.get('/api/v1/questions/options');
+    const res = await axios.get('/api/v1/questions/options?limit=100');
 
     dispatch({
         type: LOAD_QUIZZES,
@@ -18,10 +18,7 @@ export const loadQuizzes = () => async dispatch => {
 };
 
 export const createQuizzes = quizzes => async dispatch => {
-    console.log(quizzes);
     const res = await axios.post('/api/v1/questions/options', quizzes);
-
-    console.log(res);
 
     dispatch({
         type: CREATE_QUIZZES,

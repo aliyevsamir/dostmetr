@@ -13,18 +13,7 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
 
     return (
         <>
-            {!isOpen ? (
-                <Row type='flex' justify='center'>
-                    <Col span={24}>
-                        <Button
-                            style={{ minWidth: '100%', marginTop: '10px' }}
-                            onClick={() => setIsOpen(true)}
-                        >
-                            Admin əlavə et
-                        </Button>
-                    </Col>
-                </Row>
-            ) : (
+            {isOpen && (
                 <Row
                     type='flex'
                     align='middle'
