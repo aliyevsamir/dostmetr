@@ -4,8 +4,11 @@ import {
     AUTH_ERROR,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
+    REGISTER_ADMIN_FAIL,
     LOGIN_ADMIN,
-    LOGOUT_ADMIN
+    LOGOUT_ADMIN,
+    SET_ERRORS,
+    CLEAR_ERRORS
 } from '../types';
 import setAuthToken from '../../utils/setAuthToken';
 
@@ -57,8 +60,21 @@ export const adminLogin = loginData => async dispatch => {
     });
 };
 
-export const registerAdmin = async registerData =>
-    await axios.post('api/v1/users/register/admin', registerData);
+export const registerAdmin = registerData => async dispatch => {
+    try {
+        await axios.post('api/v1/users/register/admin', registerData);
+
+        dispatch({
+            type: CLEAR_ERRORS,
+            payload: null
+        });
+    } catch (err) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: err
+        });
+    }
+};
 
 export const adminLogout = () => dispatch => {
     setAuthToken(null);

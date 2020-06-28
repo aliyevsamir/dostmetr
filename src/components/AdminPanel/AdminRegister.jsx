@@ -1,13 +1,28 @@
 import React from 'react';
-import { Col, Button, Row, Form, Input } from 'antd';
+import { Col, Button, Row, Form, Input, message } from 'antd';
 import { connect } from 'react-redux';
 import { registerAdmin } from '../../redux/actions/auth';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
+const AdminRegister = ({ isOpen, setIsOpen, registerAdmin, errors }) => {
     const [form] = Form.useForm();
+    const [firstRender, setFirstRender] = useState(true);
+
+    useEffect(() => {
+        if (!firstRender) {
+            if (errors) {
+                message.error(`Something went wrong ! ${errors.message}`);
+            } else {
+                message.success('New admin added');
+                setIsOpen(false);
+            }
+        } else {
+            setFirstRender(false);
+        }
+    }, [errors]);
 
     const handleFinish = values => {
-        setIsOpen(false);
         registerAdmin(values);
     };
 
@@ -77,11 +92,17 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
                                 <Input />
                             </Form.Item>
                             <Form.Item>
-                                <Button type='primary' htmlType='submit'>
+                                <Button
+                                    type='primary'
+                                    htmlType='submit'
+                                    style={{ width: '100%' }}
+                                >
                                     Əlavə et
                                 </Button>
                             </Form.Item>
                         </Form>
+
+                        <Button onClick={() => setIsOpen(false)}>Geri</Button>
                     </Col>
                 </Row>
             )}
@@ -89,4 +110,8 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
     );
 };
 
-export default connect(null, { registerAdmin })(AdminRegister);
+const mapStateToProps = ({ errors }) => ({
+    errors
+});
+
+export default connect(mapStateToProps, { registerAdmin })(AdminRegister);
