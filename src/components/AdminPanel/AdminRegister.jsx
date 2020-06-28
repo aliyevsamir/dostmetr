@@ -18,7 +18,9 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin }) => {
                     type='flex'
                     align='middle'
                     justify='center'
-                    style={{ minHeight: '100vh' }}
+                    style={{
+                        minHeight: '100vh'
+                    }}
                 >
                     <Col style={{ margin: '20px 0' }} span={24}>
                         <Form

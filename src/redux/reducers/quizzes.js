@@ -1,4 +1,4 @@
-import { LOAD_QUIZZES, CREATE_QUIZZES, DELETE_QUESTION } from '../types';
+import { LOAD_QUIZZES, CREATE_QUIZZES, DELETE_QUESTION, ADD_OPTION } from '../types';
 
 const initialState = [];
 
@@ -14,6 +14,8 @@ export default (state = initialState, { type, payload }) => {
             return [...state].filter(
                 quiz => quiz.question_id !== payload.data.question_id
             );
+        case ADD_OPTION:
+            return [...state]
         default:
             return state;
     }

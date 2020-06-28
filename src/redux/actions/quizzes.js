@@ -5,7 +5,8 @@ import {
     UPDATE_QUESTION,
     DELETE_QUESTION,
     UPDATE_OPTION,
-    DELETE_OPTION
+    DELETE_OPTION,
+    ADD_OPTION
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
@@ -59,6 +60,18 @@ export const deleteOption = id => async dispatch => {
 
     dispatch({
         type: DELETE_OPTION,
+        payload: res.data
+    });
+};
+
+export const addOption = (questionId, option) => async dispatch => {
+    const res = await axios.post(
+        `/api/v1/questions/${questionId}/options`,
+        option
+    );
+
+    dispatch({
+        type: ADD_OPTION,
         payload: res.data
     });
 };

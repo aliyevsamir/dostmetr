@@ -24,11 +24,9 @@ export const loadUser = () => async dispatch => {
     }
 };
 
-export const register = name => async dispatch => {
-    const body = { name };
-
+export const register = userData => async dispatch => {
     try {
-        const res = await axios.post('/api/v1/users', body);
+        const res = await axios.post('/api/v1/users', userData);
 
         const { token } = res.data.data;
         setAuthToken(token);

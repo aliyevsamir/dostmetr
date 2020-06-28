@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row, Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import AddOptionButton from '../AdminPanel/AddOptionButton';
 
 const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        setOptions(quiz.options);
+    }, []);
+
     const handleAddOption = () => {
-        // TODO: Add new input to be able to add new option
+        console.log(options);
+        const option_id = options[options.length - 1].option_id + 1;
+        const newOptions = [...options, { option_id, option_content: '' }];
+
+        // TODO: Request for adding new option to DB
+        setOptions(newOptions);
     };
     return (
         <Row
@@ -12,7 +24,6 @@ const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
             align='middle'
             style={{
                 borderRadius: '5px',
-                border: '1px solid rgba(0,0,0,.1)',
                 boxShadow: '3px 3px 3px rgba(0,0,0,.3)',
                 padding: '20px 15px',
                 margin: '15px 0',
@@ -27,7 +38,7 @@ const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
                     onChange={e => handleChange(e, quizIndex, true, null)}
                 />
             </Col>
-            {quiz.options.map((option, index) => (
+            {options.map((option, index) => (
                 <Col span={24} style={{ marginBottom: '10px' }} key={index}>
                     <TextArea
                         style={{ minWidth: '100%', fontWeight: '500' }}
@@ -38,9 +49,7 @@ const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
                 </Col>
             ))}
             <Col span={24} style={{ marginBottom: '5px' }}>
-                <Button style={{ minWidth: '100%' }} onClick={handleAddOption}>
-                    Variant əlavə et
-                </Button>
+                <AddOptionButton handleClick={handleAddOption} />
             </Col>
             <Col span={24}>
                 <Button

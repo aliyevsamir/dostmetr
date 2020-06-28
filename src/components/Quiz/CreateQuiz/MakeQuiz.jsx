@@ -7,6 +7,7 @@ import { loadQuizzes } from '../../../redux/actions/quizzes';
 import Loading from '../../../utils/Loading';
 
 const MakeQuiz = ({ quizzes, loadQuizzes }) => {
+    console.log('hey I am in charge');
     const [state, setState] = useState({
         currentQuestionID: 0,
         selectedAnswers: 0
@@ -126,7 +127,7 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
         }
     };
 
-    const { questions, currentQuestionID, selectedAnswers } = state;
+    const { currentQuestionID, selectedAnswers } = state;
 
     return !quizzes.length ? (
         <Loading />

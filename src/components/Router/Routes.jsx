@@ -21,16 +21,3 @@ const Routes = () => {
 };
 
 export default Routes;
-
-// {
-//     path: '/profile',
-//     component: Profile,
-//     exact: true,
-//     redirectRoute: '/'
-// },
-// {
-//     path: '/make-quiz',
-//     component: MakeQuiz,
-//     exact: true,
-//     redirectRoute: '/'
-// }

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Col, Input, Button, Row } from 'antd';
+import { Col, Input, Button, Row, Form } from 'antd';
 import { connect } from 'react-redux';
 import { register } from '../../redux/actions/auth';
 import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
 
 const Register = ({ register, history }) => {
-    const [name, setName] = useState('');
-
-    const onSubmit = e => {
-        e.preventDefault();
-        register(name);
+    const onFinish = userData => {
+        register(userData);
         history.push('/make-quiz');
     };
+
+    const [form] = Form.useForm();
 
     return (
         <Row
@@ -26,14 +25,19 @@ const Register = ({ register, history }) => {
             }}
         >
             <Col xs={20} sm={16} md={12} lg={8} xl={6}>
-                <form onSubmit={onSubmit}>
-                    <Input
-                        placeholder='Adınızı daxil edin'
-                        onChange={e => setName(e.target.value)}
-                        style={{ marginBottom: '10px' }}
-                        value={name}
-                        required
-                    />
+                <Form onFinish={onFinish} form={form} layout='vertical'>
+                    <Form.Item
+                        name='name'
+                        label='İstifadəçi adı'
+                        rules={[
+                            {
+                                required: true
+                            }
+                        ]}
+                    >
+                        <Input placeholder='Adınızı daxil edin' />
+                    </Form.Item>
+
                     <Button
                         type='primary'
                         htmlType='submit'
@@ -43,7 +47,7 @@ const Register = ({ register, history }) => {
                             Öz quizini yarat
                         </Text>
                     </Button>
-                </form>
+                </Form>
             </Col>
         </Row>
     );
