@@ -28,7 +28,7 @@ const Quiz = ({
                     rows={3}
                     value={quiz.question_content}
                     onChange={e => handleChange(e, quizIndex, true, null)}
-                    // onBlur={() => alert('asdas')}
+                    onBlur={() => alert('asdas')}
                 />
             </Col>
             {options.map((option, index) => (

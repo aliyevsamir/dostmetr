@@ -6,13 +6,15 @@ import { Row, Col } from 'antd';
 import {
     updateQuestion,
     loadQuizzes,
-    deleteQuestion
+    deleteQuestion,
+    updateOption
 } from '../../redux/actions/quizzes';
 
 const Quizzes = ({
     quizzes,
     loadQuizzes,
     updateQuestion,
+    updateOption,
     deleteQuestion,
     isOpen
 }) => {
@@ -31,14 +33,19 @@ const Quizzes = ({
 
         if (isQuestion) {
             newQuizzes[quizIndex].question_content = e.target.value;
-            setQuestions(newQuizzes);
+
             updateQuestion(
                 newQuizzes[quizIndex].question_id,
                 newQuizzes[quizIndex].question_content
             );
+
+            setQuestions(newQuizzes);
         } else {
             newQuizzes[quizIndex].options[answerIndex].option_content =
                 e.target.value;
+            updateOption(newQuizzes[quizIndex].options[answerIndex].option_id, {
+                option_content: e.target.value
+            });
             setQuestions(newQuizzes);
         }
     };
@@ -80,5 +87,6 @@ const mapStateToProps = ({ quizzes }) => ({
 export default connect(mapStateToProps, {
     loadQuizzes,
     updateQuestion,
+    updateOption,
     deleteQuestion
 })(Quizzes);
