@@ -6,14 +6,15 @@ import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
 import { useEffect } from 'react';
 
-const Register = ({ auth: { isAuthenticated }, register, history }) => {
+const Register = ({ register, history, isAuthenticated }) => {
+    const onFinish = userData => {
+        register(userData);
+        history.push('/make-quiz');
+    };
+
     useEffect(() => {
         if (isAuthenticated) history.push('/make-quiz');
     }, [isAuthenticated]);
-
-    const onFinish = userData => {
-        register(userData);
-    };
 
     const [form] = Form.useForm();
 
@@ -56,8 +57,9 @@ const Register = ({ auth: { isAuthenticated }, register, history }) => {
         </Row>
     );
 };
-const mapStateToProps = ({ auth }) => ({
-    auth
+
+const mapStateToProps = ({ auth: { isAuthenticated } }) => ({
+    isAuthenticated
 });
 
 export default connect(mapStateToProps, { register })(withRouter(Register));
