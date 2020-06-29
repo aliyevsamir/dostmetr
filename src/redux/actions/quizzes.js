@@ -10,12 +10,17 @@ import {
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
-    const res = await axios.get('/api/v1/questions/options?limit=100');
+    try {
+        const res = await axios.get('/api/v1/questions/options?limit=100');
 
-    dispatch({
-        type: LOAD_QUIZZES,
-        payload: res.data
-    });
+        console.log(res);
+        dispatch({
+            type: LOAD_QUIZZES,
+            payload: res.data
+        });
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 export const createQuizzes = quizzes => async dispatch => {
@@ -74,4 +79,6 @@ export const addOption = (questionId, option) => async dispatch => {
         type: ADD_OPTION,
         payload: res.data
     });
+
+    return res;
 };

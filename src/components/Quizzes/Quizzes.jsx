@@ -17,6 +17,7 @@ const Quizzes = ({
     isOpen
 }) => {
     const [questions, setQuestions] = useState([]);
+
     useEffect(() => {
         loadQuizzes();
     }, []);
@@ -46,12 +47,14 @@ const Quizzes = ({
         deleteQuestion(index);
     };
 
+    console.log(questions);
+
     const template = questions.length ? (
         <Col span={24}>
             {questions.map((quiz, index) => (
                 <Quiz
                     quiz={quiz}
-                    key={index}
+                    key={quiz.question_id}
                     quizIndex={index}
                     handleChange={handleChange}
                     handleDelete={handleDelete}

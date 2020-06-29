@@ -3,21 +3,13 @@ import { Col, Row, Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import AddOptionButton from '../AdminPanel/AddOptionButton';
 
-const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
-    const [options, setOptions] = useState([]);
-
-    useEffect(() => {
-        setOptions(quiz.options);
-    }, []);
-
-    const handleAddOption = () => {
-        console.log(options);
-        const option_id = options[options.length - 1].option_id + 1;
-        const newOptions = [...options, { option_id, option_content: '' }];
-
-        // TODO: Request for adding new option to DB
-        setOptions(newOptions);
-    };
+const Quiz = ({
+    quiz,
+    quiz: { options },
+    quizIndex,
+    handleChange,
+    handleDelete
+}) => {
     return (
         <Row
             type='flex'
@@ -36,6 +28,7 @@ const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
                     rows={3}
                     value={quiz.question_content}
                     onChange={e => handleChange(e, quizIndex, true, null)}
+                    // onBlur={() => alert('asdas')}
                 />
             </Col>
             {options.map((option, index) => (
@@ -49,7 +42,7 @@ const Quiz = ({ quiz, quizIndex, handleChange, handleDelete }) => {
                 </Col>
             ))}
             <Col span={24} style={{ marginBottom: '5px' }}>
-                <AddOptionButton handleClick={handleAddOption} />
+                <AddOptionButton questionId={quiz.question_id} />
             </Col>
             <Col span={24}>
                 <Button

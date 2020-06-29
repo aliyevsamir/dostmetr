@@ -5,7 +5,6 @@ import deleteIcon from '../../../utils/remove.png';
 import { createQuizzes } from '../../../redux/actions/quizzes';
 import { connect } from 'react-redux';
 import TextArea from 'antd/lib/input/TextArea';
-import '../../../utils/flexbox.scss';
 
 const CreateQuiz = ({ createQuizzes }) => {
     const [visible, setVisible] = useState(false);

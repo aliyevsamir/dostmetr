@@ -6,7 +6,6 @@ import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useState } from 'react';
 import ShareButtons from '../utils/Share Buttons/ShareButtons';
-import '../../utils/flexbox.scss';
 import { blue } from '@ant-design/colors';
 import { Typography } from 'antd';
 const { Title, Text } = Typography;
@@ -32,18 +31,13 @@ const Profile = ({ user }) => {
                         borderRadius: '10px'
                     }}
                 >
-                    <Title
-                        level={3}
-                        style={{ marginBottom: 0, color: '#fff' }}
-                        className='myFlex'
-                    >
+                    <Title level={3} style={{ marginBottom: 0, color: '#fff' }}>
                         {user.is_admin
                             ? `${user.first_name} ${user.last_name}`
                             : user.name}
                     </Title>
 
                     <Text
-                        className='myFlex'
                         style={{
                             color: '#fff'
                         }}
@@ -73,7 +67,6 @@ const Profile = ({ user }) => {
                             md={18}
                             lg={18}
                             xl={16}
-                            className='myFlex'
                             style={{ marginBottom: '10px' }}
                         >
                             <Title level={3}>
@@ -87,7 +80,6 @@ const Profile = ({ user }) => {
                             lg={18}
                             xl={16}
                             style={{ marginBottom: '10px' }}
-                            className='myFlex'
                         >
                             {!isCopied ? (
                                 <CopyToClipboard
@@ -114,14 +106,7 @@ const Profile = ({ user }) => {
                                 və ya birbaşa aşağıdakı butonlar ilə paylaş
                             </Text>
                         </Divider>
-                        <Col
-                            xs={8}
-                            sm={8}
-                            md={8}
-                            lg={8}
-                            xl={8}
-                            className='myFlex'
-                        >
+                        <Col xs={8} sm={8} md={8} lg={8} xl={8}>
                             <ShareButtons />
                         </Col>
                     </Row>

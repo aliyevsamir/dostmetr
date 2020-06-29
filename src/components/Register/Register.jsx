@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { register } from '../../redux/actions/auth';
 import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
+import { useEffect } from 'react';
 
-const Register = ({ register, history }) => {
+const Register = ({ auth: { isAuthenticated }, register, history }) => {
+    useEffect(() => {
+        if (isAuthenticated) history.push('/make-quiz');
+    }, [isAuthenticated]);
+
     const onFinish = userData => {
         register(userData);
-        history.push('/make-quiz');
     };
 
     const [form] = Form.useForm();
@@ -52,5 +56,8 @@ const Register = ({ register, history }) => {
         </Row>
     );
 };
+const mapStateToProps = ({ auth }) => ({
+    auth
+});
 
-export default connect(null, { register })(withRouter(Register));
+export default connect(mapStateToProps, { register })(withRouter(Register));

@@ -4,25 +4,25 @@ import { connect } from 'react-redux';
 import { registerAdmin } from '../../redux/actions/auth';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import isEmpty from '../../utils/isEmpty';
 
 const AdminRegister = ({ isOpen, setIsOpen, registerAdmin, errors }) => {
     const [form] = Form.useForm();
-    const [firstRender, setFirstRender] = useState(true);
 
     useEffect(() => {
-        if (!firstRender) {
-            if (errors) {
-                message.error(`Something went wrong ! ${errors.message}`);
+        if (!isEmpty(errors.errors)) {
+            console.log(errors);
+            if (errors.errors.status === 'fail') {
+                const { message: errorMessage } = errors.errors.error;
+                message.error(errorMessage);
             } else {
                 message.success('New admin added');
                 setIsOpen(false);
             }
-        } else {
-            setFirstRender(false);
         }
     }, [errors]);
 
-    const handleFinish = values => {
+    const handleFinish = async values => {
         registerAdmin(values);
     };
 

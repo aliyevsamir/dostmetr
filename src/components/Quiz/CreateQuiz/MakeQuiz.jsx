@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row } from 'antd';
+import { Row, message } from 'antd';
 import QuizTemplate from '../QuizTemplates/QuizTemplate';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
@@ -63,7 +63,7 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
                     quizzes = newQuestions;
                 } else {
-                    alert('You have already answered all questions');
+                    message.warning('You have already answered all questions');
                 }
             } else {
                 // last question
@@ -83,11 +83,11 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
                     quizzes = newQuestions;
                 } else {
-                    alert('You have already answered all questions');
+                    message.warning('You have already answered all questions');
                 }
             }
         } else {
-            alert('You can not leave blank answer');
+            message.error('You can not leave blank answer');
         }
     };
 

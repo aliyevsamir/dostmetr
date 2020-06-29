@@ -4,7 +4,6 @@ import {
     AUTH_ERROR,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAIL,
-    REGISTER_ADMIN_FAIL,
     LOGIN_ADMIN,
     LOGOUT_ADMIN,
     SET_ERRORS,
@@ -62,17 +61,23 @@ export const adminLogin = loginData => async dispatch => {
 
 export const registerAdmin = registerData => async dispatch => {
     try {
-        await axios.post('api/v1/users/register/admin', registerData);
+        const res = await axios.post(
+            'api/v1/users/register/admin',
+            registerData
+        );
 
         dispatch({
             type: CLEAR_ERRORS,
-            payload: null
+            payload: {}
         });
+
+        return res.data;
     } catch (err) {
         dispatch({
             type: SET_ERRORS,
             payload: err
         });
+        return err.response.data;
     }
 };
 
