@@ -38,7 +38,6 @@ export const register = userData => async dispatch => {
             payload: res.data
         });
     } catch (err) {
-        console.log(err);
         dispatch({
             type: REGISTER_USER_FAIL
         });
@@ -47,8 +46,6 @@ export const register = userData => async dispatch => {
 
 export const adminLogin = loginData => async dispatch => {
     const res = await axios.post('/api/v1/users/login/admin', loginData);
-
-    console.log(res);
 
     const { token } = res.data.data;
     setAuthToken(token);

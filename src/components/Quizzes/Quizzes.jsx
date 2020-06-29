@@ -7,7 +7,8 @@ import {
     updateQuestion,
     loadQuizzes,
     deleteQuestion,
-    updateOption
+    updateOption,
+    deleteOption
 } from '../../redux/actions/quizzes';
 
 const Quizzes = ({
@@ -16,6 +17,7 @@ const Quizzes = ({
     updateQuestion,
     updateOption,
     deleteQuestion,
+    deleteOption,
     isOpen
 }) => {
     const [questions, setQuestions] = useState([]);
@@ -50,11 +52,14 @@ const Quizzes = ({
         }
     };
 
-    const handleDelete = index => {
-        deleteQuestion(index);
+    const handleDelete = questionId => {
+        deleteQuestion(questionId);
     };
 
-    console.log(questions);
+    const handleDeleteOption = async optionId => {
+        await deleteOption(optionId);
+        loadQuizzes();
+    };
 
     const template = questions.length ? (
         <Col span={24}>
@@ -65,6 +70,7 @@ const Quizzes = ({
                     quizIndex={index}
                     handleChange={handleChange}
                     handleDelete={handleDelete}
+                    handleDeleteOption={handleDeleteOption}
                 />
             ))}
         </Col>
@@ -88,5 +94,6 @@ export default connect(mapStateToProps, {
     loadQuizzes,
     updateQuestion,
     updateOption,
-    deleteQuestion
+    deleteQuestion,
+    deleteOption
 })(Quizzes);

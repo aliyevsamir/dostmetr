@@ -15,6 +15,7 @@ const AddOptionButton = ({ questionId, loadQuizzes, addOption }) => {
     };
 
     const onOk = async () => {
+        setOption({ option_content: '' });
         setVisible(false);
         await addOption(questionId, option);
         loadQuizzes();

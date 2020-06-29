@@ -8,7 +8,8 @@ const Quiz = ({
     quiz: { options },
     quizIndex,
     handleChange,
-    handleDelete
+    handleDelete,
+    handleDeleteOption
 }) => {
     return (
         <Row
@@ -28,19 +29,39 @@ const Quiz = ({
                     rows={3}
                     value={quiz.question_content}
                     onChange={e => handleChange(e, quizIndex, true, null)}
-                    onBlur={() => alert('asdas')}
                 />
             </Col>
-            {options.map((option, index) => (
-                <Col span={24} style={{ marginBottom: '10px' }} key={index}>
-                    <TextArea
-                        style={{ minWidth: '100%', fontWeight: '500' }}
-                        rows={1}
-                        value={option.option_content}
-                        onChange={e => handleChange(e, quizIndex, false, index)}
-                    />
-                </Col>
-            ))}
+            <Col span={24}>
+                {options.map((option, index) => (
+                    <Row type='flex' gutter={4}>
+                        <Col
+                            span={21}
+                            style={{ marginBottom: '10px' }}
+                            key={index}
+                        >
+                            <TextArea
+                                style={{ minWidth: '100%', fontWeight: '500' }}
+                                rows={1}
+                                value={option.option_content}
+                                onChange={e =>
+                                    handleChange(e, quizIndex, false, index)
+                                }
+                            />
+                        </Col>
+                        <Col span={3}>
+                            <Button
+                                type='danger'
+                                style={{ minWidth: '100%', cursor: 'pointer' }}
+                                onClick={() =>
+                                    handleDeleteOption(option.option_id)
+                                }
+                            >
+                                Sil
+                            </Button>
+                        </Col>
+                    </Row>
+                ))}
+            </Col>
             <Col span={24} style={{ marginBottom: '5px' }}>
                 <AddOptionButton questionId={quiz.question_id} />
             </Col>

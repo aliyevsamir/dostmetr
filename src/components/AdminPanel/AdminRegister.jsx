@@ -11,7 +11,6 @@ const AdminRegister = ({ isOpen, setIsOpen, registerAdmin, errors }) => {
 
     useEffect(() => {
         if (!isEmpty(errors.errors)) {
-            console.log(errors);
             if (errors.errors.status === 'fail') {
                 const { message: errorMessage } = errors.errors.error;
                 message.error(errorMessage);

@@ -14,6 +14,7 @@ export const loadQuizzes = () => async dispatch => {
         const res = await axios.get('/api/v1/questions/options?limit=100');
 
         console.log(res);
+
         dispatch({
             type: LOAD_QUIZZES,
             payload: res.data
