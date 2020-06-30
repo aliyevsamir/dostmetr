@@ -1,11 +1,9 @@
 import React from 'react';
-import Register from '../Register/Register';
 import { connect } from 'react-redux';
 import Loading from '../../utils/Loading';
 import { Redirect } from 'react-router-dom';
-import { useEffect } from 'react';
 
-const HomePage = ({ auth: { isAuthenticated, loading } }) => {
+const HomePage = ({ isAuthenticated, loading }) => {
     return loading ? (
         <Loading />
     ) : !isAuthenticated ? (
@@ -15,8 +13,9 @@ const HomePage = ({ auth: { isAuthenticated, loading } }) => {
     );
 };
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ auth: { isAuthenticated, loading } }) => ({
+    isAuthenticated,
+    loading
 });
 
 export default connect(mapStateToProps, null)(HomePage);

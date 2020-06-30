@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Divider } from 'antd';
+import { Row, Col, Button, Divider, message } from 'antd';
 import Loading from '../../utils/Loading';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -31,21 +31,36 @@ const Profile = ({ user }) => {
                         borderRadius: '10px'
                     }}
                 >
-                    <Title level={3} style={{ marginBottom: 0, color: '#fff' }}>
-                        {user.is_admin
-                            ? `${user.first_name} ${user.last_name}`
-                            : user.name}
-                    </Title>
-
-                    <Text
-                        style={{
-                            color: '#fff'
-                        }}
-                    >
-                        {moment(user.created_at, 'YYYYMMDD').fromNow()}{' '}
-                        qeydiyyatdan keçdiniz. Quizinizi dostlarınızla aşağıdakı
-                        linkdən paylaşın 😊
-                    </Text>
+                    <Row type='flex' justify='center'>
+                        <Col span={24}>
+                            <Title
+                                level={3}
+                                style={{
+                                    marginBottom: 0,
+                                    color: '#fff',
+                                    textAlign: 'center '
+                                }}
+                            >
+                                {user.is_admin
+                                    ? `${user.first_name} ${user.last_name}`
+                                    : user.name}
+                            </Title>
+                        </Col>
+                        <Col span={24}>
+                            <Text
+                                style={{
+                                    color: '#fff',
+                                    width: '100%',
+                                    display: 'inline-block',
+                                    textAlign: 'center '
+                                }}
+                            >
+                                {moment(user.created_at, 'YYYYMMDD').fromNow()}{' '}
+                                qeydiyyatdan keçdiniz. Quizinizi dostlarınızla
+                                aşağıdakı linkdən paylaşın 😊
+                            </Text>
+                        </Col>
+                    </Row>
                 </Col>
                 <Col
                     xs={20}
@@ -69,19 +84,19 @@ const Profile = ({ user }) => {
                             xl={16}
                             style={{ marginBottom: '10px' }}
                         >
-                            <Title level={3}>
+                            <Title level={3} style={{ textAlign: 'center' }}>
                                 Dostlarını hazırladığın quizə dəvət et!
                             </Title>
                         </Col>
-                        <Col
-                            xs={20}
-                            sm={18}
-                            md={18}
-                            lg={18}
-                            xl={16}
-                            style={{ marginBottom: '10px' }}
-                        >
-                            {!isCopied ? (
+                        {!isCopied ? (
+                            <Col
+                                xs={18}
+                                sm={16}
+                                md={14}
+                                lg={14}
+                                xl={12}
+                                style={{ marginBottom: '10px' }}
+                            >
                                 <CopyToClipboard
                                     text='www.quizmaker.com/user1/quiz'
                                     onCopy={() => setIsCopied(true)}
@@ -89,24 +104,39 @@ const Profile = ({ user }) => {
                                     <Button
                                         type='primary'
                                         style={{
-                                            width: '70%',
-                                            marginBottom: '-5px'
+                                            width: '100%',
+                                            marginBottom: '-5px',
+                                            textAlign: 'center'
                                         }}
                                     >
                                         Linki kopyala
                                     </Button>
                                 </CopyToClipboard>
-                            ) : (
-                                <Button disabled>Linki kopyalandı</Button>
-                            )}
-                        </Col>
-                        <Col xs={20} sm={18} md={18} lg={18} xl={16}></Col>
-                        <Divider>
-                            <Text>
+                            </Col>
+                        ) : (
+                            message.success('Link kopyalandı')
+                        )}
+                        <Col span={24}>
+                            <Text
+                                level={2}
+                                style={{
+                                    textAlign: 'center',
+                                    display: 'inline-block',
+                                    width: '100%',
+                                    marginBottom: '10px'
+                                }}
+                            >
                                 və ya birbaşa aşağıdakı butonlar ilə paylaş
                             </Text>
-                        </Divider>
-                        <Col xs={8} sm={8} md={8} lg={8} xl={8}>
+                        </Col>
+                        <Col
+                            xs={8}
+                            sm={8}
+                            md={8}
+                            lg={8}
+                            xl={8}
+                            style={{ textAlign: 'center' }}
+                        >
                             <ShareButtons />
                         </Col>
                     </Row>

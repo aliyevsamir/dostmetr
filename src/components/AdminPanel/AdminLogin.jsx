@@ -1,12 +1,21 @@
 import React from 'react';
-import { Form, Input, Button, Row, Col } from 'antd';
+import { Form, Input, Button, Row, Col, message } from 'antd';
 import { connect } from 'react-redux';
 import { adminLogin } from '../../redux/actions/auth';
+import { useEffect } from 'react';
+import isEmpty from '../../utils/isEmpty';
 
-const AdminLogin = ({ adminLogin }) => {
+const AdminLogin = ({ adminLogin, errors }) => {
     const handleFinish = values => {
         adminLogin(values);
     };
+
+    useEffect(() => {
+        if (!isEmpty(errors)) {
+            if (errors.type === 'notification')
+                message.error(errors.errors.error.message);
+        }
+    }, [errors]);
 
     return (
         <Row
@@ -31,6 +40,7 @@ const AdminLogin = ({ adminLogin }) => {
                     <Form.Item
                         label='İstifadəçi adı'
                         name='username'
+                        htmlFor='username'
                         rules={[
                             {
                                 required: true,
@@ -39,11 +49,12 @@ const AdminLogin = ({ adminLogin }) => {
                         ]}
                         style={{ marginBottom: '5px' }}
                     >
-                        <Input />
+                        <Input id='username' />
                     </Form.Item>
 
                     <Form.Item
                         label='Şifrə'
+                        htmlFor='password'
                         name='password'
                         rules={[
                             {
@@ -55,7 +66,7 @@ const AdminLogin = ({ adminLogin }) => {
                             marginBottom: '10px'
                         }}
                     >
-                        <Input.Password />
+                        <Input.Password id='password' />
                     </Form.Item>
 
                     <Form.Item>
@@ -73,4 +84,8 @@ const AdminLogin = ({ adminLogin }) => {
     );
 };
 
-export default connect(null, { adminLogin })(AdminLogin);
+const mapStateToProps = ({ errors }) => ({
+    errors
+});
+
+export default connect(mapStateToProps, { adminLogin })(AdminLogin);

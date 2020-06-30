@@ -45,15 +45,22 @@ export const register = userData => async dispatch => {
 };
 
 export const adminLogin = loginData => async dispatch => {
-    const res = await axios.post('/api/v1/users/login/admin', loginData);
+    try {
+        const res = await axios.post('/api/v1/users/login/admin', loginData);
 
-    const { token } = res.data.data;
-    setAuthToken(token);
+        const { token } = res.data.data;
+        setAuthToken(token);
 
-    dispatch({
-        type: LOGIN_ADMIN,
-        payload: res.data
-    });
+        dispatch({
+            type: LOGIN_ADMIN,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: SET_ERRORS,
+            payload: err
+        });
+    }
 };
 
 export const registerAdmin = registerData => async dispatch => {
