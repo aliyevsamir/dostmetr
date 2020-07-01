@@ -8,6 +8,7 @@ import AdminPanel from '../AdminPanel/AdminPanel';
 import HomePage from '../HomePage/HomePage';
 import Error404 from '../utils/404/Error404';
 import Register from '../Register/Register';
+import MyQuiz from '../MyQuiz/MyQuiz';
 
 const Routes = () => {
     return (
@@ -15,6 +16,7 @@ const Routes = () => {
             <Route exact path='/' component={HomePage} />
             <Route exact path='/register' component={Register} />
             <PrivateRoute exact path='/make-quiz' component={MakeQuiz} />
+            <PrivateRoute exact path='/my-quiz' component={MyQuiz} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <AdminRoute exact path='/admin' component={AdminPanel} />
             <Route component={Error404} />

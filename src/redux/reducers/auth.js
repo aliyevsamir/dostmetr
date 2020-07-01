@@ -3,14 +3,16 @@ import {
     REGISTER_USER_SUCCESS,
     AUTH_ERROR,
     LOGIN_ADMIN,
-    LOGOUT_ADMIN
+    LOGOUT_ADMIN,
+    GET_MY_QUIZ
 } from '../types';
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
-    user: null
+    user: null,
+    userQuiz: []
 };
 
 export default function(state = initialState, { type, payload }) {
@@ -28,7 +30,8 @@ export default function(state = initialState, { type, payload }) {
                 ...state,
                 isAuthenticated: false,
                 loading: false,
-                user: null
+                user: null,
+                userQuiz: []
             };
 
         case REGISTER_USER_SUCCESS:
@@ -54,7 +57,14 @@ export default function(state = initialState, { type, payload }) {
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                user: null
+                user: null,
+                userQuiz: []
+            };
+
+        case GET_MY_QUIZ:
+            return {
+                ...state,
+                userQuiz: payload.data
             };
 
         default:

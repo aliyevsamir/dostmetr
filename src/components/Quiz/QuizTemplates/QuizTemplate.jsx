@@ -13,7 +13,8 @@ const QuizTemplate = ({
     nextQuestion,
     selectedAnswers,
     optionValue,
-    handleOptionChange
+    handleOptionChange,
+    handleFinishQuiz
 }) => {
     return (
         <Col
@@ -36,7 +37,9 @@ const QuizTemplate = ({
                 <Button onClick={skipQuestion}>Keç</Button>
                 <Button onClick={nextQuestion}>Növbəti</Button>
                 {selectedAnswers >= 10 && (
-                    <Button type='primary'>Quizi tamamla</Button>
+                    <Button type='primary' onClick={handleFinishQuiz}>
+                        Quizi tamamla
+                    </Button>
                 )}
             </div>
         </Col>

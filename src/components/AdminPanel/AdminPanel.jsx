@@ -68,7 +68,7 @@ const AdminPanel = ({ user }) => {
                             align='middle'
                             gutter={4}
                         >
-                            <Col span={8}>
+                            <Col span={9}>
                                 <Button
                                     type='primary'
                                     style={{ minWidth: '100%' }}
@@ -77,10 +77,10 @@ const AdminPanel = ({ user }) => {
                                     Admin əlavə et
                                 </Button>
                             </Col>
-                            <Col span={8}>
+                            <Col span={9}>
                                 <CreateQuiz />
                             </Col>
-                            <Col span={8}>
+                            <Col span={6}>
                                 <LogoutButton />
                             </Col>
                         </Row>

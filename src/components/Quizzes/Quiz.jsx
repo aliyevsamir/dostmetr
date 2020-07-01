@@ -20,7 +20,7 @@ const Quiz = ({
                 boxShadow: '3px 3px 3px rgba(0,0,0,.3)',
                 padding: '20px 15px',
                 margin: '15px 0',
-                backgroundColor: '#005bea'
+                backgroundColor: '#33006F'
             }}
         >
             <Col span={24} style={{ marginBottom: '20px' }}>
@@ -33,12 +33,8 @@ const Quiz = ({
             </Col>
             <Col span={24}>
                 {options.map((option, index) => (
-                    <Row type='flex' gutter={4}>
-                        <Col
-                            span={21}
-                            style={{ marginBottom: '10px' }}
-                            key={index}
-                        >
+                    <Row type='flex' gutter={4} key={index}>
+                        <Col span={21} style={{ marginBottom: '10px' }}>
                             <TextArea
                                 style={{ minWidth: '100%', fontWeight: '500' }}
                                 rows={1}

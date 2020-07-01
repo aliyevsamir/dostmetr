@@ -3,11 +3,22 @@ import { Row, message } from 'antd';
 import QuizTemplate from '../QuizTemplates/QuizTemplate';
 import { connect } from 'react-redux';
 import { useEffect } from 'react';
-import { loadQuizzes } from '../../../redux/actions/quizzes';
+import {
+    loadQuizzes,
+    createQuiz,
+    getMyQuiz
+} from '../../../redux/actions/quizzes';
 import Loading from '../../../utils/Loading';
+import { withRouter, Redirect } from 'react-router-dom';
 
-const MakeQuiz = ({ quizzes, loadQuizzes }) => {
-    console.log('hey I am in charge');
+const MakeQuiz = ({
+    quizzes,
+    loadQuizzes,
+    createQuiz,
+    getMyQuiz,
+    userQuiz,
+    history
+}) => {
     const [state, setState] = useState({
         currentQuestionID: 0,
         selectedAnswers: 0
@@ -17,12 +28,27 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
 
     useEffect(() => {
         loadQuizzes();
+        getMyQuiz();
     }, []);
+
+    useEffect(() => {
+        if (userQuiz.length) history.push('/profile');
+    }, [userQuiz]);
 
     const [optionValue, setOptionValue] = useState(null);
 
     const handleOptionChange = e => {
         setOptionValue(e.target.value);
+    };
+
+    const handleFinishQuiz = async () => {
+        const quizChoices = {
+            quizChoices: {
+                ...quizSubmissions
+            }
+        };
+        await createQuiz(quizChoices);
+        history.push('/my-quiz');
     };
 
     const nextQuestion = () => {
@@ -149,14 +175,16 @@ const MakeQuiz = ({ quizzes, loadQuizzes }) => {
                 selectedAnswers={selectedAnswers}
                 handleOptionChange={handleOptionChange}
                 optionValue={optionValue}
+                handleFinishQuiz={handleFinishQuiz}
             />
         </Row>
     );
 };
 
 export default connect(
-    ({ quizzes }) => ({
-        quizzes
+    ({ quizzes, auth: { userQuiz } }) => ({
+        quizzes,
+        userQuiz
     }),
-    { loadQuizzes }
-)(MakeQuiz);
+    { loadQuizzes, createQuiz, getMyQuiz }
+)(withRouter(MakeQuiz));

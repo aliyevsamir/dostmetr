@@ -6,7 +6,9 @@ import {
     DELETE_QUESTION,
     UPDATE_OPTION,
     DELETE_OPTION,
-    ADD_OPTION
+    ADD_OPTION,
+    CREATE_CHOICES,
+    GET_MY_QUIZ
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
@@ -14,7 +16,6 @@ export const loadQuizzes = () => async dispatch => {
         const res = await axios.get('/api/v1/questions/options?limit=100');
 
         console.log(res);
-
         dispatch({
             type: LOAD_QUIZZES,
             payload: res.data
@@ -82,4 +83,32 @@ export const addOption = (questionId, option) => async dispatch => {
     });
 
     return res;
+};
+
+export const createQuiz = quizChoices => async dispatch => {
+    try {
+        const res = await axios.post('/api/v1/quizzes', quizChoices);
+
+        console.log(res);
+
+        dispatch({
+            type: CREATE_CHOICES,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(err.response.message);
+    }
+};
+
+export const getMyQuiz = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/v1/quizzes/my_quiz');
+
+        dispatch({
+            type: GET_MY_QUIZ,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(err.response);
+    }
 };

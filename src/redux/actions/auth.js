@@ -52,6 +52,11 @@ export const adminLogin = loginData => async dispatch => {
         setAuthToken(token);
 
         dispatch({
+            type: CLEAR_ERRORS,
+            payload: {}
+        });
+
+        dispatch({
             type: LOGIN_ADMIN,
             payload: res.data
         });
