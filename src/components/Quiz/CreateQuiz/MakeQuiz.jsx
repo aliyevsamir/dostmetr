@@ -48,7 +48,7 @@ const MakeQuiz = ({
             }
         };
         await createQuiz(quizChoices);
-        history.push('/my-quiz');
+        history.push('/profile');
     };
 
     const nextQuestion = () => {
