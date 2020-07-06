@@ -64,20 +64,19 @@ const CreateQuiz = ({ createQuizzes }) => {
                     required
                 />
                 <div className='options'>
-                    {options.map((option, index) => (
+                    {options.map(({ option_id, option_content }, index) => (
                         <div
                             className='option myFlex'
-                            key={index}
+                            key={option_id}
                             style={{ alignItems: 'center' }}
                         >
                             <TextArea
                                 rows={1}
                                 placeholder='Cavabı yazın'
-                                value={option.option_content}
+                                value={option_content}
                                 style={{
                                     marginBottom: '10px'
                                 }}
-                                key={index}
                                 onChange={e => {
                                     let newOptions = [...options];
                                     newOptions[index].option_content =

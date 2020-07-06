@@ -32,13 +32,13 @@ const Quiz = ({
                 />
             </Col>
             <Col span={24}>
-                {options.map((option, index) => (
-                    <Row type='flex' gutter={4} key={index}>
+                {options.map(({ option_id, option_content }, index) => (
+                    <Row type='flex' gutter={4} key={option_id}>
                         <Col span={21} style={{ marginBottom: '10px' }}>
                             <TextArea
                                 style={{ minWidth: '100%', fontWeight: '500' }}
                                 rows={1}
-                                value={option.option_content}
+                                value={option_content}
                                 onChange={e =>
                                     handleChange(e, quizIndex, false, index)
                                 }
@@ -48,9 +48,7 @@ const Quiz = ({
                             <Button
                                 type='danger'
                                 style={{ minWidth: '100%', cursor: 'pointer' }}
-                                onClick={() =>
-                                    handleDeleteOption(option.option_id)
-                                }
+                                onClick={() => handleDeleteOption(option_id)}
                             >
                                 Sil
                             </Button>

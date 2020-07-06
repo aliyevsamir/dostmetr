@@ -12,9 +12,11 @@ const QuizTemplate = ({
     skipQuestion,
     nextQuestion,
     selectedAnswers,
+    quizLength,
     optionValue,
     handleOptionChange,
-    handleFinishQuiz
+    handleFinishMakeQuiz,
+    mode
 }) => {
     return (
         <Col
@@ -25,22 +27,52 @@ const QuizTemplate = ({
             xl={10}
             className='quiz-container--subcontainer'
         >
+            <span
+                style={{
+                    color: '#fff',
+                    fontSize: '18px',
+                    fontFamily: 'Bangers, cursive'
+                }}
+            >
+                {selectedAnswers} / {quizLength}
+            </span>
             <Text className='id'>Sual {currentQuestionID + 1}</Text>
             <Question question={question_content} />
             <Radio.Group onChange={handleOptionChange} value={optionValue}>
-                {options.map((option, index) => (
-                    <Answer option={option} key={index} />
+                {options.map(option => (
+                    <Answer option={option} key={option.option_id} />
                 ))}
             </Radio.Group>
 
             <div className='action-buttons'>
-                <Button onClick={skipQuestion}>Keç</Button>
-                <Button onClick={nextQuestion}>Növbəti</Button>
-                {selectedAnswers >= 10 && (
-                    <Button type='primary' onClick={handleFinishQuiz}>
+                <Button
+                    onClick={skipQuestion}
+                    className='action-buttons--button'
+                >
+                    Keç
+                </Button>
+                {selectedAnswers === quizLength - 1 ? (
+                    <Button
+                        type='primary'
+                        onClick={handleFinishMakeQuiz}
+                        action-buttons--button
+                    >
                         Quizi tamamla
                     </Button>
+                ) : (
+                    <Button onClick={nextQuestion} action-buttons--button>
+                        Cavabla
+                    </Button>
                 )}
+                {mode === 'make' && selectedAnswers >= 10 ? (
+                    <Button
+                        type='primary'
+                        onClick={handleFinishMakeQuiz}
+                        action-buttons--button
+                    >
+                        Quizi tamamla
+                    </Button>
+                ) : null}
             </div>
         </Col>
     );

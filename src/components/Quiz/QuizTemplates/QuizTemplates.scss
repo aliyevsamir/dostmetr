@@ -5,6 +5,7 @@
     box-shadow: 2px 3px 4px rgba($color: #000000, $alpha: 0.5);
     position: relative;
     min-height: 60vh;
+
     .id {
         color: #fff;
         text-align: center;
@@ -29,13 +30,13 @@
         display: block;
         width: 100%;
     }
-    .my-button {
-        width: 100%;
-        margin-bottom: auto !important;
-        position: absolute;
-        bottom: 30px;
-    }
-    .my-button:not(:last-child) {
-        margin-bottom: 10px;
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        &--button:not(:last-child) {
+            width: 100%;
+            margin-bottom: 10px;
+        }
     }
 }

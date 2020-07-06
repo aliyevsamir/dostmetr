@@ -15,7 +15,6 @@ export const loadQuizzes = () => async dispatch => {
     try {
         const res = await axios.get('/api/v1/questions/options?limit=100');
 
-        console.log(res);
         dispatch({
             type: LOAD_QUIZZES,
             payload: res.data
@@ -88,8 +87,6 @@ export const addOption = (questionId, option) => async dispatch => {
 export const createQuiz = quizChoices => async dispatch => {
     try {
         const res = await axios.post('/api/v1/quizzes', quizChoices);
-
-        console.log(res);
 
         dispatch({
             type: CREATE_CHOICES,
