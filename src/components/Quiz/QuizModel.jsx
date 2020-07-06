@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Row, message } from 'antd';
 import QuizTemplate from './QuizTemplates/QuizTemplate';
 import Loading from '../../utils/Loading';
 import { withRouter } from 'react-router-dom';
+import { createQuiz } from '../../redux/actions/quizzes';
 
 const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
     const [optionValue, setOptionValue] = useState(null);
@@ -191,4 +193,8 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
     );
 };
 
-export default withRouter(QuizModel);
+const mapDispatchToProps = {
+    createQuiz
+};
+
+export default connect(null, mapDispatchToProps)(withRouter(QuizModel));
