@@ -31,12 +31,13 @@ const QuizTemplate = ({
                 style={{
                     color: '#fff',
                     fontSize: '18px',
-                    fontFamily: 'Bangers, cursive'
+                    fontFamily: 'Bangers, cursive',
+                    marginBottom: '15px',
+                    display: 'inline-block'
                 }}
             >
                 {selectedAnswers} / {quizLength}
             </span>
-            <Text className='id'>Sual {currentQuestionID + 1}</Text>
             <Question question={question_content} />
             <Radio.Group onChange={handleOptionChange} value={optionValue}>
                 {options.map(option => (

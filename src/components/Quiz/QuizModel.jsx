@@ -19,6 +19,17 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
         setOptionValue(e.target.value);
     };
 
+    const newQuizSubmissions = () => {
+        const newQuizSubmissions = { ...quizSubmissions };
+
+        newQuizSubmissions[
+            quizzes[state.currentQuestionID].question_id
+        ] = optionValue;
+
+        setQuizSubmissions(newQuizSubmissions);
+        setOptionValue(null);
+    };
+
     const handleFinishMakeQuiz = async () => {
         if (mode === 'make') {
             const quizChoices = {
@@ -31,14 +42,7 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
             history.push('/profile');
         } else if (mode === 'take') {
             if (optionValue) {
-                const newQuizSubmissions = { ...quizSubmissions };
-
-                newQuizSubmissions[
-                    quizzes[currentQuestionID].question_id
-                ] = optionValue;
-
-                setQuizSubmissions(newQuizSubmissions);
-                setOptionValue(null);
+                newQuizSubmissions();
 
                 const quizChoices = {
                     quizChoices: {
@@ -47,21 +51,19 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
                 };
 
                 console.log(quizChoices);
-            } else message.error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
+                // TODO: send quizChoices to the server to make quiz submission
+
+                history.push('/profile');
+            } else {
+                message.error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
+            }
         }
     };
 
     const nextQuestion = () => {
         if (optionValue) {
             const { currentQuestionID } = state;
-            const newQuizSubmissions = { ...quizSubmissions };
-
-            newQuizSubmissions[
-                quizzes[currentQuestionID].question_id
-            ] = optionValue;
-
-            setQuizSubmissions(newQuizSubmissions);
-            setOptionValue(null);
+            newQuizSubmissions();
 
             const newQuestions = [...quizzes];
             newQuestions[currentQuestionID].selected = true;
