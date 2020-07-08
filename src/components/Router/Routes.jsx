@@ -16,8 +16,8 @@ const Routes = () => {
         <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/register' component={Register} />
+            <Route exact path='/quiz/:quizId' component={TakeQuiz} />
             <PrivateRoute exact path='/make-quiz' component={MakeQuiz} />
-            <PrivateRoute exact path='/quiz/:quizId' component={TakeQuiz} />
             <PrivateRoute exact path='/my-quiz' component={MyQuiz} />
             <PrivateRoute exact path='/profile' component={Profile} />
             <AdminRoute exact path='/admin' component={AdminPanel} />

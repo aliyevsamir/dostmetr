@@ -8,14 +8,13 @@ import Question from './QuestionTemplate/Question';
 
 const QuizTemplate = ({
     quiz: { question_content, options },
-    currentQuestionID,
     skipQuestion,
     nextQuestion,
     selectedAnswers,
     quizLength,
     optionValue,
     handleOptionChange,
-    handleFinishMakeQuiz,
+    handleFinishQuiz,
     mode
 }) => {
     return (
@@ -55,10 +54,10 @@ const QuizTemplate = ({
                 {selectedAnswers === quizLength - 1 ? (
                     <Button
                         type='primary'
-                        onClick={handleFinishMakeQuiz}
+                        onClick={handleFinishQuiz}
                         action-buttons--button
                     >
-                        Quizi tamamla
+                        Quizi tamamlaaa
                     </Button>
                 ) : (
                     <Button onClick={nextQuestion} action-buttons--button>
@@ -68,7 +67,7 @@ const QuizTemplate = ({
                 {mode === 'make' && selectedAnswers >= 10 ? (
                     <Button
                         type='primary'
-                        onClick={handleFinishMakeQuiz}
+                        onClick={handleFinishQuiz}
                         action-buttons--button
                     >
                         Quizi tamamla

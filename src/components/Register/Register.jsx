@@ -6,10 +6,14 @@ import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
 import { useEffect } from 'react';
 
-const Register = ({ register, history, isAuthenticated }) => {
+const Register = ({ register, history, isAuthenticated, mode = 'make' }) => {
     const onFinish = userData => {
-        register(userData);
-        history.push('/make-quiz');
+        if (mode == 'make') {
+            register(userData);
+            history.push('/make-quiz');
+        } else {
+            register(userData);
+        }
     };
 
     useEffect(() => {
@@ -30,6 +34,16 @@ const Register = ({ register, history, isAuthenticated }) => {
             }}
         >
             <Col xs={20} sm={16} md={12} lg={8} xl={6}>
+                <h3
+                    style={{
+                        marginBottom: '40px',
+                        fontFamily: 'Montserrat, sans-serif'
+                    }}
+                >
+                    {mode === 'make'
+                        ? 'Öz quizinizi yaratmaq üçün zəhmət olmasa qeydiyyatdan keçin'
+                        : 'Dostunuzun quizini həll etmək üçün zəhmət olmasa qeydiyyatdan keçin'}
+                </h3>
                 <Form onFinish={onFinish} form={form} layout='vertical'>
                     <Form.Item
                         name='name'
@@ -49,7 +63,7 @@ const Register = ({ register, history, isAuthenticated }) => {
                         style={{ width: '100%' }}
                     >
                         <Text style={{ color: '#fff', fontWeight: '600' }}>
-                            Öz quizini yarat
+                            {mode === 'make' ? 'Öz quizini yarat' : 'Qeydiyyat'}
                         </Text>
                     </Button>
                 </Form>

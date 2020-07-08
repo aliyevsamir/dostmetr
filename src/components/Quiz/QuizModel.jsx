@@ -30,7 +30,7 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
         setOptionValue(null);
     };
 
-    const handleFinishMakeQuiz = async () => {
+    const handleFinishQuiz = async () => {
         if (mode === 'make') {
             const quizChoices = {
                 quizChoices: {
@@ -188,7 +188,7 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
                 quizLength={quizzes.length}
                 handleOptionChange={handleOptionChange}
                 optionValue={optionValue}
-                handleFinishMakeQuiz={handleFinishMakeQuiz}
+                handleFinishQuiz={handleFinishQuiz}
                 mode={mode}
             />
         </Row>

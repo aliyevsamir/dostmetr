@@ -8,14 +8,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import QuizModel from '../QuizModel';
 
-const MakeQuiz = ({
-    quizzes,
-    loadQuizzes,
-    createQuiz,
-    getMyQuiz,
-    userQuiz,
-    history
-}) => {
+const MakeQuiz = ({ quizzes, loadQuizzes, getMyQuiz, userQuiz, history }) => {
     useEffect(() => {
         loadQuizzes();
         getMyQuiz();
