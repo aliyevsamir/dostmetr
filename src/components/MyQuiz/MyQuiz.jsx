@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { Row, Col, Menu } from 'antd';
 import Text from 'antd/lib/typography/Text';
 import { withRouter } from 'react-router-dom';
+import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 
 const MyQuiz = ({ getMyQuiz, userQuiz, history }) => {
     useEffect(() => {
@@ -41,56 +42,7 @@ const MyQuiz = ({ getMyQuiz, userQuiz, history }) => {
 
                 {userQuiz.length ? (
                     <Col span={24}>
-                        {userQuiz.map(quiz => (
-                            <Row
-                                key={quiz.question_id}
-                                style={{
-                                    borderRadius: '5px',
-                                    boxShadow: '3px 3px 3px rgba(0,0,0,.3)',
-                                    padding: '20px 15px',
-                                    margin: '15px 0',
-                                    backgroundColor: '#33006F'
-                                }}
-                            >
-                                <Col span={24}>
-                                    <Text
-                                        style={{
-                                            fontWeight: '600',
-                                            fontSize: '18px',
-                                            padding: '5px',
-                                            backgroundColor: '#fff',
-                                            minWidth: '100%',
-                                            display: 'inline-block',
-                                            borderRadius: '5px',
-                                            marginBottom: '10px',
-                                            minHeight: '65px'
-                                        }}
-                                    >
-                                        {quiz.question_content}
-                                    </Text>
-                                </Col>
-                                {quiz.options.map(option => (
-                                    <Col key={option.option_id} span={24}>
-                                        <Text
-                                            style={{
-                                                fontWeight: '500',
-                                                fontSize: '14px',
-                                                padding: '5px',
-                                                backgroundColor: option.selected
-                                                    ? '#0f0'
-                                                    : '#fff',
-                                                minWidth: '100%',
-                                                display: 'inline-block',
-                                                borderRadius: '5px',
-                                                marginBottom: '5px'
-                                            }}
-                                        >
-                                            {option.option_content}
-                                        </Text>
-                                    </Col>
-                                ))}
-                            </Row>
-                        ))}
+                        <QuizTemplate2 questions={userQuiz} />
                     </Col>
                 ) : (
                     <h1>Hələ quizi tamamlamamısınız !</h1>

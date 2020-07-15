@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import Quizzes from '../Quizzes/Quizzes';
-import { Col, Row, Button, Layout, Divider } from 'antd';
+import { Col, Row, Button, Divider } from 'antd';
 import { connect } from 'react-redux';
 import AdminLogin from './AdminLogin';
 import AdminRegister from './AdminRegister';
-import CreateQuiz from '../utils/Modal/CreateQuiz';
+import CreateQuiz from '../utils/CreateQuiz/CreateQuiz';
 import LogoutButton from './LogoutButton';
 import Text from 'antd/lib/typography/Text';
+import { Link } from 'react-router-dom';
 
 const AdminPanel = ({ user }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,20 +45,25 @@ const AdminPanel = ({ user }) => {
                                     <Col>
                                         <Text>{`${user.first_name} ${user.last_name}`}</Text>{' '}
                                     </Col>
-                                    <Col>
-                                        <span
-                                            style={{
-                                                fontSize: '16px',
-                                                padding: '5px',
-                                                backgroundColor:
-                                                    'rgba(0,0,0,0.3)',
-                                                borderRadius: '5px',
-                                                color: '#fff'
-                                            }}
-                                        >
-                                            {user.username}
-                                        </span>
-                                    </Col>
+                                    <Link to='/profile'>
+                                        <Col>
+                                            <span
+                                                style={{
+                                                    fontSize: '16px',
+                                                    padding: '5px',
+                                                    backgroundColor:
+                                                        'rgba(0,0,0,0.3)',
+                                                    borderRadius: '5px',
+                                                    color: '#fff',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center'
+                                                }}
+                                            >
+                                                {user.username}
+                                            </span>
+                                        </Col>
+                                    </Link>
                                 </Row>
                             </Col>
                         </Row>

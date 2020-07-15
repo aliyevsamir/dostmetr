@@ -1,7 +1,6 @@
 import React from 'react';
 import { Col, Radio, Button } from 'antd';
 import Answer from './AnswerTemplate/Answer';
-import Text from 'antd/lib/typography/Text';
 
 import './QuizTemplates.scss';
 import Question from './QuestionTemplate/Question';
@@ -21,20 +20,12 @@ const QuizTemplate = ({
         <Col
             xs={20}
             sm={16}
-            md={14}
-            lg={12}
-            xl={10}
+            md={12}
+            lg={8}
+            xl={8}
             className='quiz-container--subcontainer'
         >
-            <span
-                style={{
-                    color: '#fff',
-                    fontSize: '18px',
-                    fontFamily: 'Bangers, cursive',
-                    marginBottom: '15px',
-                    display: 'inline-block'
-                }}
-            >
+            <span className='countBox'>
                 {selectedAnswers} / {quizLength}
             </span>
             <Question question={question_content} />
@@ -51,28 +42,24 @@ const QuizTemplate = ({
                 >
                     Keç
                 </Button>
-                {selectedAnswers === quizLength - 1 ? (
+                {selectedAnswers === quizLength - 1 ||
+                (mode === 'make' && selectedAnswers >= 10) ? (
                     <Button
                         type='primary'
                         onClick={handleFinishQuiz}
                         action-buttons--button
                     >
-                        Quizi tamamlaaa
+                        Bitir
                     </Button>
                 ) : (
-                    <Button onClick={nextQuestion} action-buttons--button>
+                    <Button
+                        onClick={nextQuestion}
+                        type='primary'
+                        action-buttons--button
+                    >
                         Cavabla
                     </Button>
                 )}
-                {mode === 'make' && selectedAnswers >= 10 ? (
-                    <Button
-                        type='primary'
-                        onClick={handleFinishQuiz}
-                        action-buttons--button
-                    >
-                        Quizi tamamla
-                    </Button>
-                ) : null}
             </div>
         </Col>
     );

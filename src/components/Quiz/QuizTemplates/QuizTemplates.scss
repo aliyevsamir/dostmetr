@@ -1,25 +1,26 @@
 .quiz-container--subcontainer {
     background-color: #0062be;
-    padding: 25px 30px;
+    padding: 4rem 3rem;
     box-sizing: border-box;
     box-shadow: 2px 3px 4px rgba($color: #000000, $alpha: 0.5);
-    position: relative;
-    min-height: 60vh;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
 
-    .id {
+    .countBox {
         color: #fff;
+        font-size: 18px;
+        font-family: "Bangers", cursive;
+        margin-bottom: 15px;
+        display: inline-block;
+        width: 100%;
         text-align: center;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-        font-size: 20px;
-        font-weight: 600;
     }
 
     .question {
         font-size: 18px;
         font-weight: 500;
-        margin-bottom: 20px;
+        margin-bottom: 1.2rem;
     }
 
     .option {
@@ -31,9 +32,14 @@
         width: 100%;
     }
 
+    .ant-radio-group {
+        flex: auto;
+    }
+
     .action-buttons {
         display: flex;
         flex-direction: column;
+
         &--button:not(:last-child) {
             width: 100%;
             margin-bottom: 10px;

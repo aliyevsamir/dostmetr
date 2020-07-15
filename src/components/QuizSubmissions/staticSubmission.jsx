@@ -5,12 +5,13 @@ export default [
         options: [
             {
                 option_id: 101,
-                option_content: 'Cavab 1',
-                selected: true
+                option_content: 'Cavab 1'
             },
             {
                 option_id: 102,
-                option_content: 'Cavab 2'
+                option_content: 'Cavab 2',
+                correct: true,
+                selected: true
             }
         ],
         created_at: '2020-06-22T14:45:07.960Z',
@@ -26,12 +27,13 @@ export default [
             },
             {
                 option_id: 104,
-                option_content: 'Cavab 2',
-                selected: true
+                option_content: 'Cavab 2'
             },
             {
                 option_id: 105,
-                option_content: 'Cavab 3'
+                option_content: 'Cavab 3',
+                correct: true,
+                selected: true
             }
         ],
         created_at: '2020-06-22T14:45:19.199Z',
@@ -43,12 +45,13 @@ export default [
         options: [
             {
                 option_id: 106,
-                option_content: 'Cavab 1',
-                selected: true
+                option_content: 'Cavab 1'
             },
             {
                 option_id: 107,
-                option_content: 'Cavab 2'
+                option_content: 'Cavab 2',
+                correct: true,
+                selected: true
             }
         ],
         created_at: '2020-06-22T14:46:14.413Z',
@@ -65,6 +68,7 @@ export default [
             {
                 option_id: 125,
                 option_content: 'Cavab 2',
+                correct: true,
                 selected: true
             }
         ],
@@ -77,12 +81,13 @@ export default [
         options: [
             {
                 option_id: 109,
-                option_content: 'Cavab 1',
-                selected: true
+                option_content: 'Cavab 1'
             },
             {
                 option_id: 124,
-                option_content: 'Cavab 2'
+                option_content: 'Cavab 2',
+                correct: true,
+                selected: true
             }
         ],
         created_at: '2020-06-22T14:50:28.355Z',
@@ -94,12 +99,13 @@ export default [
         options: [
             {
                 option_id: 111,
-                option_content: 'Cavab 1'
+                option_content: 'Cavab 1',
+                selected: true
             },
             {
                 option_id: 112,
                 option_content: 'Cavab 2',
-                selected: true
+                correct: true
             }
         ],
         created_at: '2020-06-22T14:51:05.275Z',
@@ -112,6 +118,7 @@ export default [
             {
                 option_id: 113,
                 option_content: 'Cavab 1',
+                correct: true,
                 selected: true
             }
         ],
@@ -125,6 +132,7 @@ export default [
             {
                 option_id: 114,
                 option_content: 'Cavab 1',
+                correct: true,
                 selected: true
             }
         ],
@@ -138,6 +146,7 @@ export default [
             {
                 option_id: 115,
                 option_content: 'Cavab 1',
+                correct: true,
                 selected: true
             }
         ],
@@ -155,10 +164,25 @@ export default [
             {
                 option_id: 117,
                 option_content: 'Cavab 2',
+                correct: true,
                 selected: true
             }
         ],
         created_at: '2020-06-22T14:51:43.711Z',
         updated_at: '2020-06-22T14:51:43.711Z'
+    },
+    {
+        question_id: 34,
+        question_content: 'Sual 11',
+        options: [
+            {
+                option_id: 118,
+                option_content: 'Cavab 1',
+                correct: true,
+                selected: true
+            }
+        ],
+        created_at: '2020-06-22T14:51:52.901Z',
+        updated_at: '2020-06-22T14:51:52.901Z'
     }
 ];

@@ -4,56 +4,83 @@ import { Row, message } from 'antd';
 import QuizTemplate from './QuizTemplates/QuizTemplate';
 import Loading from '../../utils/Loading';
 import { withRouter } from 'react-router-dom';
-import { createQuiz } from '../../redux/actions/quizzes';
+import { createQuiz, submitQuiz } from '../../redux/actions/quizzes';
+import { useEffect } from 'react';
+import isEmpty from '../../utils/isEmpty';
 
-const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
+const QuizModel = ({
+    mode = 'make',
+    quizzes = [],
+    createQuiz,
+    submitQuiz,
+    history,
+    quizId = null
+}) => {
     const [optionValue, setOptionValue] = useState(null);
     const [quizSubmissions, setQuizSubmissions] = useState({});
+    const [finalQuizSubmission, setFinalQuizSubmission] = useState({});
 
     const [state, setState] = useState({
         currentQuestionID: 0,
         selectedAnswers: 0
     });
 
+    useEffect(() => {
+        if (!isEmpty(finalQuizSubmission)) {
+            if (mode === 'make') {
+                createQuiz(finalQuizSubmission);
+                history.push('/profile');
+            } else {
+                submitQuiz(quizId, finalQuizSubmission);
+                history.push(`/quizzes/${quizId}/submissions`);
+            }
+        }
+    }, [finalQuizSubmission]);
+
     const handleOptionChange = e => {
         setOptionValue(e.target.value);
     };
 
-    const newQuizSubmissions = () => {
-        const newQuizSubmissions = { ...quizSubmissions };
+    const newQuizSubmissions = (type = 'not final') => {
+        if (type === 'final') {
+            const newQuizSubmissions = { ...quizSubmissions };
 
-        newQuizSubmissions[
-            quizzes[state.currentQuestionID].question_id
-        ] = optionValue;
+            newQuizSubmissions[
+                quizzes[state.currentQuestionID].question_id
+            ] = optionValue;
 
-        setQuizSubmissions(newQuizSubmissions);
-        setOptionValue(null);
+            setFinalQuizSubmission({
+                quizChoices: {
+                    ...newQuizSubmissions
+                }
+            });
+        } else {
+            const newQuizSubmissions = { ...quizSubmissions };
+
+            newQuizSubmissions[
+                quizzes[state.currentQuestionID].question_id
+            ] = optionValue;
+
+            setQuizSubmissions(newQuizSubmissions);
+            setOptionValue(null);
+        }
     };
 
-    const handleFinishQuiz = async () => {
+    const handleFinishQuiz = () => {
         if (mode === 'make') {
-            const quizChoices = {
-                quizChoices: {
+            if (optionValue) {
+                newQuizSubmissions('final');
+            } else {
+                setFinalQuizSubmission({
                     ...quizSubmissions
-                }
-            };
-
-            await createQuiz(quizChoices);
-            history.push('/profile');
+                });
+            }
         } else if (mode === 'take') {
             if (optionValue) {
-                newQuizSubmissions();
+                newQuizSubmissions('final');
 
-                const quizChoices = {
-                    quizChoices: {
-                        ...quizSubmissions
-                    }
-                };
-
-                console.log(quizChoices);
                 // TODO: send quizChoices to the server to make quiz submission
-
-                history.push('/profile');
+                // history.push('/profile');
             } else {
                 message.error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
             }
@@ -176,7 +203,8 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
             justify='center'
             style={{
                 minHeight: '100vh',
-                background: 'linear-gradient:(to-right, #004e92, #000428)'
+                backgroundImage:
+                    'linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)'
             }}
         >
             <QuizTemplate
@@ -195,8 +223,4 @@ const QuizModel = ({ mode = 'make', quizzes = [], createQuiz, history }) => {
     );
 };
 
-const mapDispatchToProps = {
-    createQuiz
-};
-
-export default connect(null, mapDispatchToProps)(withRouter(QuizModel));
+export default connect(null, { createQuiz, submitQuiz })(withRouter(QuizModel));

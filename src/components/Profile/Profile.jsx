@@ -10,7 +10,7 @@ import { blue } from '@ant-design/colors';
 import { Typography } from 'antd';
 const { Title, Text } = Typography;
 
-const Profile = ({ user, userQuiz }) => {
+const Profile = ({ user }) => {
     const [isCopied, setIsCopied] = useState(false);
 
     return (
@@ -29,20 +29,39 @@ const Profile = ({ user, userQuiz }) => {
                 }}
             >
                 <Row type='flex' justify='center'>
-                    <Col span={24}>
-                        <Title
-                            level={3}
-                            style={{
-                                marginBottom: 0,
-                                color: '#fff',
-                                textAlign: 'center '
-                            }}
-                        >
-                            {user.is_admin
-                                ? `${user.first_name} ${user.last_name}`
-                                : user.name}
-                        </Title>
+                    <Col span={24} style={{ marginBottom: '10px' }}>
+                        <Row type='flex' justify='center'>
+                            <Col span={8}>
+                                <Title
+                                    level={3}
+                                    style={{
+                                        marginBottom: 0,
+                                        color: '#fff',
+                                        textAlign: 'center '
+                                    }}
+                                >
+                                    {user.is_admin
+                                        ? `${user.first_name} ${user.last_name}`
+                                        : user.name}
+                                </Title>
+                            </Col>
+                            {user.is_admin && (
+                                <Col
+                                    span={10}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    <Link to='admin'>
+                                        <Button>Admin Panel</Button>
+                                    </Link>
+                                </Col>
+                            )}
+                        </Row>
                     </Col>
+
                     <Col span={24}>
                         <Text
                             style={{
@@ -95,7 +114,7 @@ const Profile = ({ user, userQuiz }) => {
                             style={{ marginBottom: '10px' }}
                         >
                             <CopyToClipboard
-                                text='www.quizmaker.com/user1/quiz'
+                                text={`http://localhost:3000/quizzes/${user.quiz_id}`}
                                 onCopy={() => setIsCopied(true)}
                             >
                                 <Button
@@ -111,9 +130,29 @@ const Profile = ({ user, userQuiz }) => {
                             </CopyToClipboard>
                         </Col>
                     ) : (
-                        message.success(
-                            'Linki kopyaladınız, dostlarınıza yollayın 😊'
-                        )
+                        <Col
+                            xs={16}
+                            sm={14}
+                            md={12}
+                            lg={10}
+                            xl={8}
+                            style={{ marginBottom: '10px' }}
+                        >
+                            {message.success(
+                                'Linki kopyaladınız, dostlarınıza yollayın 😊'
+                            )}
+                            <Button
+                                type='ghost'
+                                style={{
+                                    width: '100%',
+                                    marginBottom: '5px',
+                                    textAlign: 'center'
+                                }}
+                                disabled
+                            >
+                                Link kopyalandı
+                            </Button>
+                        </Col>
                     )}
                     <Col span={24}>
                         <Text
@@ -152,9 +191,8 @@ const Profile = ({ user, userQuiz }) => {
     );
 };
 
-const mapStateToProps = ({ auth: { user, userQuiz } }) => ({
-    user,
-    userQuiz
+const mapStateToProps = ({ auth: { user } }) => ({
+    user
 });
 
 export default connect(mapStateToProps, null)(Profile);

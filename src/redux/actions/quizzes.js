@@ -8,7 +8,10 @@ import {
     DELETE_OPTION,
     ADD_OPTION,
     CREATE_CHOICES,
-    GET_MY_QUIZ
+    GET_MY_QUIZ,
+    GET_QUIZ_FOR_TAKING,
+    QUIZ_SUBMISSION_SUCCESS,
+    QUIZ_SUBMISSION_ERROR
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
@@ -86,7 +89,10 @@ export const addOption = (questionId, option) => async dispatch => {
 
 export const createQuiz = quizChoices => async dispatch => {
     try {
+        console.log(quizChoices);
         const res = await axios.post('/api/v1/quizzes', quizChoices);
+
+        console.log(res);
 
         dispatch({
             type: CREATE_CHOICES,
@@ -107,5 +113,40 @@ export const getMyQuiz = () => async dispatch => {
         });
     } catch (err) {
         console.error(err.response);
+    }
+};
+
+export const getQuizForTaking = quizId => async dispatch => {
+    try {
+        const res = await axios.get(`/api/v1/quizzes/${quizId}`);
+        console.log(res);
+
+        dispatch({
+            type: GET_QUIZ_FOR_TAKING,
+            payload: res.data.data
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export const submitQuiz = (quizId, quizSubmissions) => async dispatch => {
+    try {
+        const res = await axios.post(
+            `/api/v1/quizzes/${quizId}/submissions`,
+            quizSubmissions
+        );
+
+        console.log(res);
+
+        dispatch({
+            type: QUIZ_SUBMISSION_SUCCESS,
+            payload: res.data.data
+        });
+    } catch (err) {
+        dispatch({
+            type: QUIZ_SUBMISSION_ERROR,
+            payload: []
+        });
     }
 };

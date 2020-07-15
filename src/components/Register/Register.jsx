@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Col, Input, Button, Row, Form } from 'antd';
 import { connect } from 'react-redux';
 import { register } from '../../redux/actions/auth';
@@ -7,17 +7,17 @@ import Text from 'antd/lib/typography/Text';
 import { useEffect } from 'react';
 
 const Register = ({ register, history, isAuthenticated, mode = 'make' }) => {
-    const onFinish = userData => {
+    const onFinish = async userData => {
         if (mode == 'make') {
-            register(userData);
+            await register(userData);
             history.push('/make-quiz');
         } else {
-            register(userData);
+            await register(userData);
         }
     };
 
     useEffect(() => {
-        if (isAuthenticated) history.push('/make-quiz');
+        if (isAuthenticated && mode === 'make') history.push('/make-quiz');
     }, [isAuthenticated]);
 
     const [form] = Form.useForm();
@@ -36,7 +36,7 @@ const Register = ({ register, history, isAuthenticated, mode = 'make' }) => {
             <Col xs={20} sm={16} md={12} lg={8} xl={6}>
                 <h3
                     style={{
-                        marginBottom: '40px',
+                        marginBottom: '10px',
                         fontFamily: 'Montserrat, sans-serif'
                     }}
                 >
