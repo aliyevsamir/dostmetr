@@ -13,6 +13,8 @@ const { Title, Text } = Typography;
 const Profile = ({ user }) => {
     const [isCopied, setIsCopied] = useState(false);
 
+    const hasOwnQuiz = user.quiz_id ? true : false;
+
     return (
         <Row type='flex' justify='center' gutter={[16, 8]}>
             <Col
@@ -72,8 +74,10 @@ const Profile = ({ user }) => {
                             }}
                         >
                             {moment(user.created_at, 'YYYYMMDD').fromNow()}{' '}
-                            qeydiyyatdan keçdiniz. Quizinizi dostlarınızla
-                            aşağıdakı linkdən paylaşın 😊
+                            qeydiyyatdan keçdiniz.{' '}
+                            {hasOwnQuiz
+                                ? 'Quizinizi dostlarınızla aşağıdakı linkdən paylaşın 😊'
+                                : 'Quizinizi yaratmaq üçün aşağıdakı butona tıklayın, quizinizi yaradın və dostlarınızla bölüşün 🤩😊'}
                         </Text>
                     </Col>
                 </Row>
@@ -101,7 +105,9 @@ const Profile = ({ user }) => {
                         style={{ marginBottom: '10px' }}
                     >
                         <Title level={3} style={{ textAlign: 'center' }}>
-                            Dostlarını hazırladığın quizə dəvət et!
+                            {hasOwnQuiz
+                                ? 'Dostlarını hazırladığın quizə dəvət et!'
+                                : '🤩 Quizini yarat və dostlarınla paylaş 🥳'}
                         </Title>
                     </Col>
                     {!isCopied ? (
@@ -113,78 +119,98 @@ const Profile = ({ user }) => {
                             xl={8}
                             style={{ marginBottom: '10px' }}
                         >
-                            <CopyToClipboard
-                                text={`http://localhost:3000/quizzes/${user.quiz_id}`}
-                                onCopy={() => setIsCopied(true)}
+                            {hasOwnQuiz ? (
+                                <CopyToClipboard
+                                    text={`http://localhost:3000/quizzes/${user.quiz_id}`}
+                                    onCopy={() => setIsCopied(true)}
+                                >
+                                    <Button
+                                        type='primary'
+                                        style={{
+                                            width: '100%',
+                                            marginBottom: '5px',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        Linki kopyala
+                                    </Button>
+                                </CopyToClipboard>
+                            ) : (
+                                <Link to='/make-quiz'>
+                                    <Button
+                                        type='primary'
+                                        style={{
+                                            width: '100%',
+                                            marginBottom: '5px',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        Öz quizini yarat!
+                                    </Button>
+                                </Link>
+                            )}
+                        </Col>
+                    ) : (
+                        <>
+                            <Col
+                                xs={16}
+                                sm={14}
+                                md={12}
+                                lg={10}
+                                xl={8}
+                                style={{ marginBottom: '10px' }}
                             >
+                                {message.success(
+                                    'Linki kopyaladınız, dostlarınıza yollayın 😊'
+                                )}
                                 <Button
-                                    type='primary'
+                                    type='ghost'
                                     style={{
                                         width: '100%',
                                         marginBottom: '5px',
                                         textAlign: 'center'
                                     }}
+                                    disabled
                                 >
-                                    Linki kopyala
+                                    Link kopyalandı
                                 </Button>
-                            </CopyToClipboard>
-                        </Col>
-                    ) : (
-                        <Col
-                            xs={16}
-                            sm={14}
-                            md={12}
-                            lg={10}
-                            xl={8}
-                            style={{ marginBottom: '10px' }}
-                        >
-                            {message.success(
-                                'Linki kopyaladınız, dostlarınıza yollayın 😊'
-                            )}
-                            <Button
-                                type='ghost'
-                                style={{
-                                    width: '100%',
-                                    marginBottom: '5px',
-                                    textAlign: 'center'
-                                }}
-                                disabled
+                            </Col>
+                            <Col span={24}>
+                                <Text
+                                    level={2}
+                                    style={{
+                                        textAlign: 'center',
+                                        display: 'inline-block',
+                                        width: '100%',
+                                        marginBottom: '15px'
+                                    }}
+                                >
+                                    və ya birbaşa aşağıdakı butonlar ilə paylaş
+                                </Text>
+                            </Col>
+                            <Col
+                                xs={12}
+                                sm={12}
+                                md={10}
+                                lg={8}
+                                xl={8}
+                                style={{ textAlign: 'center' }}
                             >
-                                Link kopyalandı
-                            </Button>
-                        </Col>
+                                <ShareButtons />
+                            </Col>
+                            <Col
+                                span={24}
+                                style={{
+                                    textAlign: 'center',
+                                    marginTop: '10px'
+                                }}
+                            >
+                                <Link to='my-quiz'>
+                                    <Button type='primary'>Mənim quizim</Button>
+                                </Link>
+                            </Col>
+                        </>
                     )}
-                    <Col span={24}>
-                        <Text
-                            level={2}
-                            style={{
-                                textAlign: 'center',
-                                display: 'inline-block',
-                                width: '100%',
-                                marginBottom: '15px'
-                            }}
-                        >
-                            və ya birbaşa aşağıdakı butonlar ilə paylaş
-                        </Text>
-                    </Col>
-                    <Col
-                        xs={12}
-                        sm={12}
-                        md={10}
-                        lg={8}
-                        xl={8}
-                        style={{ textAlign: 'center' }}
-                    >
-                        <ShareButtons />
-                    </Col>
-                    <Col
-                        span={24}
-                        style={{ textAlign: 'center', marginTop: '10px' }}
-                    >
-                        <Link to='my-quiz'>
-                            <Button type='primary'>Mənim quizim</Button>
-                        </Link>
-                    </Col>
                 </Row>
             </Col>
         </Row>
