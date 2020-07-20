@@ -20,3 +20,4 @@ export const UPDATE_OPTION = 'UPDATE_OPTION';
 export const DELETE_OPTION = 'DELETE_OPTION';
 export const ADD_OPTION = 'ADD_OPTION';
 export const CREATE_CHOICES = 'CREATE_CHOICES';
+export const GET_LEADERBOARD = 'GET_LEADERBOARD';

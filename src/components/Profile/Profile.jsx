@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Button, message } from 'antd';
@@ -8,11 +8,18 @@ import { useState } from 'react';
 import ShareButtons from '../utils/Share Buttons/ShareButtons';
 import { blue } from '@ant-design/colors';
 import { Typography } from 'antd';
+import { loadUser } from '../../redux/actions/auth';
+import PropTypes from 'prop-types';
+import { getLeaderboard } from '../../redux/actions/leaderboard';
+import LeaderboardList from '../Leaderboard/LeaderboardList/LeaderboardList';
 const { Title, Text } = Typography;
 
-const Profile = ({ user }) => {
+const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
     const [isCopied, setIsCopied] = useState(false);
 
+    useEffect(() => {
+        loadUser().then(() => getLeaderboard(user.quiz_id));
+    }, []);
     const hasOwnQuiz = user.quiz_id ? true : false;
 
     return (
@@ -110,47 +117,7 @@ const Profile = ({ user }) => {
                                 : '🤩 Quizini yarat və dostlarınla paylaş 🥳'}
                         </Title>
                     </Col>
-                    {!isCopied ? (
-                        <Col
-                            xs={16}
-                            sm={14}
-                            md={12}
-                            lg={10}
-                            xl={8}
-                            style={{ marginBottom: '10px' }}
-                        >
-                            {hasOwnQuiz ? (
-                                <CopyToClipboard
-                                    text={`http://localhost:3000/quizzes/${user.quiz_id}`}
-                                    onCopy={() => setIsCopied(true)}
-                                >
-                                    <Button
-                                        type='primary'
-                                        style={{
-                                            width: '100%',
-                                            marginBottom: '5px',
-                                            textAlign: 'center'
-                                        }}
-                                    >
-                                        Linki kopyala
-                                    </Button>
-                                </CopyToClipboard>
-                            ) : (
-                                <Link to='/make-quiz'>
-                                    <Button
-                                        type='primary'
-                                        style={{
-                                            width: '100%',
-                                            marginBottom: '5px',
-                                            textAlign: 'center'
-                                        }}
-                                    >
-                                        Öz quizini yarat!
-                                    </Button>
-                                </Link>
-                            )}
-                        </Col>
-                    ) : (
+                    {hasOwnQuiz ? (
                         <>
                             <Col
                                 xs={16}
@@ -160,20 +127,40 @@ const Profile = ({ user }) => {
                                 xl={8}
                                 style={{ marginBottom: '10px' }}
                             >
-                                {message.success(
-                                    'Linki kopyaladınız, dostlarınıza yollayın 😊'
+                                {!isCopied ? (
+                                    <CopyToClipboard
+                                        text={`http://localhost:3000/quizzes/${user.quiz_id}`}
+                                        onCopy={() => setIsCopied(true)}
+                                    >
+                                        <Button
+                                            type='primary'
+                                            style={{
+                                                width: '100%',
+                                                marginBottom: '5px',
+                                                textAlign: 'center'
+                                            }}
+                                        >
+                                            Linki kopyala
+                                        </Button>
+                                    </CopyToClipboard>
+                                ) : (
+                                    <>
+                                        {message.success(
+                                            'Linki kopyaladınız, dostlarınıza yollayın 😊'
+                                        )}
+                                        <Button
+                                            type='ghost'
+                                            style={{
+                                                width: '100%',
+                                                marginBottom: '5px',
+                                                textAlign: 'center'
+                                            }}
+                                            disabled
+                                        >
+                                            Link kopyalandı
+                                        </Button>
+                                    </>
                                 )}
-                                <Button
-                                    type='ghost'
-                                    style={{
-                                        width: '100%',
-                                        marginBottom: '5px',
-                                        textAlign: 'center'
-                                    }}
-                                    disabled
-                                >
-                                    Link kopyalandı
-                                </Button>
                             </Col>
                             <Col span={24}>
                                 <Text
@@ -210,15 +197,73 @@ const Profile = ({ user }) => {
                                 </Link>
                             </Col>
                         </>
+                    ) : (
+                        // <Col></Col>
+                        <Col
+                            xs={20}
+                            sm={16}
+                            md={12}
+                            lg={8}
+                            xl={8}
+                            style={{
+                                textAlign: 'center',
+                                marginTop: '10px'
+                            }}
+                        >
+                            <Link to='/make-quiz'>
+                                <Button
+                                    type='primary'
+                                    style={{
+                                        width: '100%',
+                                        marginBottom: '5px',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    Öz quizini yarat!
+                                </Button>
+                            </Link>
+                        </Col>
                     )}
                 </Row>
             </Col>
+            {leaderboard.length && (
+                <Col
+                    xs={20}
+                    sm={18}
+                    md={18}
+                    lg={18}
+                    xl={16}
+                    style={{
+                        backgroundColor: blue[5],
+                        padding: '10px',
+                        borderRadius: '10px',
+                        margin: '5px 5px 0 5px'
+                    }}
+                >
+                    <h1
+                        style={{
+                            textAlign: 'center',
+                            color: '#fff',
+                            fontFamily: 'Montserrat, sans-serif'
+                        }}
+                    >
+                        Quizinizi cavablandıranların sıralaması
+                    </h1>
+                    <LeaderboardList leaderboard={leaderboard} />
+                </Col>
+            )}
         </Row>
     );
 };
 
-const mapStateToProps = ({ auth: { user } }) => ({
-    user
+const mapStateToProps = ({ auth: { user }, leaderboard }) => ({
+    user,
+    leaderboard
 });
 
-export default connect(mapStateToProps, null)(Profile);
+Profile.propTypes = {
+    user: PropTypes.object,
+    loadUser: PropTypes.func
+};
+
+export default connect(mapStateToProps, { loadUser, getLeaderboard })(Profile);

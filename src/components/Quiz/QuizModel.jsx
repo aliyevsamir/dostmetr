@@ -28,8 +28,9 @@ const QuizModel = ({
     useEffect(() => {
         if (!isEmpty(finalQuizSubmission)) {
             if (mode === 'make') {
-                createQuiz(finalQuizSubmission);
-                history.push('/profile');
+                createQuiz(finalQuizSubmission).then(() =>
+                    history.push('/profile')
+                );
             } else {
                 submitQuiz(quizId, finalQuizSubmission);
                 history.push(`/quizzes/${quizId}/submissions`);
@@ -72,7 +73,9 @@ const QuizModel = ({
                 newQuizSubmissions('final');
             } else {
                 setFinalQuizSubmission({
-                    ...quizSubmissions
+                    quizChoices: {
+                        ...quizSubmissions
+                    }
                 });
             }
         } else if (mode === 'take') {

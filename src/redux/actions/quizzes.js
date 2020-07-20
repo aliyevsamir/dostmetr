@@ -137,8 +137,6 @@ export const submitQuiz = (quizId, quizSubmissions) => async dispatch => {
             quizSubmissions
         );
 
-        console.log(res);
-
         dispatch({
             type: QUIZ_SUBMISSION_SUCCESS,
             payload: res.data.data
