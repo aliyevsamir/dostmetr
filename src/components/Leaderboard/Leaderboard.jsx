@@ -20,21 +20,40 @@ const Leaderboard = ({ leaderboard, userId }) => {
     }
 
     return (
-        <Row>
-            <Col span={24}>
-                <LeaderboardHeader myLeaderboardInfo={myLeaderboardInfo} />
-            </Col>
-            <Col
-                span={24}
+        <>
+            <Row
                 style={{
-                    backgroundColor: '#000',
-                    borderBottomRightRadius: '20px',
-                    borderBottomLeftRadius: '20px'
+                    borderRadius: '.5rem',
+                    backgroundColor: '#fff',
+                    color: '#110',
+                    margin: '.5rem 0',
+                    boxShadow: '0px 1px 1px rgba(0,0,0,.3)'
                 }}
             >
-                <LeaderboardList leaderboard={leaderboard} />
-            </Col>
-        </Row>
+                <Col span={24}>
+                    <LeaderboardHeader myLeaderboardInfo={myLeaderboardInfo} />
+                </Col>
+            </Row>
+            <Row
+                span={24}
+                style={{
+                    borderRadius: '.5rem',
+                    backgroundColor: '#fff',
+                    color: '#110',
+                    margin: '.5rem 0',
+                    boxShadow: '0px 1px 1px rgba(0,0,0,.3)',
+                    textAlign: 'center',
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: '1rem',
+                    padding: '0.5rem',
+                    marginTop: '10px'
+                }}
+            >
+                <Col span={24}>
+                    <LeaderboardList leaderboard={leaderboard} />
+                </Col>
+            </Row>
+        </>
     );
 };
 

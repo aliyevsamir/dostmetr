@@ -9,16 +9,17 @@ import {
 } from 'react-share';
 import './ShareButtons.scss';
 
-const ShareButtons = () => {
+const ShareButtons = ({ url }) => {
+    console.log(url);
     return (
         <div>
-            <WhatsappShareButton url={'www.google.com'}>
+            <WhatsappShareButton url={url}>
                 <WhatsappIcon size={32} round />
             </WhatsappShareButton>
-            <FacebookMessengerShareButton url='www.google.com'>
+            <FacebookMessengerShareButton url={url}>
                 <FacebookMessengerIcon size={32} round />
             </FacebookMessengerShareButton>
-            <FacebookShareButton url={'www.google.com'}>
+            <FacebookShareButton url={url}>
                 <FacebookIcon size={32} round />
             </FacebookShareButton>
         </div>

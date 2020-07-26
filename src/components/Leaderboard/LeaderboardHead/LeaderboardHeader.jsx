@@ -8,16 +8,11 @@ const LeaderboardHeader = ({ myLeaderboardInfo }) => {
             type='flex'
             align='middle'
             style={{
-                color: '#fff',
                 textAlign: 'center',
-                backgroundColor: 'tomato',
-                borderRadius: '20px',
-                borderBottomRightRadius: '0',
-                borderBottomLeftRadius: '0',
                 padding: '1rem',
-                fontSize: '25px',
-                fontWeight: '900',
-                fontFamily: 'Francois One, sans-serif',
+                fontSize: '1.1rem',
+                fontFamily: 'Roboto, sans-serif',
+                fontWeight: '300',
                 textTransform: 'uppercase'
             }}
         >

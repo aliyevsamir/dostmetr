@@ -18,51 +18,62 @@ const QuizSubmissions = ({
     }, [user_id]);
 
     return (
-        <Row gutter={6} type='flex' justify='center'>
+        <Row
+            gutter={6}
+            type='flex'
+            justify='center'
+            style={{
+                backgroundColor: '#F0F2F5',
+                minHeight: '100vh'
+            }}
+        >
             <Col
                 xs={22}
-                sm={16}
-                md={12}
-                lg={8}
+                sm={20}
+                md={16}
+                lg={12}
                 xl={8}
                 style={{
-                    margin: '1rem'
+                    padding: '1rem',
+                    margin: '.5rem 0',
+                    height: '100%'
                 }}
             >
                 <Leaderboard leaderboard={leaderboard} userId={user_id} />
             </Col>
-            <Col
-                xs={22}
-                sm={16}
-                md={12}
-                lg={14}
-                xl={14}
-                className='right-side'
-                style={{
-                    backgroundColor: '#ddd',
-                    padding: '1rem',
-                    borderRadius: '20px'
-                }}
-            >
-                <h1
+
+            {submission && (
+                <Col
+                    xs={22}
+                    sm={20}
+                    md={16}
+                    lg={12}
+                    xl={8}
+                    className='right-side'
                     style={{
-                        fontFamily: 'Montserrat, sans-serif',
-                        textAlign: 'center'
+                        padding: '1rem',
+                        margin: '.5rem 0',
+                        height: '100%'
                     }}
                 >
-                    Sizin cavablarınız
-                </h1>
-                {submission && (
+                    <h1
+                        style={{
+                            fontFamily: 'Roboto, sans-serif',
+                            textAlign: 'center'
+                        }}
+                    >
+                        Sizin cavablarınız
+                    </h1>
                     <QuizTemplate2 questions={submission} type='submission' />
-                )}
-            </Col>
+                </Col>
+            )}
         </Row>
     );
 };
 
 const mapStateToProps = ({ quizzes, leaderboard }) => ({
     questions: quizzes,
-    leaderboard: leaderboard
+    leaderboard
 });
 
 QuizSubmissions.propTypes = {

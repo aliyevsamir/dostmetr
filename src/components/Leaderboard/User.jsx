@@ -6,19 +6,7 @@ import bronze from '../../utils/bronze.png';
 
 const User = ({ user }) => {
     return (
-        <Row
-            type='flex'
-            justify='center'
-            align='middle'
-            style={{
-                textAlign: 'center',
-                fontFamily: 'Josefin Sans, sans-serif',
-                fontSize: '1.5rem',
-                padding: '0.5rem',
-                marginTop: '10px',
-                color: '#ff9'
-            }}
-        >
+        <Row type='flex' justify='center' align='middle'>
             <Col
                 span={4}
                 style={{
