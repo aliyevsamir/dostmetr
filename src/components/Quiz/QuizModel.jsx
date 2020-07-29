@@ -28,12 +28,14 @@ const QuizModel = ({
     useEffect(() => {
         if (!isEmpty(finalQuizSubmission)) {
             if (mode === 'make') {
-                createQuiz(finalQuizSubmission).then(() =>
-                    history.push('/profile')
-                );
+                createQuiz(finalQuizSubmission).then(() => {
+                    console.log('hey');
+                    history.push('/profile');
+                });
             } else {
-                submitQuiz(quizId, finalQuizSubmission);
-                history.push(`/quizzes/${quizId}/submissions`);
+                submitQuiz(quizId, finalQuizSubmission).then(() => {
+                    history.push(`/quizzes/${quizId}/submissions`);
+                });
             }
         }
     }, [finalQuizSubmission]);

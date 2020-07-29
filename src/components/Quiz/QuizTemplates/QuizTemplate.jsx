@@ -25,9 +25,7 @@ const QuizTemplate = ({
             xl={8}
             className='quiz-container--subcontainer'
         >
-            <span className='countBox'>
-                {selectedAnswers} / {quizLength}
-            </span>
+            <span className='countBox'>Cavablandınız: {selectedAnswers}</span>
             <Question question={question_content} />
             <Radio.Group onChange={handleOptionChange} value={optionValue}>
                 {options.map(option => (
@@ -42,16 +40,7 @@ const QuizTemplate = ({
                 >
                     Keç
                 </Button>
-                {selectedAnswers === quizLength - 1 ||
-                (mode === 'make' && selectedAnswers >= 10) ? (
-                    <Button
-                        type='primary'
-                        onClick={handleFinishQuiz}
-                        action-buttons--button
-                    >
-                        Bitir
-                    </Button>
-                ) : (
+                {selectedAnswers < quizLength - 1 && (
                     <Button
                         onClick={nextQuestion}
                         type='primary'
@@ -60,6 +49,16 @@ const QuizTemplate = ({
                         Cavabla
                     </Button>
                 )}
+                {(mode === 'make' && selectedAnswers >= 10) ||
+                (mode === 'take' && selectedAnswers === quizLength - 1) ? (
+                    <Button
+                        type='primary'
+                        onClick={handleFinishQuiz}
+                        action-buttons--button
+                    >
+                        Bitir
+                    </Button>
+                ) : null}
             </div>
         </Col>
     );

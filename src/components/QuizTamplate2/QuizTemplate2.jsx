@@ -51,6 +51,12 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz' }) => {
                                   option.selected
                                 ? '#f00'
                                 : '#fff',
+                        color:
+                            (type === 'my-quiz' && option.selected) ||
+                            (type === 'submission' && option.selected) ||
+                            (type === 'submission' && option.correct)
+                                ? '#fff'
+                                : '#000',
                         border: '1px solid rgba(0,0,0,.1)',
                         minWidth: '100%',
                         display: 'inline-block',

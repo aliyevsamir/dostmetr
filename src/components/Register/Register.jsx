@@ -6,7 +6,13 @@ import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
 import { useEffect } from 'react';
 
-const Register = ({ register, history, isAuthenticated, mode = 'make' }) => {
+const Register = ({
+    register,
+    history,
+    isAuthenticated,
+    mode = 'make',
+    createdBy = null
+}) => {
     const onFinish = async userData => {
         if (mode == 'make') {
             await register(userData);
@@ -42,7 +48,7 @@ const Register = ({ register, history, isAuthenticated, mode = 'make' }) => {
                 >
                     {mode === 'make'
                         ? 'Öz quizinizi yaratmaq üçün zəhmət olmasa qeydiyyatdan keçin'
-                        : 'Dostunuzun quizini həll etmək üçün zəhmət olmasa qeydiyyatdan keçin'}
+                        : `${createdBy} sizin üçün gözəl bir quiz hazırlayıb. Onun quizini həll etmək üçün zəhmət olmasa qeydiyyatdan keçin 😊`}
                 </h3>
                 <Form onFinish={onFinish} form={form} layout='vertical'>
                     <Form.Item

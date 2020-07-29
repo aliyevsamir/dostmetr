@@ -13,29 +13,30 @@ const TakeQuiz = ({
     loading,
     isAuthenticated,
     getQuizForTaking,
-    quizzes
+    quiz,
+    created_by
 }) => {
     useEffect(() => {
-        if (isAuthenticated) {
-            (async function() {
-                await getQuizForTaking(quizId);
-            })();
-        }
-    }, [isAuthenticated]);
+        getQuizForTaking(quizId);
+    }, []);
 
     return loading ? (
         <Loading />
     ) : isAuthenticated ? (
-        <QuizModel quizzes={quizzes} mode='take' quizId={quizId} />
+        <QuizModel quizzes={quiz} mode='take' quizId={quizId} />
     ) : (
-        <Register mode='take' />
+        <Register mode='take' createdBy={created_by} />
     );
 };
 
-const mapStateToProps = ({ auth: { loading, isAuthenticated }, quizzes }) => ({
+const mapStateToProps = ({
+    auth: { loading, isAuthenticated },
+    quizzes: { created_by, quiz }
+}) => ({
     loading,
     isAuthenticated,
-    quizzes
+    quiz,
+    created_by
 });
 
 export default connect(mapStateToProps, { getQuizForTaking })(TakeQuiz);
