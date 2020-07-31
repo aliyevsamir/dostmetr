@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { getMyQuiz } from '../../redux/actions/quizzes';
 import { useEffect } from 'react';
 import { Row, Col } from 'antd';
 import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 import Navbar2 from '../Navbar/Navbar2';
+import Loading from '../../utils/Loading';
 
-const MyQuiz = ({ getMyQuiz, userQuiz }) => {
+const MyQuiz = ({ getMyQuiz, userQuiz, name }) => {
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-        getMyQuiz();
+        getMyQuiz().then(() => setLoading(false));
     }, []);
-
-    const navItems = [{ navLink: 'profile', navText: 'Dostmetr' }];
 
     return (
         <Row
@@ -24,23 +24,33 @@ const MyQuiz = ({ getMyQuiz, userQuiz }) => {
             }}
         >
             <Col span={24}>
-                <Navbar2 navItems={navItems} />
+                <Navbar2 />
             </Col>
 
-            <Col xs={22} sm={16} md={12} lg={10} xl={8}>
-                {userQuiz.length ? (
-                    <Col span={24}>
-                        <QuizTemplate2 questions={userQuiz} />
-                    </Col>
-                ) : (
-                    <h1>Hələ quizi tamamlamamısınız !</h1>
-                )}
-            </Col>
+            {loading ? (
+                <Loading />
+            ) : (
+                <Col xs={22} sm={16} md={12} lg={10} xl={8}>
+                    {userQuiz.length ? (
+                        <Col span={24}>
+                            <QuizTemplate2 questions={userQuiz} name={name} />
+                        </Col>
+                    ) : (
+                        <h1>Hələ quizi tamamlamamısınız !</h1>
+                    )}
+                </Col>
+            )}
         </Row>
     );
 };
 
-const mapStateToProps = ({ auth: { userQuiz } }) => ({
+const mapStateToProps = ({
+    auth: {
+        user: { name },
+        userQuiz
+    }
+}) => ({
+    name,
     userQuiz
 });
 

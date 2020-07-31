@@ -7,14 +7,23 @@ import { getLeaderboard } from '../../redux/actions/leaderboard';
 import { useEffect } from 'react';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import './QuizSubmissions.scss';
+import { withRouter } from 'react-router-dom';
 
 const QuizSubmissions = ({
+    questions,
     questions: { submission, quiz_id, user_id },
     getLeaderboard,
-    leaderboard
+    leaderboard,
+    history: {
+        location: {
+            state: { name }
+        }
+    }
 }) => {
     useEffect(() => {
-        if (user_id) getLeaderboard(quiz_id, user_id);
+        if (user_id) {
+            getLeaderboard(quiz_id, user_id);
+        }
     }, [user_id]);
 
     return (
@@ -64,7 +73,11 @@ const QuizSubmissions = ({
                     >
                         Sizin cavablarınız
                     </h1>
-                    <QuizTemplate2 questions={submission} type='submission' />
+                    <QuizTemplate2
+                        questions={submission}
+                        type='submission'
+                        name={name}
+                    />
                 </Col>
             )}
         </Row>
@@ -82,4 +95,6 @@ QuizSubmissions.propTypes = {
     leaderboard: PropTypes.array
 };
 
-export default connect(mapStateToProps, { getLeaderboard })(QuizSubmissions);
+export default connect(mapStateToProps, { getLeaderboard })(
+    withRouter(QuizSubmissions)
+);

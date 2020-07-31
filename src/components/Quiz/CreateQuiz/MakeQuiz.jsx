@@ -8,23 +8,30 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import QuizModel from '../QuizModel';
 
-const MakeQuiz = ({ quizzes, loadQuizzes, getMyQuiz, userQuiz, history }) => {
+const MakeQuiz = ({ quizzes, loadQuizzes, getMyQuiz, history, name }) => {
     useEffect(() => {
-        loadQuizzes();
-        getMyQuiz();
+        getMyQuiz().then(res => {
+            if (res) {
+                history.push('/profile');
+            } else {
+                loadQuizzes();
+            }
+        });
     }, []);
 
-    useEffect(() => {
-        if (userQuiz.length) history.push('/profile');
-    }, [userQuiz]);
-
-    return <QuizModel quizzes={quizzes} />;
+    return <QuizModel quizzes={quizzes} name={name} />;
 };
 
-export default connect(
-    ({ quizzes, auth: { userQuiz } }) => ({
-        quizzes,
-        userQuiz
-    }),
-    { loadQuizzes, createQuiz, getMyQuiz }
-)(withRouter(MakeQuiz));
+const mapStateToProps = ({
+    quizzes,
+    auth: {
+        user: { name }
+    }
+}) => ({
+    quizzes,
+    name
+});
+
+export default connect(mapStateToProps, { loadQuizzes, createQuiz, getMyQuiz })(
+    withRouter(MakeQuiz)
+);

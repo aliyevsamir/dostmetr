@@ -111,6 +111,8 @@ export const getMyQuiz = () => async dispatch => {
             type: GET_MY_QUIZ,
             payload: res.data
         });
+
+        return res;
     } catch (err) {
         console.error(err.response);
     }
@@ -127,6 +129,7 @@ export const getQuizForTaking = quizId => async dispatch => {
         });
     } catch (err) {
         console.log(err);
+        return err;
     }
 };
 

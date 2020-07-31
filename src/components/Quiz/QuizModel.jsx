@@ -14,6 +14,7 @@ const QuizModel = ({
     createQuiz,
     submitQuiz,
     history,
+    name,
     quizId = null
 }) => {
     const [optionValue, setOptionValue] = useState(null);
@@ -34,7 +35,10 @@ const QuizModel = ({
                 });
             } else {
                 submitQuiz(quizId, finalQuizSubmission).then(() => {
-                    history.push(`/quizzes/${quizId}/submissions`);
+                    history.push({
+                        pathname: `/quizzes/${quizId}/submissions`,
+                        state: { name }
+                    });
                 });
             }
         }
@@ -83,9 +87,6 @@ const QuizModel = ({
         } else if (mode === 'take') {
             if (optionValue) {
                 newQuizSubmissions('final');
-
-                // TODO: send quizChoices to the server to make quiz submission
-                // history.push('/profile');
             } else {
                 message.error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
             }
@@ -223,6 +224,7 @@ const QuizModel = ({
                 optionValue={optionValue}
                 handleFinishQuiz={handleFinishQuiz}
                 mode={mode}
+                name={name}
             />
         </Row>
     );

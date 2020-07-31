@@ -1,9 +1,9 @@
 import React from 'react';
-import { Col, Row } from 'antd';
 import Text from 'antd/lib/typography/Text';
 import PropTypes from 'prop-types';
+import replaceName from '../../utils/replaceName';
 
-const QuizTemplate2 = ({ questions, type = 'my-quiz' }) => {
+const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
     return questions.map(question => (
         <div
             key={question.question_id}
@@ -29,7 +29,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz' }) => {
                     minHeight: '65px'
                 }}
             >
-                {question.question_content}
+                {replaceName(question.question_content, name)}
             </Text>
             {question.options.map(option => (
                 <Text

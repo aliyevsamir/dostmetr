@@ -16,8 +16,6 @@ export const getLeaderboard = (quizId, userId) => async dispatch => {
             res = await axios.get(`/api/v1/quizzes/${quizId}/leaderboard`);
         }
 
-        console.log(res);
-
         dispatch({
             type: GET_LEADERBOARD,
             payload: res.data.data

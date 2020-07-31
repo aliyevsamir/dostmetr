@@ -7,29 +7,33 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useState } from 'react';
 import ShareButtons from '../utils/Share Buttons/ShareButtons';
 import { Typography } from 'antd';
-import { loadUser } from '../../redux/actions/auth';
 import PropTypes from 'prop-types';
+import { loadUser } from '../../redux/actions/auth';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
 import LeaderboardList from '../Leaderboard/LeaderboardList/LeaderboardList';
 import './Profile.scss';
 import Navbar2 from '../Navbar/Navbar2';
+import Loading from '../../utils/Loading';
+import azMoment from '../../utils/azMoment';
+import toSentenceCase from '../../utils/toSentenceCase';
 const { Title, Text } = Typography;
 
-const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
-    const [hasOwnQuiz, setHasOwnQuiz] = useState(false);
+const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
     const [hasLeaderboard, setHasLeaderboard] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [navItems, setNavItems] = useState([
         { navLink: 'make-quiz', navText: 'Quiz yarat' }
     ]);
 
     useEffect(() => {
         loadUser().then(res => {
-            const { quiz_id } = res.data.data;
-
-            if (quiz_id) {
-                getLeaderboard(quiz_id);
-                setHasOwnQuiz(true);
-                setNavItems([{ navLink: 'my-quiz', navText: 'Mənim quizim' }]);
+            const user = res ? res.data.data : null;
+            setLoading(false);
+            if (user) {
+                if (user.quiz_id) {
+                    getLeaderboard(user.quiz_id);
+                    setNavItems([{ navLink: 'my-quiz', navText: 'Quizim' }]);
+                }
             }
         });
     }, []);
@@ -38,7 +42,9 @@ const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
         if (leaderboard.length) setHasLeaderboard(true);
     }, [leaderboard]);
 
-    return (
+    return loading ? (
+        <Loading />
+    ) : (
         <Row
             style={{
                 backgroundColor: '#F0F2F5',
@@ -116,12 +122,14 @@ const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
                                                 textAlign: 'center '
                                             }}
                                         >
-                                            {moment(
-                                                user.created_at,
-                                                'YYYYMMDD'
-                                            ).fromNow()}{' '}
-                                            qeydiyyatdan keçdiniz.{' '}
-                                            {hasOwnQuiz
+                                            {toSentenceCase(
+                                                moment().fromNow(
+                                                    'DD-MMMM-YYYY',
+                                                    user.created_at
+                                                )
+                                            )}{' '}
+                                            əvvəl qeydiyyatdan keçdiniz.{' '}
+                                            {user.quiz_id
                                                 ? 'Quizinizi dostlarınızla aşağıdakı linkdən paylaşın 😊'
                                                 : 'Quizinizi yaratmaq üçün aşağıdakı butona tıklayın, quizinizi yaradın və dostlarınızla bölüşün 🤩😊'}
                                         </Text>
@@ -153,12 +161,12 @@ const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
                                                 textAlign: 'center'
                                             }}
                                         >
-                                            {hasOwnQuiz
+                                            {user.quiz_id
                                                 ? 'Dostlarını hazırladığın quizə dəvət et!'
                                                 : '🤩 Quizini yarat və dostlarınla paylaş 🥳'}
                                         </Title>
                                     </Col>
-                                    {hasOwnQuiz ? (
+                                    {user.quiz_id ? (
                                         <>
                                             <Col
                                                 xs={16}
@@ -209,32 +217,9 @@ const Profile = ({ user, loadUser, getLeaderboard, leaderboard }) => {
                                                 span={24}
                                                 style={{ textAlign: 'center' }}
                                             >
-                                                <ShareButtons />
-                                            </Col>
-                                            <Col
-                                                xs={16}
-                                                sm={14}
-                                                md={12}
-                                                lg={10}
-                                                xl={8}
-                                                style={{
-                                                    textAlign: 'center',
-                                                    marginTop: '10px'
-                                                }}
-                                            >
-                                                <Link to='my-quiz'>
-                                                    <Button
-                                                        type='primary'
-                                                        style={{
-                                                            backgroundColor:
-                                                                '#fff',
-                                                            color: '#000',
-                                                            width: '100%'
-                                                        }}
-                                                    >
-                                                        Mənim quizim
-                                                    </Button>
-                                                </Link>
+                                                <ShareButtons
+                                                    url={`http://localhost:3000/quizzes/${user.quiz_id}`}
+                                                />
                                             </Col>
                                         </>
                                     ) : (
@@ -315,4 +300,4 @@ Profile.propTypes = {
     loadUser: PropTypes.func
 };
 
-export default connect(mapStateToProps, { loadUser, getLeaderboard })(Profile);
+export default connect(mapStateToProps, { getLeaderboard, loadUser })(Profile);

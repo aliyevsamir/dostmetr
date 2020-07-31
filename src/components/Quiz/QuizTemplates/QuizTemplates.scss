@@ -10,7 +10,7 @@
     .countBox {
         color: #fff;
         font-size: 18px;
-        font-family: "Ubuntu", sans-serif;
+        font-family: 'Ubuntu', sans-serif;
         margin-bottom: 15px;
         display: inline-block;
         width: 100%;
@@ -18,9 +18,15 @@
     }
 
     .question {
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 1.2rem;
+        font-weight: 600;
         margin-bottom: 1.2rem;
+        border-radius: 0.4rem;
+        color: #444;
+        font-family: 'Montserrat', sans-serif;
+        background-color: #fff;
+        padding: 1rem;
+        border: 1px solid rgba($color: #fff, $alpha: 0.5);
     }
 
     .option {

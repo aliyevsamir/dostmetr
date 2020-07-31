@@ -10,7 +10,6 @@ import {
 import './ShareButtons.scss';
 
 const ShareButtons = ({ url }) => {
-    console.log(url);
     return (
         <div>
             <WhatsappShareButton url={url}>

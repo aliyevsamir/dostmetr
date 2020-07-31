@@ -12,6 +12,7 @@ const TakeQuiz = ({
     },
     loading,
     isAuthenticated,
+    user,
     getQuizForTaking,
     quiz,
     created_by
@@ -23,16 +24,22 @@ const TakeQuiz = ({
     return loading ? (
         <Loading />
     ) : isAuthenticated ? (
-        <QuizModel quizzes={quiz} mode='take' quizId={quizId} />
+        <QuizModel
+            quizzes={quiz}
+            mode='take'
+            quizId={quizId}
+            name={created_by}
+        />
     ) : (
         <Register mode='take' createdBy={created_by} />
     );
 };
 
 const mapStateToProps = ({
-    auth: { loading, isAuthenticated },
+    auth: { user, loading, isAuthenticated },
     quizzes: { created_by, quiz }
 }) => ({
+    user,
     loading,
     isAuthenticated,
     quiz,

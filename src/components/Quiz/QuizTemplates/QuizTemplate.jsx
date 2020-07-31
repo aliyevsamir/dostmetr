@@ -14,7 +14,8 @@ const QuizTemplate = ({
     optionValue,
     handleOptionChange,
     handleFinishQuiz,
-    mode
+    mode,
+    name
 }) => {
     return (
         <Col
@@ -26,7 +27,7 @@ const QuizTemplate = ({
             className='quiz-container--subcontainer'
         >
             <span className='countBox'>Cavablandınız: {selectedAnswers}</span>
-            <Question question={question_content} />
+            <Question question={question_content} name={name} />
             <Radio.Group onChange={handleOptionChange} value={optionValue}>
                 {options.map(option => (
                     <Answer option={option} key={option.option_id} />
@@ -44,7 +45,7 @@ const QuizTemplate = ({
                     <Button
                         onClick={nextQuestion}
                         type='primary'
-                        action-buttons--button
+                        className='action-buttons--button'
                     >
                         Cavabla
                     </Button>
@@ -54,7 +55,7 @@ const QuizTemplate = ({
                     <Button
                         type='primary'
                         onClick={handleFinishQuiz}
-                        action-buttons--button
+                        className='action-buttons--button'
                     >
                         Bitir
                     </Button>
