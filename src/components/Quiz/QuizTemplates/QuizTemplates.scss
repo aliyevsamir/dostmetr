@@ -33,7 +33,7 @@
     .ant-radio-group {
         .option {
             box-sizing: border-box;
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 0.6rem;
             color: #333;
             border-radius: 0.4rem;
@@ -53,7 +53,7 @@
 
         .ant-radio-wrapper-checked.option {
             box-sizing: border-box;
-            border: 1px solid #d54;
+            border: 2px solid #d54;
         }
         flex: auto;
     }
