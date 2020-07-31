@@ -31,16 +31,17 @@
 
     .ant-radio-group {
         .option {
-            margin-bottom: 10px;
-            color: #000;
+            margin-bottom: 0.6rem;
+            color: #333;
             border-radius: 0.4rem;
             padding: 0.3rem;
             background-color: #fff;
-            font-size: 16px;
-            font-weight: 500;
+            font-family: "Montserrat", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
             display: block;
             width: 100%;
-            transition: all 0.3s;
+            transition: all 0.4s;
         }
 
         .ant-radio {
@@ -48,7 +49,7 @@
         }
 
         .ant-radio-wrapper-checked.option {
-            background-color: #0f0;
+            background: #d54;
             color: #fff;
         }
         flex: auto;
