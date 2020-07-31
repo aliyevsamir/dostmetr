@@ -1,16 +1,19 @@
 .quiz-container--subcontainer {
-    background-color: #0062be;
+    background-color: #fff;
     padding: 2.2rem 2rem;
     box-sizing: border-box;
-    box-shadow: 2px 3px 4px rgba($color: #000000, $alpha: 0.5);
-    min-height: 70vh;
+    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3),
+        -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
+    border-radius: 1rem;
+    position: relative;
 
     .countBox {
-        color: #fff;
+        color: #444;
         font-size: 18px;
-        font-family: "Ubuntu", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         margin-bottom: 15px;
         display: inline-block;
         width: 100%;
@@ -18,30 +21,31 @@
     }
 
     .question {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         font-weight: 600;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1rem;
         border-radius: 0.4rem;
         color: #444;
-        font-family: "Montserrat", sans-serif;
-        background-color: #fff;
+        border: none;
+        font-family: 'Montserrat', sans-serif;
         padding: 1rem;
-        border: 1px solid rgba($color: #fff, $alpha: 0.5);
     }
 
     .ant-radio-group {
         .option {
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.2);
             margin-bottom: 0.6rem;
             color: #333;
             border-radius: 0.4rem;
             padding: 0.3rem;
             background-color: #fff;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             font-weight: 600;
             display: block;
             width: 100%;
-            transition: all 0.4s;
+            transition: all 0.1s;
         }
 
         .ant-radio {
@@ -49,19 +53,53 @@
         }
 
         .ant-radio-wrapper-checked.option {
-            background: #d54;
-            color: #fff;
+            box-sizing: border-box;
+            border: 2px solid #d54;
         }
         flex: auto;
     }
 
     .action-buttons {
-        display: flex;
-        flex-direction: column;
+        &--button {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 2.7rem;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 6rem;
+            min-height: 3rem;
+            font-size: 1.4rem;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+        }
 
-        &--button:not(:last-child) {
+        .next {
+            width: 80%;
+            bottom: 6rem;
+        }
+
+        .skip {
+            font-size: 1rem;
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .finish-button {
             width: 100%;
-            margin-bottom: 10px;
+            background-color: #d54;
+            border-radius: 1rem;
+            border: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            margin-bottom: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transform: translateX(0);
         }
     }
 }

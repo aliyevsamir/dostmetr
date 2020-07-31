@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Radio, Button } from 'antd';
+import { Col, Radio, Button, Progress } from 'antd';
+import { DoubleRightOutlined } from '@ant-design/icons';
 import Answer from './AnswerTemplate/Answer';
 
 import './QuizTemplates.scss';
@@ -17,16 +18,23 @@ const QuizTemplate = ({
     mode,
     name
 }) => {
+    const canFinish =
+        (mode === 'make' && selectedAnswers >= 10) ||
+        (mode === 'take' && selectedAnswers === quizLength - 1);
     return (
         <Col
-            xs={20}
-            sm={16}
-            md={12}
+            xs={18}
+            sm={14}
+            md={10}
             lg={8}
-            xl={8}
+            xl={6}
             className='quiz-container--subcontainer'
         >
-            <span className='countBox'>Cavablandınız: {selectedAnswers}</span>
+            <Progress
+                percent={(selectedAnswers / quizLength) * 100}
+                showInfo={false}
+                strokeColor='#d54'
+            />
             <Question question={question_content} name={name} />
             <Radio.Group onChange={handleOptionChange} value={optionValue}>
                 {options.map(option => (
@@ -35,29 +43,32 @@ const QuizTemplate = ({
             </Radio.Group>
 
             <div className='action-buttons'>
-                <Button
-                    onClick={skipQuestion}
-                    className='action-buttons--button'
-                >
-                    Keç
-                </Button>
                 {selectedAnswers < quizLength - 1 && (
                     <Button
                         onClick={nextQuestion}
                         type='primary'
-                        className='action-buttons--button'
+                        className='action-buttons--button next'
                     >
-                        Cavabla
+                        Növbəti
                     </Button>
                 )}
-                {(mode === 'make' && selectedAnswers >= 10) ||
-                (mode === 'take' && selectedAnswers === quizLength - 1) ? (
+                {canFinish ? (
                     <Button
                         type='primary'
                         onClick={handleFinishQuiz}
-                        className='action-buttons--button'
+                        className='action-buttons--button finish-button'
                     >
                         Bitir
+                    </Button>
+                ) : null}
+                {(!canFinish && mode === 'take') ||
+                (mode === 'make' && selectedAnswers < quizLength - 1) ? (
+                    <Button
+                        onClick={skipQuestion}
+                        className='action-buttons--button skip'
+                    >
+                        <DoubleRightOutlined />
+                        <span>Keç</span>
                     </Button>
                 ) : null}
             </div>

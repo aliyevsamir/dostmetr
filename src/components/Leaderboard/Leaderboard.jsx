@@ -26,6 +26,7 @@ const Leaderboard = ({ leaderboard, userId }) => {
                     borderRadius: '.5rem',
                     backgroundColor: '#fff',
                     color: '#110',
+                    padding: '1.5rem 1.3rem',
                     margin: '.5rem 0',
                     boxShadow: '0px 1px 1px rgba(0,0,0,.3)'
                 }}

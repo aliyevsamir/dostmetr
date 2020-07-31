@@ -8,25 +8,25 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
         <div
             key={question.question_id}
             style={{
+                fontFamily: 'Montserrat, sans-serif',
                 borderRadius: '.5rem',
                 backgroundColor: '#fff',
                 color: '#110',
                 margin: '1rem 0',
                 boxShadow: '0px 1px 1px rgba(0,0,0,.3)',
-                padding: '1rem'
+                padding: '1.5rem 1.4rem'
             }}
         >
             <Text
                 style={{
+                    fontSize: '1.5rem',
                     fontWeight: '600',
-                    fontSize: '18px',
-                    padding: '5px',
-                    border: '1px solid rgba(0,0,0,.1)',
-                    minWidth: '100%',
                     display: 'inline-block',
-                    borderRadius: '5px',
-                    marginBottom: '10px',
-                    minHeight: '65px'
+                    padding: '0 .2rem',
+                    marginBottom: '.5rem',
+                    color: '#444',
+                    border: 'none',
+                    fontFamily: 'Montserrat, sans-serif'
                 }}
             >
                 {replaceName(question.question_content, name)}

@@ -43,7 +43,7 @@ const QuizSubmissions = ({
                 lg={12}
                 xl={8}
                 style={{
-                    padding: '1rem',
+                    padding: '2rem',
                     margin: '.5rem 0',
                     height: '100%'
                 }}
@@ -61,22 +61,14 @@ const QuizSubmissions = ({
                     className='right-side'
                     style={{
                         padding: '1rem',
-                        margin: '.5rem 0',
+                        margin: '0',
                         height: '100%'
                     }}
                 >
-                    <h1
-                        style={{
-                            fontFamily: 'Roboto, sans-serif',
-                            textAlign: 'center'
-                        }}
-                    >
-                        Sizin cavablarınız
-                    </h1>
                     <QuizTemplate2
                         questions={submission}
                         type='submission'
-                        name={name}
+                        name={'Samir'}
                     />
                 </Col>
             )}
