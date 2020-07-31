@@ -2,8 +2,7 @@
     background-color: #fff;
     padding: 2.2rem 2rem;
     box-sizing: border-box;
-    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3),
-        -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
+    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3), -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -13,7 +12,7 @@
     .countBox {
         color: #444;
         font-size: 18px;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         margin-bottom: 15px;
         display: inline-block;
         width: 100%;
@@ -27,7 +26,7 @@
         border-radius: 0.4rem;
         color: #444;
         border: none;
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         padding: 1rem;
     }
 
@@ -40,7 +39,7 @@
             border-radius: 0.4rem;
             padding: 0.3rem;
             background-color: #fff;
-            font-family: 'Montserrat', sans-serif;
+            font-family: "Montserrat", sans-serif;
             font-size: 1rem;
             font-weight: 600;
             display: block;
@@ -54,7 +53,7 @@
 
         .ant-radio-wrapper-checked.option {
             box-sizing: border-box;
-            border: 2px solid #d54;
+            border: 1px solid #d54;
         }
         flex: auto;
     }
@@ -70,7 +69,7 @@
             border-radius: 6rem;
             min-height: 3rem;
             font-size: 1.4rem;
-            font-family: 'Montserrat', sans-serif;
+            font-family: "Montserrat", sans-serif;
             line-height: 1;
         }
 
