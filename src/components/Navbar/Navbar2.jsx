@@ -43,8 +43,8 @@ const Navbar2 = ({ navItems, history }) => {
                         <span
                             style={{
                                 color: '#fff',
-                                fontSize: '1.1rem',
-                                letterSpacing: '1px',
+                                fontSize: '.8rem',
+                                letterSpacing: '.3rem',
                                 fontFamily: 'Montserrat, sans-serif',
                                 textTransform: 'uppercase'
                             }}
