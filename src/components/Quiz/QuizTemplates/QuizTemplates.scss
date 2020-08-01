@@ -1,6 +1,7 @@
 .quiz-container--subcontainer {
     background-color: #fff;
     padding: 2.2rem 2rem;
+    margin: 2rem;
     box-sizing: border-box;
     box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3), -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
     min-height: 90vh;
@@ -54,13 +55,19 @@
 
     .action-buttons {
         z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 60px;
+        margin-bottom: 20px;
         &--button {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 2.7rem;
+            //position: absolute;
+            //left: 50%;
+            //transform: translateX(-50%);
+            //bottom: 2.7rem;
+            //margin: 0 auto;
             width: 80%;
-            margin: 0 auto;
             border-radius: 6rem;
             min-height: 3rem;
             font-size: 1.4rem;
@@ -70,7 +77,7 @@
 
         .next {
             width: 80%;
-            bottom: 6rem;
+            //bottom: 6rem;
         }
 
         .skip {
@@ -78,8 +85,9 @@
             background-color: transparent;
             border: none;
             box-shadow: none;
-            left: 50%;
-            transform: translateX(-50%);
+            //left: 50%;
+            //bottom: 2.7rem;
+            //transform: translateX(-50%);
         }
 
         .finish-button {
