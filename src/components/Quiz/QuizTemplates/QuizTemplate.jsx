@@ -42,16 +42,26 @@ const QuizTemplate = ({
                 ))}
             </Radio.Group>
 
-            <div className='action-buttons'>
+            <div className='action-buttons' style={{ marginBottom: canFinish? '20px' : '0px'}}>
                 {selectedAnswers < quizLength - 1 && (
                     <Button
                         onClick={nextQuestion}
                         type='primary'
-                        className='action-buttons--button next'
+                        className={`action-buttons--button next`}
                     >
                         Növbəti
                     </Button>
                 )}
+                {(!canFinish && mode === 'take') ||
+                (mode === 'make' && selectedAnswers < quizLength - 1) ? (
+                    <Button
+                        onClick={skipQuestion}
+                        className={`action-buttons--button skip`}
+                    >
+                        <DoubleRightOutlined />
+                        <span>Keç</span>
+                    </Button>
+                ) : null}
                 {canFinish ? (
                     <Button
                         type='primary'
@@ -59,16 +69,6 @@ const QuizTemplate = ({
                         className='action-buttons--button finish-button'
                     >
                         Bitir
-                    </Button>
-                ) : null}
-                {(!canFinish && mode === 'take') ||
-                (mode === 'make' && selectedAnswers < quizLength - 1) ? (
-                    <Button
-                        onClick={skipQuestion}
-                        className='action-buttons--button skip'
-                    >
-                        <DoubleRightOutlined />
-                        <span>Keç</span>
                     </Button>
                 ) : null}
             </div>
