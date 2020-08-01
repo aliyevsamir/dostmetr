@@ -131,6 +131,7 @@ const Register = ({
                             <Button
                                 type='primary'
                                 htmlType='submit'
+                                className='submit-button'
                                 style={{
                                     width: '60%',
                                     bottom: '0',
@@ -140,7 +141,8 @@ const Register = ({
                                     borderRadius: '2rem',
                                     fontSize: '1.1rem',
                                     fontWeight: '600',
-                                    margin: 'auto'
+                                    position: 'absolute',
+                                    bottom: '1rem'
                                 }}
                             >
                                 <Text
