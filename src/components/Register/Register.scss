@@ -1,0 +1,33 @@
+//   xs: '480px',
+//   sm: '576px',
+//   md: '768px',
+//   lg: '992px',
+
+@media screen and (max-width: 992px) {
+    .container {
+        flex-direction: column !important;
+        align-items: center !important;
+        overflow: hidden !important;
+        border-radius: 0 !important;
+        min-height: 100vh !important;
+        box-shadow: none !important;
+
+        .left-box {
+            display: inline-block;
+            margin: 0 auto;
+            left: -2rem;
+            margin-bottom: 2rem !important;
+            width: 100%;
+            img {
+                transform: translateX(0);
+                width: 140% !important;
+            }
+        }
+        .right-box {
+            background-color: transparent !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border-radius: none !important;
+        }
+    }
+}

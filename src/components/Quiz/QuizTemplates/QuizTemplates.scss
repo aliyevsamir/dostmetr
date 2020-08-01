@@ -8,29 +8,23 @@
     flex-direction: column;
     border-radius: 1rem;
     position: relative;
-
-    .countBox {
-        color: #444;
-        font-size: 18px;
-        font-family: "Montserrat", sans-serif;
-        margin-bottom: 15px;
-        display: inline-block;
-        width: 100%;
-        text-align: center;
-    }
+    overflow: hidden;
 
     .question {
-        font-size: 1.5rem;
-        font-weight: 600;
+        font-size: 1.7rem;
+        font-weight: 900;
         margin-bottom: 1rem;
         border-radius: 0.4rem;
-        color: #444;
+        color: #111;
         border: none;
         font-family: "Montserrat", sans-serif;
         padding: 1rem;
+        z-index: 1;
     }
 
     .ant-radio-group {
+        z-index: 1;
+
         .option {
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.1);
@@ -44,7 +38,7 @@
             font-weight: 600;
             display: block;
             width: 100%;
-            transition: all 0.1s;
+            transition: all 0.3s;
         }
 
         .ant-radio {
@@ -59,6 +53,7 @@
     }
 
     .action-buttons {
+        z-index: 1;
         &--button {
             position: absolute;
             left: 50%;

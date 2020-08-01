@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
+import Logo from '../utils/Logo/Logo';
 
 const Navbar2 = ({ navItems, history }) => {
     return (
@@ -14,25 +15,7 @@ const Navbar2 = ({ navItems, history }) => {
             }}
         >
             <Menu.Item onClick={() => history.push(`/profile`)}>
-                <span
-                    style={{
-                        color: '#fff',
-                        fontSize: '1.8rem',
-                        letterSpacing: '1px',
-                        fontWeight: '900',
-                        fontFamily: 'Montserrat, sans-serif',
-                        userSelect: 'none'
-                    }}
-                >
-                    Dost
-                    <span
-                        style={{
-                            color: '#a22'
-                        }}
-                    >
-                        metr
-                    </span>
-                </span>
+                <Logo />
             </Menu.Item>
             {navItems &&
                 navItems.map(({ navLink, navText }) => (

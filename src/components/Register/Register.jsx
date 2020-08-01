@@ -5,6 +5,9 @@ import { register } from '../../redux/actions/auth';
 import { withRouter } from 'react-router-dom';
 import Text from 'antd/lib/typography/Text';
 import { useEffect } from 'react';
+import Logo from '../utils/Logo/Logo';
+import quizSvg from '../../utils/undraw_questions_75e0.svg';
+import './Register.scss';
 
 const Register = ({
     register,
@@ -39,40 +42,115 @@ const Register = ({
                     'linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)'
             }}
         >
-            <Col xs={20} sm={16} md={12} lg={8} xl={6}>
-                <h3
+            <Col
+                xs={24}
+                sm={24}
+                md={10}
+                lg={22}
+                xl={22}
+                className='container'
+                style={{
+                    backgroundColor: '#fff',
+                    padding: '2rem 4rem',
+                    boxShadow:
+                        '1px 1px 5px rgba(0,0,0,0.3), -1px -1px 5px rgba(0,0,0,.3)',
+                    minHeight: '90vh',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    borderRadius: '1rem',
+                    position: 'relative'
+                }}
+            >
+                <Col
+                    xs={24}
+                    sm={24}
+                    md={12}
+                    lg={16}
+                    xl={18}
                     style={{
-                        marginBottom: '10px',
-                        fontFamily: 'Montserrat, sans-serif'
+                        position: 'relative'
+                    }}
+                    className='left-box'
+                >
+                    <img src={quizSvg} alt='' style={{ width: '80%' }} />
+                </Col>
+                <Col
+                    xs={24}
+                    sm={24}
+                    md={24}
+                    lg={8}
+                    xl={6}
+                    className='right-box'
+                    style={{
+                        backgroundColor: '#fff',
+                        padding: '2.2rem',
+                        boxShadow:
+                            '1px 1px 5px rgba(0,0,0,0.3), -1px -1px 5px rgba(0,0,0,.3)',
+                        minHeight: '50vh',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: '1rem',
+                        position: 'relative'
                     }}
                 >
-                    {mode === 'make'
-                        ? 'Öz quizinizi yaratmaq üçün zəhmət olmasa qeydiyyatdan keçin'
-                        : `${createdBy} sizin üçün gözəl bir quiz hazırlayıb. Onun quizini həll etmək üçün zəhmət olmasa qeydiyyatdan keçin 😊`}
-                </h3>
-                <Form onFinish={onFinish} form={form} layout='vertical'>
-                    <Form.Item
-                        name='name'
-                        label='İstifadəçi adı'
-                        rules={[
-                            {
-                                required: true
-                            }
-                        ]}
+                    <Logo type='dark' />
+                    <h3
+                        style={{
+                            margin: '1.5rem 0',
+                            display: 'inline-block',
+                            fontFamily: 'Montserrat, sans-serif',
+                            fontSize: '1.7rem',
+                            fontWeight: '600'
+                        }}
                     >
-                        <Input placeholder='Adınızı daxil edin' />
-                    </Form.Item>
-
-                    <Button
-                        type='primary'
-                        htmlType='submit'
-                        style={{ width: '100%' }}
-                    >
-                        <Text style={{ color: '#fff', fontWeight: '600' }}>
-                            {mode === 'make' ? 'Öz quizini yarat' : 'Qeydiyyat'}
-                        </Text>
-                    </Button>
-                </Form>
+                        {mode === 'make'
+                            ? 'Qeydiyyat'
+                            : `${createdBy} sizin üçün bir test hazırlayıb. Qeydiyyatdan keçin və həll edin`}
+                    </h3>
+                    <Form onFinish={onFinish} form={form} layout='vertical'>
+                        <Form.Item
+                            name='name'
+                            // label='Adınız'
+                            rules={[
+                                {
+                                    required: true,
+                                    message: ' '
+                                }
+                            ]}
+                        >
+                            <Input placeholder='Adınızı daxil edin' />
+                        </Form.Item>
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center'
+                            }}
+                        >
+                            <Button
+                                type='primary'
+                                htmlType='submit'
+                                style={{
+                                    width: '60%',
+                                    bottom: '0',
+                                    height: '2.5rem',
+                                    backgroundColor: '#6C63FF',
+                                    border: 'none',
+                                    borderRadius: '2rem',
+                                    fontSize: '1.1rem',
+                                    fontWeight: '600',
+                                    margin: 'auto'
+                                }}
+                            >
+                                <Text
+                                    style={{ color: '#fff', fontWeight: '600' }}
+                                >
+                                    İrəli
+                                </Text>
+                            </Button>
+                        </div>
+                    </Form>
+                </Col>
             </Col>
         </Row>
     );

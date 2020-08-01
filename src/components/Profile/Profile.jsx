@@ -42,6 +42,8 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
         if (leaderboard.length) setHasLeaderboard(true);
     }, [leaderboard]);
 
+    console.log();
+
     return loading ? (
         <Loading />
     ) : (
@@ -177,7 +179,7 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                 style={{ marginBottom: '10px' }}
                                             >
                                                 <CopyToClipboard
-                                                    text={`http://localhost:3000/quizzes/${user.quiz_id}`}
+                                                    text={`${window.location.origin}/quizzes/${user.quiz_id}`}
                                                     onCopy={() => {
                                                         message.success(
                                                             'Linki kopyaladınız, dostlarınıza yollayın 😊'
@@ -218,7 +220,7 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                 style={{ textAlign: 'center' }}
                                             >
                                                 <ShareButtons
-                                                    url={`http://localhost:3000/quizzes/${user.quiz_id}`}
+                                                    url={`${window.location.origin}/quizzes/${user.quiz_id}`}
                                                 />
                                             </Col>
                                         </>
