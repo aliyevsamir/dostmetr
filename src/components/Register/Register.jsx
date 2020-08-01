@@ -45,7 +45,7 @@ const Register = ({
             <Col
                 xs={24}
                 sm={24}
-                md={10}
+                md={22}
                 lg={22}
                 xl={22}
                 className='container'
@@ -65,7 +65,7 @@ const Register = ({
                 <Col
                     xs={24}
                     sm={24}
-                    md={12}
+                    md={14}
                     lg={16}
                     xl={18}
                     style={{
@@ -78,11 +78,12 @@ const Register = ({
                 <Col
                     xs={24}
                     sm={24}
-                    md={24}
+                    md={10}
                     lg={8}
                     xl={6}
                     className='right-box'
                     style={{
+                        textAlign: 'center',
                         backgroundColor: '#fff',
                         padding: '2.2rem',
                         boxShadow:
