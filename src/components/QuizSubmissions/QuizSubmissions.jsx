@@ -57,34 +57,6 @@ const QuizSubmissions = ({
                 minHeight: '100vh'
             }}
         >
-            {!haveQuiz && (
-                <Col
-                    xs={22}
-                    sm={20}
-                    md={16}
-                    lg={12}
-                    xl={8}
-                    className='suggestion'
-                >
-                    <div style={{ textAlign: 'center' }}>
-                        <h3>Sən də öz quizini hazırla və paylaş !</h3>
-                        <Link to='/make-quiz'>
-                            <Button
-                                type='primary'
-                                style={{
-                                    borderRadius: '1rem',
-                                    border: 'none',
-                                    width: '70%',
-                                    maxWidth: '200px'
-                                }}
-                            >
-                                Hazırla
-                            </Button>
-                        </Link>
-                    </div>
-                </Col>
-            )}
-
             <Col
                 xs={22}
                 sm={20}
@@ -97,7 +69,46 @@ const QuizSubmissions = ({
                     height: '100%'
                 }}
             >
-                <Leaderboard leaderboard={leaderboard} userId={user_id} />
+                <Row>
+                    <Col span={24} style={{ height: '100%' }}>
+                        {!haveQuiz && (
+                            <Col span={24} className='suggestion'>
+                                <div style={{ textAlign: 'center' }}>
+                                    <h3>
+                                        Sən də öz quizini hazırla və paylaş !
+                                    </h3>
+                                    <Link to='/make-quiz'>
+                                        <Button
+                                            type='primary'
+                                            style={{
+                                                borderRadius: '1rem',
+                                                border: 'none',
+                                                width: '70%',
+                                                maxWidth: '200px'
+                                            }}
+                                        >
+                                            Hazırla
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </Col>
+                        )}
+
+                        <Col
+                            span={24}
+                            style={{
+                                padding: '2rem',
+                                margin: '.5rem 0',
+                                height: '100%'
+                            }}
+                        >
+                            <Leaderboard
+                                leaderboard={leaderboard}
+                                userId={user_id}
+                            />
+                        </Col>
+                    </Col>
+                </Row>
             </Col>
 
             {submission && (
