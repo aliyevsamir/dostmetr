@@ -56,7 +56,6 @@ const Register = ({
                         '1px 1px 5px rgba(0,0,0,0.3), -1px -1px 5px rgba(0,0,0,.3)',
                     minHeight: '90vh',
                     display: 'flex',
-                    justifyContent: 'space-between',
                     alignItems: 'center',
                     borderRadius: '1rem',
                     position: 'relative'
@@ -84,7 +83,7 @@ const Register = ({
                     className='right-box'
                     style={{
                         textAlign: 'center',
-                        backgroundColor: '#fff',
+                        backgroundColor: 'rgba(255,255,255,.6)',
                         padding: '2.2rem',
                         boxShadow:
                             '1px 1px 5px rgba(0,0,0,0.3), -1px -1px 5px rgba(0,0,0,.3)',

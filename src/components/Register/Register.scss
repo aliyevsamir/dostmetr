@@ -6,11 +6,12 @@
 @media screen and (max-width: 992px) {
     .container {
         padding: 3rem !important;
+        overflow: hidden !important;
 
         .left-box {
             img {
-                transform: translateX(-15px);
-                width: 90% !important;
+                transform: translateX(-10rem);
+                width: 160% !important;
             }
         }
     }
@@ -23,7 +24,6 @@
         overflow: hidden !important;
         border-radius: 0 !important;
         min-height: 100vh !important;
-        max-height: 100vh !important;
         overflow: hidden !important;
         box-shadow: none !important;
 
@@ -42,9 +42,10 @@
             display: flex;
             justify-content: center;
             margin: 0 auto;
-            margin-bottom: 2rem !important;
+            margin-bottom: 3rem !important;
             img {
-                width: 60% !important;
+                transform: initial !important;
+                width: 70% !important;
             }
         }
     }
@@ -54,7 +55,7 @@
     .container {
         .left-box {
             img {
-                width: 70% !important;
+                width: 80% !important;
             }
         }
     }
