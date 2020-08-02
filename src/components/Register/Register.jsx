@@ -90,6 +90,7 @@ const Register = ({
                             '1px 1px 5px rgba(0,0,0,0.3), -1px -1px 5px rgba(0,0,0,.3)',
                         minHeight: '50vh',
                         display: 'flex',
+                        alignItems: 'center',
                         flexDirection: 'column',
                         borderRadius: '1rem',
                         position: 'relative'
@@ -98,21 +99,21 @@ const Register = ({
                     <Logo type='dark' />
                     <h3
                         style={{
-                            margin: '1.5rem 0',
+                            margin: mode === 'make' ? '1.5rem 0' : '0 0 1rem 0',
                             display: 'inline-block',
                             fontFamily: 'Montserrat, sans-serif',
-                            fontSize: '1.7rem',
-                            fontWeight: '600'
+                            fontSize: mode === 'make' ? '1.7rem' : '1.4rem',
+                            fontWeight: '600',
+                            maxWidth: '80%'
                         }}
                     >
                         {mode === 'make'
                             ? 'Qeydiyyat'
-                            : `${createdBy} sizin üçün bir test hazırlayıb. Qeydiyyatdan keçin və həll edin`}
+                            : `${createdBy} sizin üçün test hazırlayıb. Qeydiyyatdan keçin və həll edin`}
                     </h3>
                     <Form onFinish={onFinish} form={form} layout='vertical'>
                         <Form.Item
                             name='name'
-                            // label='Adınız'
                             rules={[
                                 {
                                     required: true,
@@ -120,7 +121,10 @@ const Register = ({
                                 }
                             ]}
                         >
-                            <Input placeholder='Adınızı daxil edin' />
+                            <Input
+                                style={{ maxWidth: '200px' }}
+                                placeholder='Adınızı daxil edin'
+                            />
                         </Form.Item>
                         <div
                             style={{
@@ -134,15 +138,12 @@ const Register = ({
                                 className='submit-button'
                                 style={{
                                     width: '60%',
-                                    bottom: '0',
                                     height: '2.5rem',
                                     backgroundColor: '#6C63FF',
                                     border: 'none',
                                     borderRadius: '2rem',
                                     fontSize: '1.1rem',
-                                    fontWeight: '600',
-                                    position: 'absolute',
-                                    bottom: '1rem'
+                                    fontWeight: '600'
                                 }}
                             >
                                 <Text

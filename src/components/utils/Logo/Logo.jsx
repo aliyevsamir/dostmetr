@@ -9,7 +9,8 @@ const Logo = ({ type = 'light' }) => {
                 letterSpacing: '1px',
                 fontWeight: '900',
                 fontFamily: 'Montserrat, sans-serif',
-                userSelect: 'none'
+                userSelect: 'none',
+                margin: '0'
             }}
         >
             Dost

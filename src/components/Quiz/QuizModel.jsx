@@ -20,6 +20,7 @@ const QuizModel = ({
     const [optionValue, setOptionValue] = useState(null);
     const [quizSubmissions, setQuizSubmissions] = useState({});
     const [finalQuizSubmission, setFinalQuizSubmission] = useState({});
+    const [loading, setLoading] = useState(false);
 
     const [state, setState] = useState({
         currentQuestionID: 0,
@@ -28,6 +29,7 @@ const QuizModel = ({
 
     useEffect(() => {
         if (!isEmpty(finalQuizSubmission)) {
+            setLoading(true);
             if (mode === 'make') {
                 createQuiz(finalQuizSubmission).then(() => {
                     console.log('hey');
@@ -200,7 +202,7 @@ const QuizModel = ({
 
     const { currentQuestionID, selectedAnswers } = state;
 
-    return !quizzes.length ? (
+    return !quizzes.length || loading ? (
         <Loading />
     ) : (
         <Row

@@ -19,8 +19,8 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
         >
             <Text
                 style={{
-                    fontSize: '1.5rem',
-                    fontWeight: '600',
+                    fontSize: '1.4rem',
+                    fontWeight: '900',
                     display: 'inline-block',
                     padding: '0 .2rem',
                     marginBottom: '.5rem',
@@ -34,7 +34,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
             {question.options.map(option => (
                 <Text
                     style={{
-                        fontWeight: '500',
+                        fontWeight: '600',
                         fontSize: '.8rem',
                         padding: '5px',
                         backgroundColor:
@@ -45,7 +45,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
                             (type === 'submission' &&
                                 option.correct &&
                                 !option.selected)
-                                ? '#0f0'
+                                ? '#32CD32'
                                 : type === 'submission' &&
                                   !option.correct &&
                                   option.selected

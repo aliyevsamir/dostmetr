@@ -55,7 +55,7 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
         >
             <Col span={24}>
                 <Row type='flex' justify='center'>
-                    <Col span={24} style={{ height: '100%', widows: '100%' }}>
+                    <Col span={24} style={{ height: '100%' }}>
                         <Navbar2 navItems={navItems} />
                     </Col>
 
@@ -83,7 +83,7 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                 >
                                     <Col span={24}>
                                         <Row type='flex' justify='center'>
-                                            <Col span={8}>
+                                            <Col span={24}>
                                                 <Title
                                                     level={3}
                                                     style={{

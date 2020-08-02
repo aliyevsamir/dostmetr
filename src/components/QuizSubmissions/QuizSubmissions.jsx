@@ -1,32 +1,53 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
+import { getMyQuiz } from '../../redux/actions/quizzes';
 import { useEffect } from 'react';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import './QuizSubmissions.scss';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import Loading from '../../utils/Loading';
+import { useState } from 'react';
 
 const QuizSubmissions = ({
-    questions,
     questions: { submission, quiz_id, user_id },
     getLeaderboard,
     leaderboard,
+    history,
+    getMyQuiz,
     history: {
-        location: {
-            state: { name }
-        }
+        location: { state }
     }
 }) => {
+    const [loading, setLoading] = useState(true);
+    const [haveQuiz, setHaveQuiz] = useState(true);
+
+    useEffect(() => {
+        getMyQuiz().then(res => {
+            if (res && (res.status !== '200' || !res.statusText === 'OK'))
+                setHaveQuiz(false);
+            setLoading(false);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (!state) {
+            history.push('/profile');
+        }
+    });
+
     useEffect(() => {
         if (user_id) {
             getLeaderboard(quiz_id, user_id);
         }
     }, [user_id]);
 
-    return (
+    return loading ? (
+        <Loading />
+    ) : (
         <Row
             gutter={6}
             type='flex'
@@ -36,6 +57,34 @@ const QuizSubmissions = ({
                 minHeight: '100vh'
             }}
         >
+            {!haveQuiz && (
+                <Col
+                    xs={22}
+                    sm={20}
+                    md={16}
+                    lg={12}
+                    xl={8}
+                    className='suggestion'
+                >
+                    <div style={{ textAlign: 'center' }}>
+                        <h3>Sən də öz quizini hazırla və paylaş !</h3>
+                        <Link to='/make-quiz'>
+                            <Button
+                                type='primary'
+                                style={{
+                                    borderRadius: '1rem',
+                                    border: 'none',
+                                    width: '70%',
+                                    maxWidth: '200px'
+                                }}
+                            >
+                                Hazırla
+                            </Button>
+                        </Link>
+                    </div>
+                </Col>
+            )}
+
             <Col
                 xs={22}
                 sm={20}
@@ -68,7 +117,7 @@ const QuizSubmissions = ({
                     <QuizTemplate2
                         questions={submission}
                         type='submission'
-                        name={'Samir'}
+                        name={state.name}
                     />
                 </Col>
             )}
@@ -87,6 +136,6 @@ QuizSubmissions.propTypes = {
     leaderboard: PropTypes.array
 };
 
-export default connect(mapStateToProps, { getLeaderboard })(
+export default connect(mapStateToProps, { getLeaderboard, getMyQuiz })(
     withRouter(QuizSubmissions)
 );

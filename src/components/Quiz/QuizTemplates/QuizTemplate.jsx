@@ -23,9 +23,9 @@ const QuizTemplate = ({
         (mode === 'take' && selectedAnswers === quizLength - 1);
     return (
         <Col
-            xs={18}
-            sm={14}
-            md={10}
+            xs={22}
+            sm={18}
+            md={11}
             lg={8}
             xl={6}
             className='quiz-container--subcontainer'
@@ -42,7 +42,10 @@ const QuizTemplate = ({
                 ))}
             </Radio.Group>
 
-            <div className='action-buttons' style={{ marginBottom: canFinish? '20px' : '0px'}}>
+            <div
+                className='action-buttons'
+                style={{ marginBottom: canFinish ? '20px' : '0px' }}
+            >
                 {selectedAnswers < quizLength - 1 && (
                     <Button
                         onClick={nextQuestion}

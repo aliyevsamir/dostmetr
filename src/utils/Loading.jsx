@@ -1,23 +1,23 @@
 import React from 'react';
-import loading from './loading.gif';
-import { Row, Col } from 'antd';
+import './Loading.css';
 
 const Loading = () => {
     return (
-        <Row
-            type='flex'
-            align='middle'
-            justify='center'
-            style={{ minHeight: '100vh' }}
+        <div
+            style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <Col>
-                <img
-                    src={loading}
-                    style={{ width: '120px' }}
-                    alt='loading...'
-                />
-            </Col>
-        </Row>
+            <div className='sk-folding-cube'>
+                <div className='sk-cube1 sk-cube'></div>
+                <div className='sk-cube2 sk-cube'></div>
+                <div className='sk-cube4 sk-cube'></div>
+                <div className='sk-cube3 sk-cube'></div>
+            </div>
+        </div>
     );
 };
 
