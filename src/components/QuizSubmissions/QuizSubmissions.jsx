@@ -27,7 +27,7 @@ const QuizSubmissions = ({
 
     useEffect(() => {
         getMyQuiz().then(res => {
-            if (!res && (res.status !== '200' || !res.statusText === 'OK'))
+            if (!res || res.status !== '200' || !res.statusText === 'OK')
                 setHaveQuiz(false);
             setLoading(false);
         });
