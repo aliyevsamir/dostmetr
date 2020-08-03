@@ -23,68 +23,92 @@ export const loadQuizzes = () => async dispatch => {
             payload: res.data
         });
     } catch (err) {
-        console.log(err);
+        console.error(JSON.stringify(err.response.data));
     }
 };
 
 export const createQuizzes = quizzes => async dispatch => {
-    const res = await axios.post('/api/v1/questions/options', quizzes);
+    try {
+        const res = await axios.post('/api/v1/questions/options', quizzes);
 
-    dispatch({
-        type: CREATE_QUIZZES,
-        payload: res.data
-    });
+        dispatch({
+            type: CREATE_QUIZZES,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const updateQuestion = (id, newQuestion) => async dispatch => {
-    const question = { question_content: newQuestion };
-    const res = await axios.put(`/api/v1/questions/${id}`, question);
+    try {
+        const question = { question_content: newQuestion };
+        const res = await axios.put(`/api/v1/questions/${id}`, question);
 
-    dispatch({
-        type: UPDATE_QUESTION,
-        payload: res.data
-    });
+        dispatch({
+            type: UPDATE_QUESTION,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const deleteQuestion = id => async dispatch => {
-    const res = await axios.delete(`/api/v1/questions/${id}`);
+    try {
+        const res = await axios.delete(`/api/v1/questions/${id}`);
 
-    dispatch({
-        type: DELETE_QUESTION,
-        payload: res.data
-    });
+        dispatch({
+            type: DELETE_QUESTION,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const updateOption = (id, newOption) => async dispatch => {
-    const res = await axios.put(`/api/v1/options/${id}`, newOption);
+    try {
+        const res = await axios.put(`/api/v1/options/${id}`, newOption);
 
-    dispatch({
-        type: UPDATE_OPTION,
-        payload: res.data
-    });
+        dispatch({
+            type: UPDATE_OPTION,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const deleteOption = id => async dispatch => {
-    const res = await axios.delete(`/api/v1/options/${id}`);
+    try {
+        const res = await axios.delete(`/api/v1/options/${id}`);
 
-    dispatch({
-        type: DELETE_OPTION,
-        payload: res.data
-    });
+        dispatch({
+            type: DELETE_OPTION,
+            payload: res.data
+        });
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const addOption = (questionId, option) => async dispatch => {
-    const res = await axios.post(
-        `/api/v1/questions/${questionId}/options`,
-        option
-    );
+    try {
+        const res = await axios.post(
+            `/api/v1/questions/${questionId}/options`,
+            option
+        );
 
-    dispatch({
-        type: ADD_OPTION,
-        payload: res.data
-    });
+        dispatch({
+            type: ADD_OPTION,
+            payload: res.data
+        });
 
-    return res;
+        return res;
+    } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+    }
 };
 
 export const createQuiz = quizChoices => async dispatch => {
@@ -114,7 +138,7 @@ export const getMyQuiz = () => async dispatch => {
 
         return res;
     } catch (err) {
-        console.error(err.response);
+        console.error(JSON.stringify(err.response.data));
     }
 };
 
@@ -128,7 +152,7 @@ export const getQuizForTaking = quizId => async dispatch => {
             payload: res.data.data
         });
     } catch (err) {
-        console.log(err);
+        console.error(JSON.stringify(err.response.data));
         return err;
     }
 };
@@ -149,5 +173,6 @@ export const submitQuiz = (quizId, quizSubmissions) => async dispatch => {
             type: QUIZ_SUBMISSION_ERROR,
             payload: []
         });
+        console.error(JSON.stringify(err.response.data));
     }
 };

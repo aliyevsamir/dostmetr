@@ -26,8 +26,8 @@ const Register = ({
     };
 
     useEffect(() => {
-        if (isAuthenticated && mode === 'make') history.push('/make-quiz');
-    }, [isAuthenticated]);
+        if (localStorage.token) history.push('/profile');
+    }, []);
 
     const [form] = Form.useForm();
 

@@ -21,6 +21,6 @@ export const getLeaderboard = (quizId, userId) => async dispatch => {
             payload: res.data.data
         });
     } catch (err) {
-        console.log(err.response);
+        console.error(JSON.stringify(err.response.data));
     }
 };

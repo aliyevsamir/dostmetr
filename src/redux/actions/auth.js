@@ -22,6 +22,8 @@ export const loadUser = () => async dispatch => {
 
         return res;
     } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+
         dispatch({
             type: AUTH_ERROR
         });
@@ -40,6 +42,8 @@ export const register = userData => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+
         dispatch({
             type: REGISTER_USER_FAIL
         });
@@ -63,6 +67,8 @@ export const adminLogin = loginData => async dispatch => {
             payload: res.data
         });
     } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+
         dispatch({
             type: SET_ERRORS,
             payload: err
@@ -84,6 +90,8 @@ export const registerAdmin = registerData => async dispatch => {
 
         return res.data;
     } catch (err) {
+        console.error(JSON.stringify(err.response.data));
+
         dispatch({
             type: SET_ERRORS,
             payload: err
