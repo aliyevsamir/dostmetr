@@ -17,11 +17,19 @@ const Register = ({
     createdBy = null
 }) => {
     const onFinish = async userData => {
-        if (mode == 'make') {
-            await register(userData);
-            history.push('/make-quiz');
+        if (mode === 'make') {
+            try {
+                await register(userData);
+                history.push('/make-quiz');
+            } catch (error) {
+                console.error(error.response);
+            }
         } else {
-            await register(userData);
+            try {
+                await register(userData);
+            } catch (error) {
+                console.error(error.response);
+            }
         }
     };
 

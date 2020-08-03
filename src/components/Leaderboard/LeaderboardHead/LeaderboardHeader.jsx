@@ -12,17 +12,18 @@ const LeaderboardHeader = ({ myLeaderboardInfo }) => {
                 padding: '1rem',
                 fontSize: '1.1rem',
                 fontFamily: 'Roboto, sans-serif',
-                fontWeight: '300',
+                justifyContent: 'space-between',
+                letterSpacing: '2px',
+                fontWeight: '500',
                 textTransform: 'uppercase'
             }}
         >
             <Col span={6}>
                 <Row type='flex' justify='center' align='middle'>
-                    <Col span={24}>Reytinq</Col>
+                    <Col span={24}>REYTİNQ</Col>
                     <Col span={24}>{myLeaderboardInfo.rank}</Col>
                 </Row>
             </Col>
-            <Col span={12}>{myLeaderboardInfo.name}</Col>
             <Col span={6}>
                 <Row type='flex' justify='center' align='middle'>
                     <Col span={24}>Xal</Col>

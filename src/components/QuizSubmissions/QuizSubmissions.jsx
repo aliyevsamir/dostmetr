@@ -64,15 +64,14 @@ const QuizSubmissions = ({
                 lg={12}
                 xl={8}
                 style={{
-                    padding: '2rem',
-                    margin: '.5rem 0',
+                    padding: '1rem',
                     height: '100%'
                 }}
             >
                 <Row>
                     <Col span={24} style={{ height: '100%' }}>
                         {!haveQuiz && (
-                            <Col span={24} className='suggestion'>
+                            <Col span={24} style={{ padding: '1rem' }}>
                                 <div style={{ textAlign: 'center' }}>
                                     <h3>
                                         Sən də öz quizini hazırla və paylaş !
@@ -97,7 +96,6 @@ const QuizSubmissions = ({
                         <Col
                             span={24}
                             style={{
-                                padding: '2rem',
                                 margin: '.5rem 0',
                                 height: '100%'
                             }}
