@@ -32,7 +32,6 @@ const QuizModel = ({
             setLoading(true);
             if (mode === 'make') {
                 createQuiz(finalQuizSubmission).then(() => {
-                    console.log('hey');
                     history.push('/profile');
                 });
             } else {

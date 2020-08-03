@@ -11,6 +11,11 @@
     position: relative;
     overflow: hidden;
 
+    .ant-radio-wrapper,
+    .ant-radio-wrapper-checked {
+        white-space: normal;
+    }
+
     .question {
         font-size: 1.6rem;
         font-weight: 900;
@@ -20,19 +25,16 @@
         border: none;
         font-family: "Montserrat", sans-serif;
         padding: 1rem;
-        z-index: 1;
     }
 
     .ant-radio-group {
-        z-index: 1;
-
         .option {
             box-sizing: border-box;
             border: 2px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 0.6rem;
             color: #333;
             border-radius: 0.4rem;
-            padding: 0.3rem;
+            padding: 0.5rem 0.7rem;
             background-color: #fff;
             font-family: "Montserrat", sans-serif;
             font-size: 1rem;
@@ -40,6 +42,10 @@
             display: block;
             width: 100%;
             transition: all 0.3s;
+
+            span.ant-radio + * {
+                padding: 0;
+            }
         }
 
         .ant-radio {
@@ -50,6 +56,7 @@
             box-sizing: border-box;
             border: 2px solid #d54;
         }
+
         flex: auto;
     }
 

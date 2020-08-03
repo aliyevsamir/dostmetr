@@ -194,7 +194,8 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                             color: '#000',
                                                             width: '100%',
                                                             marginBottom: '5px',
-                                                            textAlign: 'center'
+                                                            textAlign: 'center',
+                                                            borderRadius: '1rem'
                                                         }}
                                                     >
                                                         Linki kopyala
@@ -242,7 +243,8 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                     style={{
                                                         width: '100%',
                                                         marginBottom: '5px',
-                                                        textAlign: 'center'
+                                                        textAlign: 'center',
+                                                        borderRadius: '1rem'
                                                     }}
                                                 >
                                                     Öz quizini yarat!

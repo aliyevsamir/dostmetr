@@ -23,8 +23,8 @@ const QuizTemplate = ({
         (mode === 'take' && selectedAnswers === quizLength - 1);
     return (
         <Col
-            xs={22}
-            sm={18}
+            xs={21}
+            sm={14}
             md={11}
             lg={8}
             xl={6}

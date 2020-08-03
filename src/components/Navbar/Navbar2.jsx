@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import Logo from '../utils/Logo/Logo';
+import './Navbar.scss';
 
 const Navbar2 = ({ navItems, history }) => {
     return (
