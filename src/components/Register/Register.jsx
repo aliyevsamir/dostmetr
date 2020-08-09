@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import Logo from '../utils/Logo/Logo';
 import quizSvg from '../../utils/undraw_questions_75e0.svg';
 import './Register.scss';
+import toSentenceCase from '../../utils/toSentenceCase';
 
 const Register = ({
     register,
@@ -115,7 +116,7 @@ const Register = ({
                     >
                         {mode === 'make'
                             ? 'Qeydiyyat'
-                            : `${createdBy} sizin üçün test hazırlayıb. Qeydiyyatdan keçin və həll edin`}
+                            : `${createdBy} tərəfindən yaradılmış dostluq testini etmək üçün adınızı daxil edin`}
                     </h3>
                     <Form onFinish={onFinish} form={form} layout='vertical'>
                         <Form.Item

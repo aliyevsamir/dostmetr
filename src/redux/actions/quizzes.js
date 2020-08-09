@@ -10,8 +10,7 @@ import {
     CREATE_CHOICES,
     GET_MY_QUIZ,
     GET_QUIZ_FOR_TAKING,
-    QUIZ_SUBMISSION_SUCCESS,
-    QUIZ_SUBMISSION_ERROR
+    GET_SUBMISSION
 } from '../types';
 
 export const loadQuizzes = () => async dispatch => {
@@ -145,7 +144,6 @@ export const getMyQuiz = () => async dispatch => {
 export const getQuizForTaking = quizId => async dispatch => {
     try {
         const res = await axios.get(`/api/v1/quizzes/${quizId}`);
-        console.log(res);
 
         dispatch({
             type: GET_QUIZ_FOR_TAKING,
@@ -157,22 +155,17 @@ export const getQuizForTaking = quizId => async dispatch => {
     }
 };
 
-export const submitQuiz = (quizId, quizSubmissions) => async dispatch => {
+export const getSubmission = (quizId, submissionId) => async dispatch => {
     try {
-        const res = await axios.post(
-            `/api/v1/quizzes/${quizId}/submissions`,
-            quizSubmissions
+        const res = await axios.get(
+            `/api/v1/quizzes/${quizId}/submissions/${submissionId}`
         );
 
         dispatch({
-            type: QUIZ_SUBMISSION_SUCCESS,
-            payload: res.data.data
+            type: GET_SUBMISSION,
+            payload: res.data.data.submission
         });
-    } catch (err) {
-        dispatch({
-            type: QUIZ_SUBMISSION_ERROR,
-            payload: []
-        });
-        console.error(JSON.stringify(err.response.data));
+    } catch (error) {
+        console.error(JSON.stringify(error.response.data));
     }
 };

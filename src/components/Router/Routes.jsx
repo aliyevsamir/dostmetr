@@ -18,9 +18,9 @@ const Routes = () => {
             <Route exact path='/' component={HomePage} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/quizzes/:quizId' component={TakeQuiz} />
-            <Route
+            <PrivateRoute
                 exact
-                path='/quizzes/:quizId/submissions'
+                path='/quizzes/:quizId/submissions/:submissionId'
                 component={QuizSubmissions}
             />
             <PrivateRoute exact path='/make-quiz' component={MakeQuiz} />

@@ -33,6 +33,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
             </Text>
             {question.options.map(option => (
                 <Text
+                    key={option.option_id}
                     style={{
                         fontWeight: '600',
                         fontSize: '.8rem',

@@ -4,15 +4,15 @@ import { Row, message } from 'antd';
 import QuizTemplate from './QuizTemplates/QuizTemplate';
 import Loading from '../../utils/Loading';
 import { withRouter } from 'react-router-dom';
-import { createQuiz, submitQuiz } from '../../redux/actions/quizzes';
+import { createQuiz } from '../../redux/actions/quizzes';
 import { useEffect } from 'react';
 import isEmpty from '../../utils/isEmpty';
+import axios from 'axios';
 
 const QuizModel = ({
     mode = 'make',
     quizzes = [],
     createQuiz,
-    submitQuiz,
     history,
     name,
     quizId = null
@@ -35,12 +35,21 @@ const QuizModel = ({
                     history.push('/profile');
                 });
             } else {
-                submitQuiz(quizId, finalQuizSubmission).then(() => {
-                    history.push({
-                        pathname: `/quizzes/${quizId}/submissions`,
-                        state: { name }
-                    });
-                });
+                axios
+                    .post(
+                        `/api/v1/quizzes/${quizId}/submissions`,
+                        finalQuizSubmission
+                    )
+                    .then(res => {
+                        console.log(res);
+                        const { quiz_submission_id } = res.data.data;
+                        const userId = res.data.data.user_id;
+                        history.push({
+                            pathname: `/quizzes/${quizId}/submissions/${quiz_submission_id}`,
+                            state: { name, userId }
+                        });
+                    })
+                    .catch(err => console.error(err));
             }
         }
     }, [finalQuizSubmission]);
@@ -231,4 +240,4 @@ const QuizModel = ({
     );
 };
 
-export default connect(null, { createQuiz, submitQuiz })(withRouter(QuizModel));
+export default connect(null, { createQuiz })(withRouter(QuizModel));

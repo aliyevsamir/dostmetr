@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
-import { getMyQuiz } from '../../redux/actions/quizzes';
+import { getMyQuiz, getSubmission } from '../../redux/actions/quizzes';
 import { useEffect } from 'react';
 import Leaderboard from '../Leaderboard/Leaderboard';
 import './QuizSubmissions.scss';
@@ -13,19 +13,21 @@ import Loading from '../../utils/Loading';
 import { useState } from 'react';
 
 const QuizSubmissions = ({
-    questions: { submission, quiz_id, user_id },
+    submission: { submission },
     getLeaderboard,
     leaderboard,
-    history,
+    getSubmission,
     getMyQuiz,
-    history: {
-        location: { state }
+    history: { location },
+    match: {
+        params: { quizId, submissionId }
     }
 }) => {
     const [loading, setLoading] = useState(true);
     const [haveQuiz, setHaveQuiz] = useState(true);
 
     useEffect(() => {
+        getSubmission(quizId, submissionId);
         getMyQuiz().then(res => {
             if (!res || res.status !== '200' || !res.statusText === 'OK')
                 setHaveQuiz(false);
@@ -34,16 +36,10 @@ const QuizSubmissions = ({
     }, []);
 
     useEffect(() => {
-        if (!state) {
-            history.push('/profile');
+        if (location.state.userId) {
+            getLeaderboard(quizId, location.state.userId);
         }
-    });
-
-    useEffect(() => {
-        if (user_id) {
-            getLeaderboard(quiz_id, user_id);
-        }
-    }, [user_id]);
+    }, []);
 
     return loading ? (
         <Loading />
@@ -102,7 +98,7 @@ const QuizSubmissions = ({
                         >
                             <Leaderboard
                                 leaderboard={leaderboard}
-                                userId={user_id}
+                                userId={location.state.userId}
                             />
                         </Col>
                     </Col>
@@ -126,7 +122,7 @@ const QuizSubmissions = ({
                     <QuizTemplate2
                         questions={submission}
                         type='submission'
-                        name={state.name}
+                        name={location.state.name}
                     />
                 </Col>
             )}
@@ -134,17 +130,13 @@ const QuizSubmissions = ({
     );
 };
 
-const mapStateToProps = ({ quizzes, leaderboard }) => ({
-    questions: quizzes,
-    leaderboard
+const mapStateToProps = ({ leaderboard, submission }) => ({
+    leaderboard,
+    submission
 });
 
-QuizSubmissions.propTypes = {
-    questions: PropTypes.object,
-    getLeaderboard: PropTypes.func,
-    leaderboard: PropTypes.array
-};
-
-export default connect(mapStateToProps, { getLeaderboard, getMyQuiz })(
-    withRouter(QuizSubmissions)
-);
+export default connect(mapStateToProps, {
+    getLeaderboard,
+    getMyQuiz,
+    getSubmission
+})(withRouter(QuizSubmissions));

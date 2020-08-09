@@ -3,9 +3,7 @@ import {
     CREATE_QUIZZES,
     DELETE_QUESTION,
     ADD_OPTION,
-    GET_QUIZ_FOR_TAKING,
-    QUIZ_SUBMISSION_SUCCESS,
-    QUIZ_SUBMISSION_ERROR
+    GET_QUIZ_FOR_TAKING
 } from '../types';
 
 const initialState = [];
@@ -28,12 +26,6 @@ export default (state = initialState, { type, payload }) => {
 
         case GET_QUIZ_FOR_TAKING:
             return payload;
-
-        case QUIZ_SUBMISSION_SUCCESS:
-            return payload;
-
-        case QUIZ_SUBMISSION_ERROR:
-            return [...payload];
 
         default:
             return state;
