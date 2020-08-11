@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Button, message } from 'antd';
 import moment from 'moment';
@@ -41,8 +41,6 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
     useEffect(() => {
         if (leaderboard.length) setHasLeaderboard(true);
     }, [leaderboard]);
-
-    console.log();
 
     return loading ? (
         <Loading />

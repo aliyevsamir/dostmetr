@@ -112,10 +112,7 @@ export const addOption = (questionId, option) => async dispatch => {
 
 export const createQuiz = quizChoices => async dispatch => {
     try {
-        console.log(quizChoices);
         const res = await axios.post('/api/v1/quizzes', quizChoices);
-
-        console.log(res);
 
         dispatch({
             type: CREATE_CHOICES,

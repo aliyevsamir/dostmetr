@@ -41,7 +41,6 @@ const QuizModel = ({
                         finalQuizSubmission
                     )
                     .then(res => {
-                        console.log(res);
                         const { quiz_submission_id } = res.data.data;
                         const userId = res.data.data.user_id;
                         history.push({

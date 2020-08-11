@@ -6,8 +6,15 @@ import Routes from './components/Router/Routes';
 //Redux stuff
 import { connect } from 'react-redux';
 import { loadUser } from './redux/actions/auth';
+import { useLocation } from 'react-router-dom';
 
 const App = ({ loadUser }) => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
     useEffect(() => {
         setAuthToken(localStorage.token);
         loadUser();
