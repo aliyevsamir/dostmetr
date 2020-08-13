@@ -8,11 +8,13 @@ import { createQuiz } from '../../redux/actions/quizzes';
 import { useEffect } from 'react';
 import isEmpty from '../../utils/isEmpty';
 import axios from 'axios';
+import { loadUser } from '../../redux/actions/auth';
 
 const QuizModel = ({
     mode = 'make',
     quizzes = [],
     createQuiz,
+    loadUser,
     history,
     name,
     quizId = null
@@ -32,7 +34,9 @@ const QuizModel = ({
             setLoading(true);
             if (mode === 'make') {
                 createQuiz(finalQuizSubmission).then(() => {
-                    history.push('/profile');
+                    loadUser().then(() => {
+                        history.push('/profile');
+                    });
                 });
             } else {
                 axios
@@ -104,6 +108,7 @@ const QuizModel = ({
 
     const nextQuestion = () => {
         if (optionValue) {
+            window.scrollTo(0, 0);
             const { currentQuestionID } = state;
             newQuizSubmissions();
 
@@ -169,6 +174,7 @@ const QuizModel = ({
     };
 
     const skipQuestion = () => {
+        window.scrollTo(0, 0);
         const { currentQuestionID } = state;
 
         if (currentQuestionID < quizzes.length - 1) {
@@ -239,4 +245,4 @@ const QuizModel = ({
     );
 };
 
-export default connect(null, { createQuiz })(withRouter(QuizModel));
+export default connect(null, { createQuiz, loadUser })(withRouter(QuizModel));

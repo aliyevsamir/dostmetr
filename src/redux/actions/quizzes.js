@@ -162,6 +162,8 @@ export const getSubmission = (quizId, submissionId) => async dispatch => {
             type: GET_SUBMISSION,
             payload: res.data.data.submission
         });
+
+        return res.data.data.submission;
     } catch (error) {
         console.error(JSON.stringify(error.response.data));
     }

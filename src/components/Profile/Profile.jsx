@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Button, message } from 'antd';
 import moment from 'moment';
+import 'moment/locale/az';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useState } from 'react';
 import ShareButtons from '../utils/Share Buttons/ShareButtons';
 import { Typography } from 'antd';
 import PropTypes from 'prop-types';
-import { loadUser } from '../../redux/actions/auth';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
 import LeaderboardList from '../Leaderboard/LeaderboardList/LeaderboardList';
 import './Profile.scss';
 import Navbar2 from '../Navbar/Navbar2';
 import Loading from '../../utils/Loading';
-import azMoment from '../../utils/azMoment';
 import toSentenceCase from '../../utils/toSentenceCase';
 const { Title, Text } = Typography;
 
-const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
+const Profile = ({ user, getLeaderboard, leaderboard }) => {
     const [hasLeaderboard, setHasLeaderboard] = useState(false);
     const [loading, setLoading] = useState(true);
     const [navItems, setNavItems] = useState([
@@ -26,16 +25,14 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
     ]);
 
     useEffect(() => {
-        loadUser().then(res => {
-            const user = res ? res.data.data : null;
+        if (user.quiz_id) {
+            getLeaderboard(user.quiz_id).then(() => {
+                setLoading(false);
+            });
+            setNavItems([{ navLink: 'my-quiz', navText: 'Quizim' }]);
+        } else {
             setLoading(false);
-            if (user) {
-                if (user.quiz_id) {
-                    getLeaderboard(user.quiz_id);
-                    setNavItems([{ navLink: 'my-quiz', navText: 'Quizim' }]);
-                }
-            }
-        });
+        }
     }, []);
 
     useEffect(() => {
@@ -123,10 +120,9 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                             }}
                                         >
                                             {toSentenceCase(
-                                                moment().fromNow(
-                                                    'DD-MMMM-YYYY',
+                                                moment(
                                                     user.created_at
-                                                )
+                                                ).fromNow()
                                             )}{' '}
                                             əvvəl qeydiyyatdan keçdiniz.{' '}
                                             {user.quiz_id
@@ -174,7 +170,10 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                 md={12}
                                                 lg={10}
                                                 xl={8}
-                                                style={{ marginBottom: '10px' }}
+                                                style={{
+                                                    marginBottom: '10px',
+                                                    display: 'flex'
+                                                }}
                                             >
                                                 <CopyToClipboard
                                                     text={`${window.location.origin}/quizzes/${user.quiz_id}`}
@@ -190,8 +189,8 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                                             backgroundColor:
                                                                 '#fff',
                                                             color: '#000',
-                                                            width: '100%',
-                                                            marginBottom: '5px',
+                                                            margin: '0 auto',
+                                                            minWidth: '50%',
                                                             textAlign: 'center',
                                                             borderRadius: '1rem'
                                                         }}
@@ -266,7 +265,8 @@ const Profile = ({ user, getLeaderboard, leaderboard, loadUser }) => {
                                         color: '#110',
                                         boxShadow: '0px 1px 1px rgba(0,0,0,.3)',
                                         padding: '1rem',
-                                        height: '100%'
+                                        height: '100%',
+                                        marginBottom: '1rem'
                                     }}
                                     className='leaderboard-side'
                                 >
@@ -302,4 +302,4 @@ Profile.propTypes = {
     loadUser: PropTypes.func
 };
 
-export default connect(mapStateToProps, { getLeaderboard, loadUser })(Profile);
+export default connect(mapStateToProps, { getLeaderboard })(Profile);

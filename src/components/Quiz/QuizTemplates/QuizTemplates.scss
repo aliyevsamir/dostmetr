@@ -3,7 +3,8 @@
     padding: 2.2rem 2rem;
     margin: 2rem;
     box-sizing: border-box;
-    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3), -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
+    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3),
+        -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
     min-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,7 @@
         border-radius: 0.4rem;
         color: rgba($color: #000000, $alpha: 0.7);
         border: none;
-        font-family: "Montserrat", sans-serif;
+        font-family: 'Montserrat', sans-serif;
         padding: 1rem;
     }
 
@@ -36,7 +37,7 @@
             border-radius: 0.4rem;
             padding: 0.5rem 0.7rem;
             background-color: #fff;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             font-weight: 600;
             display: block;
@@ -78,7 +79,7 @@
             border-radius: 6rem;
             min-height: 3rem;
             font-size: 1.4rem;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Montserrat', sans-serif;
             line-height: 1;
         }
 
@@ -115,7 +116,6 @@
 
 @media screen and (max-width: 576px) {
     .quiz-container--subcontainer {
-        min-height: 95vh;
         margin: 1rem 0;
     }
 }
