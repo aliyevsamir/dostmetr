@@ -29,7 +29,6 @@ const Navbar2 = ({ navItems, history }) => {
                                 color: '#fff',
                                 fontSize: '.8rem',
                                 letterSpacing: '.3rem',
-                                fontFamily: 'Montserrat, sans-serif',
                                 textTransform: 'uppercase'
                             }}
                         >

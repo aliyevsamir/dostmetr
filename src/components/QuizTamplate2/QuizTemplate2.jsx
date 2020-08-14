@@ -8,7 +8,6 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
         <div
             key={question.question_id}
             style={{
-                fontFamily: 'Montserrat, sans-serif',
                 borderRadius: '.5rem',
                 backgroundColor: '#fff',
                 color: '#110',
@@ -25,8 +24,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
                     padding: '0 .2rem',
                     marginBottom: '.5rem',
                     color: '#444',
-                    border: 'none',
-                    fontFamily: 'Montserrat, sans-serif'
+                    border: 'none'
                 }}
             >
                 {replaceName(question.question_content, name)}

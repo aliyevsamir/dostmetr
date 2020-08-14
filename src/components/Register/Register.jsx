@@ -108,7 +108,6 @@ const Register = ({
                         style={{
                             margin: mode === 'make' ? '1.5rem 0' : '0 0 1rem 0',
                             display: 'inline-block',
-                            fontFamily: 'Montserrat, sans-serif',
                             fontSize: mode === 'make' ? '1.7rem' : '1.4rem',
                             fontWeight: '600',
                             maxWidth: '80%'

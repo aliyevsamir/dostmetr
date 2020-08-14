@@ -24,6 +24,10 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
         { navLink: 'make-quiz', navText: 'Quiz yarat' }
     ]);
 
+    message.config({
+        maxCount: 1
+    });
+
     useEffect(() => {
         if (user.quiz_id) {
             getLeaderboard(user.quiz_id).then(() => {
@@ -178,9 +182,11 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                 <CopyToClipboard
                                                     text={`${window.location.origin}/quizzes/${user.quiz_id}`}
                                                     onCopy={() => {
-                                                        message.success(
-                                                            'Linki kopyaladınız, dostlarınıza yollayın 😊'
-                                                        );
+                                                        message.success({
+                                                            content:
+                                                                'Linki kopyaladınız, dostlarınıza yollayın 😊',
+                                                            duration: 1
+                                                        });
                                                     }}
                                                 >
                                                     <Button
@@ -273,8 +279,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                     <h3
                                         style={{
                                             textAlign: 'center',
-                                            margin: '5px 30px',
-                                            fontFamily: 'Roboto, sans-serif'
+                                            margin: '5px 30px'
                                         }}
                                     >
                                         Quizinizi cavablandıranların sıralaması

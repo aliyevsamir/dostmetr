@@ -8,7 +8,6 @@ const Logo = ({ type = 'light' }) => {
                 fontSize: '1.8rem',
                 letterSpacing: '1px',
                 fontWeight: '900',
-                fontFamily: 'Montserrat, sans-serif',
                 margin: '0'
             }}
         >

@@ -101,7 +101,11 @@ const QuizModel = ({
             if (optionValue) {
                 newQuizSubmissions('final');
             } else {
-                message.error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
+                message
+                    .config({
+                        maxCount: 1
+                    })
+                    .error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
             }
         }
     };
@@ -139,9 +143,13 @@ const QuizModel = ({
 
                     quizzes = newQuestions;
                 } else {
-                    message.warning(
-                        'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
-                    );
+                    message
+                        .config({
+                            maxCount: 1
+                        })
+                        .warning(
+                            'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
+                        );
                 }
             } else {
                 // last question
@@ -161,15 +169,23 @@ const QuizModel = ({
 
                     quizzes = newQuestions;
                 } else {
-                    message.warning(
-                        'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
-                    );
+                    message
+                        .config({
+                            maxCount: 1
+                        })
+                        .warning(
+                            'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
+                        );
                 }
             }
         } else {
-            message.error(
-                "Sualı boş cavablandıra bilməzsiniz, sualı keçmək üçün keç'ə tıklayın 😊"
-            );
+            message
+                .config({
+                    maxCount: 1
+                })
+                .error(
+                    "Sualı boş cavablandıra bilməzsiniz, sualı keçmək üçün keç'ə tıklayın 😊"
+                );
         }
     };
 

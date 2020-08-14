@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from 'antd';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
 import { getMyQuiz, getSubmission } from '../../redux/actions/quizzes';
