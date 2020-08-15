@@ -8,6 +8,10 @@ import { connect } from 'react-redux';
 import { loadUser } from './redux/actions/auth';
 import { useLocation } from 'react-router-dom';
 
+if (localStorage.token) {
+    setAuthToken(localStorage.token);
+}
+
 const App = ({ loadUser }) => {
     const { pathname } = useLocation();
 
@@ -16,7 +20,6 @@ const App = ({ loadUser }) => {
     }, [pathname]);
 
     useEffect(() => {
-        setAuthToken(localStorage.token);
         loadUser();
     }, []);
 
