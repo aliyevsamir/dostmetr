@@ -5,11 +5,13 @@ import Loading from '../../../utils/Loading';
 import Register from '../../Register/Register';
 import { useEffect } from 'react';
 import { getQuizForTaking } from '../../../redux/actions/quizzes';
+import { withRouter } from 'react-router-dom';
 
 const TakeQuiz = ({
     match: {
         params: { quizId }
     },
+    history,
     loading,
     isAuthenticated,
     user,
@@ -27,6 +29,7 @@ const TakeQuiz = ({
             console.log(res);
         } catch (error) {
             console.error(error.response);
+            history.pushState('/profile');
         }
     };
 
@@ -55,4 +58,6 @@ const mapStateToProps = ({
     created_by
 });
 
-export default connect(mapStateToProps, { getQuizForTaking })(TakeQuiz);
+export default connect(mapStateToProps, { getQuizForTaking })(
+    withRouter(TakeQuiz)
+);

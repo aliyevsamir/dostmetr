@@ -26,7 +26,8 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
 
     useEffect(() => {
         if (user.quiz_id) {
-            getLeaderboard(user.quiz_id).then(() => {
+            getLeaderboard(user.quiz_id).then(res => {
+                console.log(res);
                 setLoading(false);
             });
             setNavItems([{ navLink: 'my-quiz', navText: 'Testim ' }]);
@@ -34,10 +35,6 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
             setLoading(false);
         }
     }, []);
-
-    useEffect(() => {
-        if (leaderboard.length) setHasLeaderboard(true);
-    }, [leaderboard]);
 
     return loading ? (
         <Loading />
