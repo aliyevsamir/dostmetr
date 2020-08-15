@@ -18,8 +18,17 @@ const TakeQuiz = ({
     created_by
 }) => {
     useEffect(() => {
-        getQuizForTaking(quizId);
+        checkForTaking();
     }, []);
+
+    const checkForTaking = async () => {
+        try {
+            const res = await getQuizForTaking(quizId);
+            console.log(res);
+        } catch (error) {
+            console.error(error.response);
+        }
+    };
 
     return loading ? (
         <Loading />

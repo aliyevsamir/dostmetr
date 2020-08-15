@@ -146,6 +146,8 @@ export const getQuizForTaking = quizId => async dispatch => {
             type: GET_QUIZ_FOR_TAKING,
             payload: res.data.data
         });
+
+        return res;
     } catch (err) {
         console.error(JSON.stringify(err.response.data));
         return err;
