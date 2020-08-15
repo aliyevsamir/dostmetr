@@ -8,7 +8,9 @@ const Logo = ({ type = 'light' }) => {
                 fontSize: '1.8rem',
                 letterSpacing: '1px',
                 fontWeight: '900',
-                margin: '0'
+                margin: '0',
+                cursor: 'pointer',
+                paddingRight: '25px'
             }}
         >
             Dost

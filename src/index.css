@@ -11,3 +11,7 @@
 body {
     font-family: 'Montserrat', sans-serif !important;
 }
+
+.ant-menu-overflowed-submenu div {
+    padding-right: 0px;
+}

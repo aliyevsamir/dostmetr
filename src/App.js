@@ -16,6 +16,8 @@ if (localStorage.token) {
     setAuthToken(localStorage.token);
 }
 
+const blacklistedHeaderRoutes = ['/register'];
+
 const App = ({ loadUser }) => {
     const { pathname } = useLocation();
 
@@ -29,9 +31,11 @@ const App = ({ loadUser }) => {
 
     return (
         <Layout>
-            <Header>
-                <Navbar2 />
-            </Header>
+            {!blacklistedHeaderRoutes.includes(pathname) ? (
+                <Header style={{ padding: '0 15px', height: '64px' }}>
+                    <Navbar2 />
+                </Header>
+            ) : null}
             <Content>
                 <Routes />
             </Content>
