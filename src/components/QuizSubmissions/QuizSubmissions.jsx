@@ -23,14 +23,13 @@ const QuizSubmissions = props => {
         }
     } = props;
     const [loading, setLoading] = useState(true);
-    const [haveQuiz, setHaveQuiz] = useState(true);
+    const [haveQuiz, setHaveQuiz] = useState(false);
     const [submission, setSubmission] = useState({});
 
     useEffect(() => {
         getSubmission();
         getMyQuiz().then(res => {
-            if (!res || res.status !== '200' || !res.statusText === 'OK')
-                setHaveQuiz(false);
+            if (res?.data.data.length) setHaveQuiz(true);
             setLoading(false);
         });
     }, []);
