@@ -10,23 +10,24 @@ import './QuizSubmissions.scss';
 import { withRouter, Link } from 'react-router-dom';
 import Loading from '../../utils/Loading';
 import { useState } from 'react';
+import isEmpty from '../../utils/isEmpty';
 
-const QuizSubmissions = ({
-    submission: { submission },
-    getLeaderboard,
-    leaderboard,
-    getSubmission,
-    getMyQuiz,
-    history: { location },
-    match: {
-        params: { quizId, submissionId }
-    }
-}) => {
+const QuizSubmissions = props => {
+    const {
+        getLeaderboard,
+        leaderboard,
+        getMyQuiz,
+        userId,
+        match: {
+            params: { quizId, submissionId }
+        }
+    } = props;
     const [loading, setLoading] = useState(true);
     const [haveQuiz, setHaveQuiz] = useState(true);
+    const [submission, setSubmission] = useState({});
 
     useEffect(() => {
-        getSubmission(quizId, submissionId);
+        getSubmission();
         getMyQuiz().then(res => {
             if (!res || res.status !== '200' || !res.statusText === 'OK')
                 setHaveQuiz(false);
@@ -34,9 +35,15 @@ const QuizSubmissions = ({
         });
     }, []);
 
+    const getSubmission = async () => {
+        const submission = await props.getSubmission(quizId, submissionId);
+
+        setSubmission(submission);
+    };
+
     useEffect(() => {
-        if (location.state.userId) {
-            getLeaderboard(quizId, location.state.userId);
+        if (userId) {
+            getLeaderboard(quizId, userId);
         }
     }, []);
 
@@ -97,14 +104,14 @@ const QuizSubmissions = ({
                         >
                             <Leaderboard
                                 leaderboard={leaderboard}
-                                userId={location.state.userId}
+                                userId={userId}
                             />
                         </Col>
                     </Col>
                 </Row>
             </Col>
 
-            {submission && (
+            {!isEmpty(submission) && (
                 <Col
                     xs={22}
                     sm={20}
@@ -119,9 +126,9 @@ const QuizSubmissions = ({
                     }}
                 >
                     <QuizTemplate2
-                        questions={submission}
+                        questions={submission.submission}
                         type='submission'
-                        name={location.state.name}
+                        name={submission.created_by}
                     />
                 </Col>
             )}
@@ -129,9 +136,14 @@ const QuizSubmissions = ({
     );
 };
 
-const mapStateToProps = ({ leaderboard, submission }) => ({
+const mapStateToProps = ({
     leaderboard,
-    submission
+    auth: {
+        user: { user_id }
+    }
+}) => ({
+    userId: user_id,
+    leaderboard
 });
 
 export default connect(mapStateToProps, {

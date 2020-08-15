@@ -286,6 +286,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                     </h3>
                                     <LeaderboardList
                                         leaderboard={leaderboard}
+                                        showSubmission
                                     />
                                 </Col>
                             )}

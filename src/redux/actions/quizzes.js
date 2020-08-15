@@ -160,10 +160,10 @@ export const getSubmission = (quizId, submissionId) => async dispatch => {
 
         dispatch({
             type: GET_SUBMISSION,
-            payload: res.data.data.submission
+            payload: res.data.data
         });
 
-        return res.data.data.submission;
+        return res.data.data;
     } catch (error) {
         console.error(JSON.stringify(error.response.data));
     }

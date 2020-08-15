@@ -9,7 +9,7 @@ import QuizTemplate2 from '../QuizTamplate2/QuizTemplate2';
 import { useState } from 'react';
 import Loading from '../../utils/Loading';
 
-const User = ({ user, getSubmission, submission }) => {
+const User = ({ user, getSubmission, showSubmission }) => {
     const [content, setContent] = useState({
         loading: false,
         content: null
@@ -27,22 +27,23 @@ const User = ({ user, getSubmission, submission }) => {
             loading: false,
             content: (
                 <QuizTemplate2
-                    questions={submission}
+                    questions={submission.submission}
                     type='submission'
-                    name={'Samir'}
+                    name={submission.created_by}
                     from='profile'
                 />
             )
         });
     };
+    const additionalProps = showSubmission
+        ? {
+              style: { cursor: 'pointer' },
+              onClick: () => handleClick(user.quiz_id, user.quiz_submission_id)
+          }
+        : {};
+
     return (
-        <Row
-            type='flex'
-            justify='center'
-            align='middle'
-            style={{ cursor: 'pointer' }}
-            onClick={() => handleClick(user.quiz_id, user.quiz_submission_id)}
-        >
+        <Row type='flex' justify='center' align='middle' {...additionalProps}>
             <Col
                 span={4}
                 style={{
@@ -87,12 +88,8 @@ const User = ({ user, getSubmission, submission }) => {
     );
 };
 
-const mapStateToProps = ({ submission }) => ({
-    submission
-});
-
 const mapDispatchToProps = {
     getSubmission
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(User);
+export default connect(null, mapDispatchToProps)(User);

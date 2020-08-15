@@ -48,8 +48,7 @@ const QuizModel = ({
                         const { quiz_submission_id } = res.data.data;
                         const userId = res.data.data.user_id;
                         history.push({
-                            pathname: `/quizzes/${quizId}/submissions/${quiz_submission_id}`,
-                            state: { name, userId }
+                            pathname: `/quizzes/${quizId}/submissions/${quiz_submission_id}`
                         });
                     })
                     .catch(err => console.error(err));
