@@ -28,8 +28,8 @@ const TakeQuiz = ({
             const res = await getQuizForTaking(quizId);
             console.log(res);
         } catch (error) {
-            console.error(error.response);
-            history.pushState('/profile');
+            console.log(error);
+            history.push('/profile');
         }
     };
 

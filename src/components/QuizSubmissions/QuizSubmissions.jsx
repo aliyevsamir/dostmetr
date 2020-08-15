@@ -11,7 +11,6 @@ import { withRouter, Link } from 'react-router-dom';
 import Loading from '../../utils/Loading';
 import { useState } from 'react';
 import isEmpty from '../../utils/isEmpty';
-import Navbar2 from '../Navbar/Navbar2';
 
 const QuizSubmissions = props => {
     const {
@@ -62,9 +61,6 @@ const QuizSubmissions = props => {
                 minHeight: '100vh'
             }}
         >
-            <Col span={24}>
-                <Navbar2 />
-            </Col>
             <Col
                 xs={22}
                 sm={20}

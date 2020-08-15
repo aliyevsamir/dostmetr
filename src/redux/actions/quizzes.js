@@ -149,8 +149,7 @@ export const getQuizForTaking = quizId => async dispatch => {
 
         return res;
     } catch (err) {
-        console.error(JSON.stringify(err.response.data));
-        return err;
+        throw new Error(err);
     }
 };
 

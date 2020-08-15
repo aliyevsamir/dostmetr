@@ -7,6 +7,10 @@ import Routes from './components/Router/Routes';
 import { connect } from 'react-redux';
 import { loadUser } from './redux/actions/auth';
 import { useLocation } from 'react-router-dom';
+import { Layout } from 'antd';
+import Navbar2 from './components/Navbar/Navbar2';
+
+const { Header, Content } = Layout;
 
 if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -23,7 +27,16 @@ const App = ({ loadUser }) => {
         loadUser();
     }, []);
 
-    return <Routes />;
+    return (
+        <Layout>
+            <Header>
+                <Navbar2 />
+            </Header>
+            <Content>
+                <Routes />
+            </Content>
+        </Layout>
+    );
 };
 
 export default connect(null, { loadUser })(App);

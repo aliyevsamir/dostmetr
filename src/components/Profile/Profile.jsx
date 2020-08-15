@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import { getLeaderboard } from '../../redux/actions/leaderboard';
 import LeaderboardList from '../Leaderboard/LeaderboardList/LeaderboardList';
 import './Profile.scss';
-import Navbar2 from '../Navbar/Navbar2';
 import Loading from '../../utils/Loading';
 import toSentenceCase from '../../utils/toSentenceCase';
 const { Title, Text } = Typography;
@@ -20,17 +19,13 @@ const { Title, Text } = Typography;
 const Profile = ({ user, getLeaderboard, leaderboard }) => {
     const [hasLeaderboard, setHasLeaderboard] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [navItems, setNavItems] = useState([
-        { navLink: 'make-quiz', navText: 'Quiz yarat' }
-    ]);
 
     useEffect(() => {
         if (user.quiz_id) {
             getLeaderboard(user.quiz_id).then(res => {
-                console.log(res);
+                if (res.data.data.length > 0) setHasLeaderboard(true);
                 setLoading(false);
             });
-            setNavItems([{ navLink: 'my-quiz', navText: 'Testim ' }]);
         } else {
             setLoading(false);
         }
@@ -47,10 +42,6 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
         >
             <Col span={24}>
                 <Row type='flex' justify='center'>
-                    <Col span={24} style={{ height: '100%' }}>
-                        <Navbar2 navItems={navItems} />
-                    </Col>
-
                     <Col span={24}>
                         <Row type='flex' justify='center'>
                             <Col
