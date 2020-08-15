@@ -11,7 +11,7 @@ const QuizTemplate2 = ({ questions, type = 'my-quiz', name }) => {
                 borderRadius: '.5rem',
                 backgroundColor: '#fff',
                 color: '#110',
-                margin: '1rem 0',
+                margin: '0.5rem 0 1rem',
                 boxShadow: '0px 0px 3px rgba(0,0,0,.3)',
                 padding: '1.5rem 1.4rem'
             }}

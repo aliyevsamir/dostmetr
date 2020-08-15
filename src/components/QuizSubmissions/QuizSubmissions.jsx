@@ -28,11 +28,14 @@ const QuizSubmissions = props => {
 
     useEffect(() => {
         getSubmission();
-        getMyQuiz().then(res => {
-            if (res?.data.data.length) setHaveQuiz(true);
-            setLoading(false);
-        });
+        checkHaveQuiz();
     }, []);
+
+    const checkHaveQuiz = async () => {
+        const res = await getMyQuiz();
+        if (res?.data.data.length) setHaveQuiz(true);
+        setLoading(false);
+    };
 
     const getSubmission = async () => {
         const submission = await props.getSubmission(quizId, submissionId);
@@ -119,7 +122,7 @@ const QuizSubmissions = props => {
                     xl={8}
                     className='right-side'
                     style={{
-                        padding: '1rem',
+                        padding: '0 1rem',
                         margin: '0',
                         height: '100%'
                     }}
