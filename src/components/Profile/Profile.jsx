@@ -24,16 +24,12 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
         { navLink: 'make-quiz', navText: 'Quiz yarat' }
     ]);
 
-    message.config({
-        maxCount: 1
-    });
-
     useEffect(() => {
         if (user.quiz_id) {
             getLeaderboard(user.quiz_id).then(() => {
                 setLoading(false);
             });
-            setNavItems([{ navLink: 'my-quiz', navText: 'Quizim' }]);
+            setNavItems([{ navLink: 'my-quiz', navText: 'Testim ' }]);
         } else {
             setLoading(false);
         }
@@ -129,9 +125,9 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                 ).fromNow()
                                             )}{' '}
                                             əvvəl qeydiyyatdan keçdiniz.{' '}
-                                            {user.quiz_id
+                                            {/* {user.quiz_id
                                                 ? 'Quizinizi dostlarınızla aşağıdakı linkdən paylaşın 😊'
-                                                : 'Quizinizi yaratmaq üçün aşağıdakı butona tıklayın, quizinizi yaradın və dostlarınızla bölüşün 🤩😊'}
+                                                : 'Quizinizi yaratmaq üçün aşağıdakı butona tıklayın, quizinizi yaradın və dostlarınızla bölüşün 🤩😊'} */}
                                         </Text>
                                     </Col>
                                 </Row>
@@ -162,8 +158,8 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                             }}
                                         >
                                             {user.quiz_id
-                                                ? 'Dostlarını hazırladığın quizə dəvət et!'
-                                                : '🤩 Quizini yarat və dostlarınla paylaş 🥳'}
+                                                ? 'Dostluq testini paylaş!'
+                                                : '🤩 Öz dostluq testini yarat 🥳'}
                                         </Title>
                                     </Col>
                                     {user.quiz_id ? (
@@ -182,6 +178,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                 <CopyToClipboard
                                                     text={`${window.location.origin}/quizzes/${user.quiz_id}`}
                                                     onCopy={() => {
+                                                        message.destroy();
                                                         message.success({
                                                             content:
                                                                 'Linki kopyaladınız, dostlarınıza yollayın 😊',
@@ -250,7 +247,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                         borderRadius: '1rem'
                                                     }}
                                                 >
-                                                    Öz quizini yarat!
+                                                    Öz testini yarat!
                                                 </Button>
                                             </Link>
                                         </Col>
@@ -278,11 +275,15 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                 >
                                     <h3
                                         style={{
+                                            fontFamily:
+                                                'Montserrat, sans-serif',
+                                            fontWeight: '600',
                                             textAlign: 'center',
+                                            fontSize: '24px',
                                             margin: '5px 30px'
                                         }}
                                     >
-                                        Quizinizi cavablandıranların sıralaması
+                                        Liderlik sıralaması
                                     </h3>
                                     <LeaderboardList
                                         leaderboard={leaderboard}

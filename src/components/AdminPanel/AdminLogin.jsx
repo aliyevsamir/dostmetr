@@ -13,15 +13,11 @@ const AdminLogin = ({ adminLogin, errors }) => {
     useEffect(() => {
         if (!isEmpty(errors)) {
             if (errors.type === 'notification')
-                message
-                    .config({
-                        maxCount: 1
-                    })
-                    .error(
-                        errors.errors.error.message
-                            ? errors.errors.error.message
-                            : errors.errors
-                    );
+                message.error(
+                    errors.errors.error.message
+                        ? errors.errors.error.message
+                        : errors.errors
+                );
         }
     }, [errors]);
 

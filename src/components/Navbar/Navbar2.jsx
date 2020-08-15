@@ -27,9 +27,7 @@ const Navbar2 = ({ navItems, history }) => {
                         <span
                             style={{
                                 color: '#fff',
-                                fontSize: '.8rem',
-                                letterSpacing: '.3rem',
-                                textTransform: 'uppercase'
+                                fontSize: '1rem'
                             }}
                         >
                             {navText}

@@ -43,14 +43,20 @@ const User = ({ user, getSubmission, showSubmission }) => {
         : {};
 
     return (
-        <Row type='flex' justify='center' align='middle' {...additionalProps}>
+        <Row
+            type='flex'
+            justify='center'
+            align='middle'
+            {...additionalProps}
+            style={{ lineHeight: '50px' }}
+        >
             <Col
                 span={4}
                 style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'tomato'
+                    color: '#000'
                 }}
             >
                 {user.rank == 1 ? (

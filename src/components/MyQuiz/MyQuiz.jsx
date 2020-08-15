@@ -36,7 +36,7 @@ const MyQuiz = ({ getMyQuiz, userQuiz, name }) => {
                             <QuizTemplate2 questions={userQuiz} name={name} />
                         </Col>
                     ) : (
-                        <h1>Hələ quizi tamamlamamısınız !</h1>
+                        <h1>Hələ testi tamamlamamısınız !</h1>
                     )}
                 </Col>
             )}

@@ -100,11 +100,8 @@ const QuizModel = ({
             if (optionValue) {
                 newQuizSubmissions('final');
             } else {
-                message
-                    .config({
-                        maxCount: 1
-                    })
-                    .error('Cavablandırdıqdan sonra quizi tamamlayın 😊');
+                message.destroy();
+                message.error('Cavablandırdıqdan sonra testi tamamlayın 😊');
             }
         }
     };
@@ -142,13 +139,10 @@ const QuizModel = ({
 
                     quizzes = newQuestions;
                 } else {
-                    message
-                        .config({
-                            maxCount: 1
-                        })
-                        .warning(
-                            'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
-                        );
+                    message.destroy();
+                    message.warning(
+                        'Bütün sualları cavablandırmısınız, testi tamamlayın 😊'
+                    );
                 }
             } else {
                 // last question
@@ -168,23 +162,18 @@ const QuizModel = ({
 
                     quizzes = newQuestions;
                 } else {
-                    message
-                        .config({
-                            maxCount: 1
-                        })
-                        .warning(
-                            'Bütün sualları cavablandırmısınız, quizi tamamlayın 😊'
-                        );
+                    message.destroy();
+                    message.warning(
+                        'Bütün sualları cavablandırmısınız, testi tamamlayın 😊'
+                    );
                 }
             }
         } else {
-            message
-                .config({
-                    maxCount: 1
-                })
-                .error(
-                    "Sualı boş cavablandıra bilməzsiniz, sualı keçmək üçün keç'ə tıklayın 😊"
-                );
+            message.destroy();
+
+            message.error(
+                "Sualı boş cavablandıra bilməzsiniz, sualı keçmək üçün keç'ə tıklayın 😊"
+            );
         }
     };
 

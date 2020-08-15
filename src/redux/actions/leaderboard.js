@@ -7,7 +7,7 @@ export const getLeaderboard = (quizId, userId) => async dispatch => {
         if (userId) {
             res = await axios.get(`/api/v1/quizzes/${quizId}/leaderboard`, {
                 params: {
-                    limit: 3,
+                    limit: 10,
                     offset: 0,
                     userId
                 }

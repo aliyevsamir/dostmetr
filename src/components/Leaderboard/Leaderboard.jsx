@@ -6,7 +6,10 @@ import { Col, Row } from 'antd';
 const Leaderboard = ({ leaderboard, userId }) => {
     const myLeaderboardInfo = leaderboard.find(user => user.user_id == userId);
 
-    if (leaderboard.length === 4) {
+    if (
+        leaderboard.length > 10 &&
+        Number(myLeaderboardInfo?.rank) - Number(leaderboard[9].rank) > 1
+    ) {
         leaderboard.pop();
 
         const placeholder = {
