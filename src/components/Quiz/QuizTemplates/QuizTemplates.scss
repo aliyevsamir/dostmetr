@@ -1,112 +1,131 @@
-.quiz-container--subcontainer {
-    background-color: #fff;
-    padding: 2.2rem 2rem;
-    margin: 2rem;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3),
-        -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    border-radius: 1rem;
-    position: relative;
-    overflow: hidden;
+.quiz-container {
+    min-height: calc(100vh - 64px);
+    background-image: linear-gradient(
+        to right top,
+        #d16ba5,
+        #c777b9,
+        #ba83ca,
+        #aa8fd8,
+        #9a9ae1,
+        #8aa7ec,
+        #79b3f4,
+        #69bff8,
+        #52cffe,
+        #41dfff,
+        #46eefa,
+        #5ffbf1
+    );
 
-    .ant-radio-wrapper,
-    .ant-radio-wrapper-checked {
-        white-space: normal;
-    }
-
-    .question {
-        font-size: 1.6rem;
-        font-weight: 900;
-        margin-bottom: 1rem;
-        border-radius: 0.4rem;
-        color: rgba($color: #000000, $alpha: 0.7);
-        border: none;
-        padding: 1rem;
-    }
-
-    .ant-radio-group {
-        .option {
-            box-sizing: border-box;
-            border: 2px solid rgba(0, 0, 0, 0.1);
-            margin-bottom: 0.6rem;
-            color: #333;
-            border-radius: 0.4rem;
-            padding: 0.5rem 0.7rem;
-            background-color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            display: block;
-            width: 100%;
-            transition: all 0.3s;
-
-            span.ant-radio + * {
-                padding: 0;
-            }
-        }
-
-        .ant-radio {
-            display: none;
-        }
-
-        .ant-radio-wrapper-checked.option {
-            box-sizing: border-box;
-            border: 2px solid #d54;
-        }
-
-        flex: auto;
-    }
-
-    .action-buttons {
-        z-index: 1;
+    &--subcontainer {
+        background-color: #fff;
+        padding: 2.2rem 2rem;
+        margin: 2rem;
+        box-sizing: border-box;
+        box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.3),
+            -1px -1px 5px rgba($color: #000000, $alpha: 0.3);
+        min-height: calc(90vh - 64px);
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 60px;
-        margin-bottom: 20px;
-        &--button {
-            //position: absolute;
-            //left: 50%;
-            //transform: translateX(-50%);
-            //bottom: 2.7rem;
-            //margin: 0 auto;
-            width: 80%;
-            border-radius: 6rem;
-            min-height: 3rem;
-            font-size: 1.4rem;
-            line-height: 1;
+        border-radius: 1rem;
+        position: relative;
+        overflow: hidden;
+
+        .ant-radio-wrapper,
+        .ant-radio-wrapper-checked {
+            white-space: normal;
         }
 
-        .next {
-            width: 80%;
-            //bottom: 6rem;
-        }
-
-        .skip {
-            font-size: 1rem;
-            background-color: transparent;
+        .question {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            border-radius: 0.4rem;
+            color: rgba($color: #000000, $alpha: 0.7);
             border: none;
-            box-shadow: none;
-            //left: 50%;
-            //bottom: 2.7rem;
-            //transform: translateX(-50%);
+            padding: 1rem;
         }
 
-        .finish-button {
-            width: 100%;
-            background-color: #d54;
-            border-radius: 1rem;
-            border: none;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            margin-bottom: 0;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            transform: translateX(0);
+        .ant-radio-group {
+            .option {
+                box-sizing: border-box;
+                border: 2px solid rgba(0, 0, 0, 0.1);
+                margin-bottom: 0.6rem;
+                color: #333;
+                border-radius: 0.4rem;
+                padding: 0.5rem 0.7rem;
+                background-color: #fff;
+                font-size: 1rem;
+                font-weight: 600;
+                display: block;
+                width: 100%;
+                transition: all 0.3s;
+
+                span.ant-radio + * {
+                    padding: 0;
+                }
+            }
+
+            .ant-radio {
+                display: none;
+            }
+
+            .ant-radio-wrapper-checked.option {
+                box-sizing: border-box;
+                border: 2px solid #d54;
+            }
+
+            flex: auto;
+        }
+
+        .action-buttons {
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            &--button {
+                //position: absolute;
+                //left: 50%;
+                //transform: translateX(-50%);
+                //bottom: 2.7rem;
+                //margin: 0 auto;
+                width: 80%;
+                border-radius: 6rem;
+                min-height: 3rem;
+                font-size: 1.4rem;
+                line-height: 1;
+            }
+
+            .next {
+                width: 80%;
+                //bottom: 6rem;
+            }
+
+            .skip {
+                font-size: 1rem;
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                //left: 50%;
+                //bottom: 2.7rem;
+                //transform: translateX(-50%);
+            }
+
+            .finish-button {
+                width: 100%;
+                background-color: #d54;
+                border-radius: 1rem;
+                border: none;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                margin-bottom: 0;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                transform: translateX(0);
+            }
         }
     }
 }

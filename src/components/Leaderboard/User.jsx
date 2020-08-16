@@ -50,7 +50,8 @@ const User = ({ user, getSubmission, showSubmission }) => {
     const mainStyle = {
         lineHeight: '50px',
         fontSize: '1.2rem',
-        fontWeight: '600'
+        fontWeight: '600',
+        width: '100%'
     };
     const additionalProps = showSubmission
         ? {
@@ -90,12 +91,20 @@ const User = ({ user, getSubmission, showSubmission }) => {
                     span={16}
                     style={{
                         textAlign: 'start',
-                        lineHeight: '1'
+                        lineHeight: '1',
+                        padding: '0 1rem'
                     }}
                 >
                     {user.name}
                 </Col>
-                <Col span={4} style={{ color: 'tomato' }}>
+                <Col
+                    span={4}
+                    style={{
+                        color: 'tomato',
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                    }}
+                >
                     {user.points}
                 </Col>
             </Row>

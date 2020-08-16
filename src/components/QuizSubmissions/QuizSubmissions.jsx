@@ -22,6 +22,7 @@ const QuizSubmissions = props => {
             params: { quizId, submissionId }
         }
     } = props;
+
     const [loading, setLoading] = useState(true);
     const [haveQuiz, setHaveQuiz] = useState(false);
     const [submission, setSubmission] = useState({});
@@ -45,7 +46,7 @@ const QuizSubmissions = props => {
 
     useEffect(() => {
         if (userId) {
-            getLeaderboard(quizId, userId);
+            getLeaderboard(quizId, userId, 10);
         }
     }, []);
 
@@ -139,7 +140,7 @@ const QuizSubmissions = props => {
 };
 
 const mapStateToProps = ({
-    leaderboard,
+    leaderboard: { leaderboard },
     auth: {
         user: { user_id }
     }

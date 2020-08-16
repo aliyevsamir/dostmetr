@@ -17,7 +17,6 @@ const Navbar2 = ({ history, getMyQuiz, isAuthenticated }) => {
     const checkForQuiz = async () => {
         const res = await getMyQuiz();
         if (res?.data.status === 'success') {
-            console.log('heey');
             setHasOwnQuiz(true);
         }
     };

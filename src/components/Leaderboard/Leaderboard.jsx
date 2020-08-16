@@ -7,8 +7,8 @@ const Leaderboard = ({ leaderboard, userId }) => {
     const myLeaderboardInfo = leaderboard.find(user => user.user_id == userId);
 
     if (
-        leaderboard.length > 10 &&
-        Number(myLeaderboardInfo?.rank) - Number(leaderboard[9].rank) > 1
+        leaderboard.length === 11 &&
+        Number(myLeaderboardInfo?.rank) - Number(leaderboard[9]['rank']) > 1
     ) {
         leaderboard.pop();
 
@@ -19,7 +19,8 @@ const Leaderboard = ({ leaderboard, userId }) => {
             rank: '...'
         };
 
-        leaderboard.push(placeholder, myLeaderboardInfo);
+        leaderboard.push(placeholder);
+        leaderboard.push(myLeaderboardInfo);
     }
 
     return (
@@ -29,7 +30,7 @@ const Leaderboard = ({ leaderboard, userId }) => {
                     borderRadius: '.5rem',
                     backgroundColor: '#fff',
                     color: '#110',
-                    padding: '1.5rem 1.3rem',
+                    padding: '1rem 2rem',
                     margin: '.5rem 0',
                     boxShadow: '0px 1px 1px rgba(0,0,0,.3)'
                 }}
@@ -49,7 +50,7 @@ const Leaderboard = ({ leaderboard, userId }) => {
                     textAlign: 'center',
                     fontFamily: 'Roboto, sans-serif',
                     fontSize: '1rem',
-                    padding: '0.5rem',
+                    padding: '1rem 2rem',
                     marginTop: '10px'
                 }}
             >

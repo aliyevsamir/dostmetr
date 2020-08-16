@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import isEmpty from '../../utils/isEmpty';
 import axios from 'axios';
 import { loadUser } from '../../redux/actions/auth';
+import './QuizTemplates/QuizTemplates.scss';
 
 const QuizModel = ({
     mode = 'make',
@@ -226,11 +227,7 @@ const QuizModel = ({
             type='flex'
             align='middle'
             justify='center'
-            style={{
-                minHeight: '100vh',
-                backgroundImage:
-                    'linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)'
-            }}
+            className='quiz-container'
         >
             <QuizTemplate
                 quiz={quizzes[currentQuestionID]}

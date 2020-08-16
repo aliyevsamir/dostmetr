@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Row, Col, Button, message } from 'antd';
+import { Row, Col, Button, message, Pagination } from 'antd';
 import moment from 'moment';
 import 'moment/locale/az';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -19,11 +19,13 @@ const { Title, Text } = Typography;
 const Profile = ({ user, getLeaderboard, leaderboard }) => {
     const [hasLeaderboard, setHasLeaderboard] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [leaderboardLoading, setLeaderboardLoading] = useState(false);
 
     useEffect(() => {
         if (user.quiz_id) {
             getLeaderboard(user.quiz_id).then(res => {
-                if (res.data.data.length > 0) setHasLeaderboard(true);
+                if (res.data.data.leaderboard.length > 0)
+                    setHasLeaderboard(true);
                 setLoading(false);
             });
         } else {
@@ -31,15 +33,16 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
         }
     }, []);
 
+    const handlePageChange = async (pageNum, pageSize) => {
+        setLeaderboardLoading(true);
+        await getLeaderboard(user.quiz_id, null, pageSize, (pageNum - 1) * 10);
+        setLeaderboardLoading(false);
+    };
+
     return loading ? (
         <Loading />
     ) : (
-        <Row
-            style={{
-                backgroundColor: '#F0F2F5',
-                minHeight: '100vh'
-            }}
-        >
+        <Row className='Profile'>
             <Col span={24}>
                 <Row type='flex' justify='center'>
                     <Col span={24}>
@@ -255,9 +258,9 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                         backgroundColor: '#fff',
                                         color: '#110',
                                         boxShadow: '0px 1px 1px rgba(0,0,0,.3)',
-                                        padding: '1rem',
+                                        padding: '1rem 2rem',
                                         height: '100%',
-                                        marginBottom: '1rem'
+                                        marginBottom: '1rem 2rem'
                                     }}
                                     className='leaderboard-side'
                                 >
@@ -273,10 +276,29 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                     >
                                         Liderlik sıralaması
                                     </h3>
-                                    <LeaderboardList
-                                        leaderboard={leaderboard}
-                                        showSubmission
-                                    />
+                                    {leaderboardLoading ? (
+                                        <Loading />
+                                    ) : (
+                                        <>
+                                            <div
+                                                style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'flex-end'
+                                                }}
+                                            >
+                                                <Pagination
+                                                    onChange={handlePageChange}
+                                                    total={leaderboard.total}
+                                                />
+                                            </div>
+                                            <LeaderboardList
+                                                leaderboard={
+                                                    leaderboard.leaderboard
+                                                }
+                                                showSubmission
+                                            />
+                                        </>
+                                    )}
                                 </Col>
                             )}
                         </Row>
