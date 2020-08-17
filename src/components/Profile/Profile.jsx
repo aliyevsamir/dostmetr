@@ -132,7 +132,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                     user.created_at
                                                 ).fromNow()
                                             )}{' '}
-                                            əvvəl qeydiyyatdan keçdiniz.
+                                            qeydiyyatdan keçdiniz.
                                         </Text>
                                     </Col>
                                 </Row>
@@ -305,7 +305,6 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                     total={leaderboard.total}
                                                     showTotal={showTotal}
                                                     current={paginationPage}
-                                                    responsive
                                                     hideOnSinglePage
                                                 />
                                             </div>
