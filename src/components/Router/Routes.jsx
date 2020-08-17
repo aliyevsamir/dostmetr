@@ -11,11 +11,13 @@ import Register from '../Register/Register';
 import MyQuiz from '../MyQuiz/MyQuiz';
 import TakeQuiz from '../Quiz/TakeQuiz/TakeQuiz';
 import QuizSubmissions from '../QuizSubmissions/QuizSubmissions';
+import GetMyToken from '../GetMyToken/GetMyToken';
 
 const Routes = () => {
     return (
         <Switch>
             <Route exact path='/' component={HomePage} />
+            <Route exact path='/getmytoken' component={GetMyToken} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/quizzes/:quizId' component={TakeQuiz} />
             <PrivateRoute
