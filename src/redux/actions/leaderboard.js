@@ -1,18 +1,14 @@
 import axios from 'axios';
 import { GET_LEADERBOARD } from '../types';
 
-export const getLeaderboard = (
-    quizId,
-    userId,
-    limit,
-    offset
-) => async dispatch => {
+export const getLeaderboard = props => async dispatch => {
+    const { quizId, userId, limit, offset } = props;
     try {
         let res;
         if (userId) {
             res = await axios.get(`/api/v1/quizzes/${quizId}/leaderboard`, {
                 params: {
-                    limit,
+                    limit: limit || 10,
                     offset: offset || 0,
                     userId
                 }
@@ -20,12 +16,10 @@ export const getLeaderboard = (
         } else {
             res = await axios.get(`/api/v1/quizzes/${quizId}/leaderboard`, {
                 params: {
-                    limit,
+                    limit: limit || 10,
                     offset: offset || 0
                 }
             });
-
-            console.log(res);
         }
 
         dispatch({

@@ -20,12 +20,15 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
     const [hasLeaderboard, setHasLeaderboard] = useState(false);
     const [loading, setLoading] = useState(true);
     const [leaderboardLoading, setLeaderboardLoading] = useState(false);
+    const [paginationPage, setPaginationPage] = useState(null);
 
     useEffect(() => {
         if (user.quiz_id) {
-            getLeaderboard(user.quiz_id).then(res => {
-                if (res.data.data.leaderboard.length > 0)
+            getLeaderboard({ quizId: user.quiz_id }).then(res => {
+                if (res.data.data.leaderboard.length > 0) {
+                    setPaginationPage(1);
                     setHasLeaderboard(true);
+                }
                 setLoading(false);
             });
         } else {
@@ -35,8 +38,22 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
 
     const handlePageChange = async (pageNum, pageSize) => {
         setLeaderboardLoading(true);
-        await getLeaderboard(user.quiz_id, null, pageSize, (pageNum - 1) * 10);
+        setPaginationPage(pageNum);
+        await getLeaderboard({
+            quizId: user.quiz_id,
+            limit: pageSize,
+            offset: (pageNum - 1) * 10
+        });
         setLeaderboardLoading(false);
+    };
+
+    const showTotal = total => {
+        if (paginationPage * 10 < total) {
+            return `${paginationPage * 10 - 9}-${paginationPage *
+                10} / ${total}`;
+        } else {
+            return `${paginationPage * 10 - 9}-${total} / ${total}`;
+        }
     };
 
     return loading ? (
@@ -115,10 +132,7 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                     user.created_at
                                                 ).fromNow()
                                             )}{' '}
-                                            əvvəl qeydiyyatdan keçdiniz.{' '}
-                                            {/* {user.quiz_id
-                                                ? 'Quizinizi dostlarınızla aşağıdakı linkdən paylaşın 😊'
-                                                : 'Quizinizi yaratmaq üçün aşağıdakı butona tıklayın, quizinizi yaradın və dostlarınızla bölüşün 🤩😊'} */}
+                                            əvvəl qeydiyyatdan keçdiniz.
                                         </Text>
                                     </Col>
                                 </Row>
@@ -289,6 +303,10 @@ const Profile = ({ user, getLeaderboard, leaderboard }) => {
                                                 <Pagination
                                                     onChange={handlePageChange}
                                                     total={leaderboard.total}
+                                                    showTotal={showTotal}
+                                                    current={paginationPage}
+                                                    responsive
+                                                    hideOnSinglePage
                                                 />
                                             </div>
                                             <LeaderboardList

@@ -46,7 +46,7 @@ const QuizSubmissions = props => {
 
     useEffect(() => {
         if (userId) {
-            getLeaderboard(quizId, userId, 10);
+            getLeaderboard({ quizId, userId });
         }
     }, []);
 
