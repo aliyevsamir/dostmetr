@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Input, Button, Row, Form } from 'antd';
 import { connect } from 'react-redux';
 import { register } from '../../redux/actions/auth';
@@ -8,31 +8,29 @@ import { useEffect } from 'react';
 import Logo from '../utils/Logo/Logo';
 import quizSvg from '../../utils/undraw_questions_75e0.svg';
 import './Register.scss';
-import toSentenceCase from '../../utils/toSentenceCase';
 
-const Register = ({
-    register,
-    history,
-    isAuthenticated,
-    mode = 'make',
-    createdBy = null
-}) => {
+const Register = ({ register, history, mode = 'make', createdBy = null }) => {
     const onFinish = async userData => {
+        setRegisterLoading(true);
         if (mode === 'make') {
             try {
                 await register(userData);
                 history.push('/make-quiz');
+                setRegisterLoading(false);
             } catch (error) {
                 console.error(error.response);
             }
         } else {
             try {
                 await register(userData);
+                setRegisterLoading(false);
             } catch (error) {
                 console.error(error.response);
             }
         }
     };
+
+    const [registerLoading, setRegisterLoading] = useState(false);
 
     useEffect(() => {
         if (localStorage.token) history.push('/profile');
@@ -151,6 +149,7 @@ const Register = ({
                                     fontSize: '1.1rem',
                                     fontWeight: '600'
                                 }}
+                                loading={registerLoading}
                             >
                                 <Text
                                     style={{ color: '#fff', fontWeight: '600' }}

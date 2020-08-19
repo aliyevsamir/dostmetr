@@ -79,7 +79,8 @@ const QuizSubmissions = props => {
                             <Col span={24} style={{ padding: '1rem' }}>
                                 <div style={{ textAlign: 'center' }}>
                                     <h3>
-                                        Sən də öz quizini hazırla və paylaş !
+                                        Sən də öz dostluq testini hazırla və
+                                        paylaş !
                                     </h3>
                                     <Link to='/make-quiz'>
                                         <Button

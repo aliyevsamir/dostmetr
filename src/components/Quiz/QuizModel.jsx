@@ -23,7 +23,7 @@ const QuizModel = ({
     const [optionValue, setOptionValue] = useState(null);
     const [quizSubmissions, setQuizSubmissions] = useState({});
     const [finalQuizSubmission, setFinalQuizSubmission] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [quizSubmissionLoading, setQuizSubmissionLoading] = useState(false);
 
     const [state, setState] = useState({
         currentQuestionID: 0,
@@ -32,11 +32,12 @@ const QuizModel = ({
 
     useEffect(() => {
         if (!isEmpty(finalQuizSubmission)) {
-            setLoading(true);
+            setQuizSubmissionLoading(true);
             if (mode === 'make') {
                 createQuiz(finalQuizSubmission).then(() => {
                     loadUser().then(() => {
                         history.push('/profile');
+                        setQuizSubmissionLoading(false);
                     });
                 });
             } else {
@@ -47,10 +48,10 @@ const QuizModel = ({
                     )
                     .then(res => {
                         const { quiz_submission_id } = res.data.data;
-                        const userId = res.data.data.user_id;
                         history.push({
                             pathname: `/quizzes/${quizId}/submissions/${quiz_submission_id}`
                         });
+                        setQuizSubmissionLoading(false);
                     })
                     .catch(err => console.error(err));
             }
@@ -58,6 +59,7 @@ const QuizModel = ({
     }, [finalQuizSubmission]);
 
     const handleOptionChange = e => {
+        if (quizSubmissionLoading) return;
         setOptionValue(e.target.value);
     };
 
@@ -87,6 +89,8 @@ const QuizModel = ({
     };
 
     const handleFinishQuiz = () => {
+        if (quizSubmissionLoading) return;
+
         if (mode === 'make') {
             if (optionValue) {
                 newQuizSubmissions('final');
@@ -108,6 +112,8 @@ const QuizModel = ({
     };
 
     const nextQuestion = () => {
+        if (quizSubmissionLoading) return;
+
         if (optionValue) {
             window.scrollTo(0, 0);
             const { currentQuestionID } = state;
@@ -179,6 +185,8 @@ const QuizModel = ({
     };
 
     const skipQuestion = () => {
+        if (quizSubmissionLoading) return;
+
         window.scrollTo(0, 0);
         const { currentQuestionID } = state;
 
@@ -220,7 +228,7 @@ const QuizModel = ({
 
     const { currentQuestionID, selectedAnswers } = state;
 
-    return !quizzes.length || loading ? (
+    return !quizzes.length ? (
         <Loading />
     ) : (
         <Row
@@ -241,6 +249,7 @@ const QuizModel = ({
                 handleFinishQuiz={handleFinishQuiz}
                 mode={mode}
                 name={name}
+                quizSubmissionLoading={quizSubmissionLoading}
             />
         </Row>
     );

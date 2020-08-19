@@ -15,6 +15,7 @@ const QuizTemplate = ({
     optionValue,
     handleOptionChange,
     handleFinishQuiz,
+    quizSubmissionLoading,
     mode,
     name
 }) => {
@@ -70,6 +71,7 @@ const QuizTemplate = ({
                         type='primary'
                         onClick={handleFinishQuiz}
                         className='action-buttons--button finish-button'
+                        loading={quizSubmissionLoading}
                     >
                         Bitir
                     </Button>
