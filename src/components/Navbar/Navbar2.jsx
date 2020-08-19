@@ -7,19 +7,12 @@ import { getMyQuiz } from '../../redux/actions/quizzes';
 import { connect } from 'react-redux';
 import { MenuOutlined } from '@ant-design/icons';
 
-const Navbar2 = ({ history, getMyQuiz, isAuthenticated }) => {
+const Navbar2 = ({ history, isAuthenticated, user }) => {
     const [hasOwnQuiz, setHasOwnQuiz] = useState(false);
 
     useEffect(() => {
-        checkForQuiz();
-    }, []);
-
-    const checkForQuiz = async () => {
-        const res = await getMyQuiz();
-        if (res?.data.status === 'success') {
-            setHasOwnQuiz(true);
-        }
-    };
+        if (user?.quiz_id) setHasOwnQuiz(true);
+    }, [user?.quiz_id]);
 
     return (
         <Row
@@ -89,8 +82,9 @@ const Navbar2 = ({ history, getMyQuiz, isAuthenticated }) => {
     );
 };
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = ({ auth: { isAuthenticated, user } }) => ({
+    isAuthenticated,
+    user
 });
 
-export default connect(mapStateToProps, { getMyQuiz })(withRouter(Navbar2));
+export default connect(mapStateToProps, null)(withRouter(Navbar2));
