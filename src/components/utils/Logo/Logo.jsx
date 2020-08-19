@@ -10,7 +10,6 @@ const Logo = ({ type = 'light' }) => {
                 fontWeight: '900',
                 margin: '0',
                 cursor: 'pointer',
-                paddingRight: '25px',
                 userSelect: 'none'
             }}
         >
