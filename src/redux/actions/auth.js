@@ -24,6 +24,8 @@ export const loadUser = () => async dispatch => {
     } catch (err) {
         console.error(JSON.stringify(err.response.data));
 
+        localStorage.removeItem('token')
+
         dispatch({
             type: AUTH_ERROR
         });
